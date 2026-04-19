@@ -1,32 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Dashboards de Asistencia</title>
-<style>
-  body { font-family: system-ui; background: #f7faf8; padding: 2rem; max-width: 800px; margin: 0 auto; }
-  h1 { color: #1b5e35; margin-bottom: 2rem; }
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
-  .card { background: #fff; padding: 1.5rem; border-radius: 12px; border: 1px solid #cde0d4; text-decoration: none; color: inherit; transition: all 0.2s; }
-  .card:hover { border-color: #2e7d52; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  .zone { font-size: 12px; color: #c9a227; font-weight: 600; text-transform: uppercase; }
-  .title { font-size: 18px; font-weight: 700; color: #1b5e35; margin: 0.5rem 0; }
-  .meta { font-size: 12px; color: #5a7264; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboards de Asistencia</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f4f7f4;
+      color: #1a2e1a;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1b5e35, #2e7d52, #c9a227);
+      color: #fff;
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: .5px; }
+    header p  { font-size: .9rem; opacity: .85; margin-top: .3rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #fff;
+      border: 1.5px solid #a8d5b8;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow .2s, transform .2s;
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(27,94,53,.15);
+      transform: translateY(-3px);
+    }
+
+    .card-badge {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      color: #2e7d52;
+      background: #e8f5ee;
+      border: 1px solid #a8d5b8;
+      border-radius: 20px;
+      padding: .2rem .7rem;
+      align-self: flex-start;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1b5e35;
+    }
+
+    .card-meta {
+      font-size: .82rem;
+      color: #555;
+    }
+
+    .card-arrow {
+      margin-top: auto;
+      font-size: .85rem;
+      color: #c9a227;
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: .78rem;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-<h1>Dashboards de Asistencia 2026</h1>
-<div class="cards">
-  <a href="zona-toluca/" class="card">
-    <div class="zone">Zona 1</div>
-    <div class="title">Toluca</div>
-    <div class="meta">12 abril · 173 asistentes</div>
-  </a>
-  <a href="zona-ecatepec/" class="card">
-    <div class="zone">Zona 2</div>
-    <div class="title">Ecatepec</div>
-    <div class="meta">12 abril · 316 asistentes</div>
-  </a>
-</div>
+
+  <header>
+    <h1>Dashboards de Asistencia</h1>
+    <p>Selecciona una zona para ver el reporte interactivo</p>
+  </header>
+
+  <div class="grid">
+
+    <a class="card" href="zona-ecatepec/dashboard_asistencia_zona2_abril2026.html">
+      <span class="card-badge">Zona 2</span>
+      <div class="card-title">Zona Ecatepec</div>
+      <div class="card-meta">12 abril · 316 asistentes</div>
+      <div class="card-arrow">Ver dashboard →</div>
+    </a>
+
+    <a class="card" href="zona-toluca/dashboard_asistencia_toluca_abril2026.html">
+      <span class="card-badge">Zona 1</span>
+      <div class="card-title">Zona Toluca</div>
+      <div class="card-meta">12 abril · 173 asistentes</div>
+      <div class="card-arrow">Ver dashboard →</div>
+    </a>
+
+  </div>
+
+  <footer>Control de Asistencia · Generado con Claude Code</footer>
+
 </body>
 </html>
