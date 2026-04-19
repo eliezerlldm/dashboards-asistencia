@@ -22,10 +22,33 @@
       border-radius: 12px;
       margin-bottom: 2rem;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .75rem;
+    }
+
+    .header-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .logo-lldm {
+      height: 70px;
+      width: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
+    }
+
+    .logo-100 {
+      height: 65px;
+      width: auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.2));
     }
 
     header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: .5px; }
-    header p  { font-size: .9rem; opacity: .85; margin-top: .3rem; }
+    header p  { font-size: .9rem; opacity: .85; }
 
     .grid {
       display: grid;
@@ -88,13 +111,19 @@
       text-align: center;
       margin-top: 3rem;
       font-size: .78rem;
-      color: #888;
+      color: #2e7d52;
+      font-weight: 600;
+      letter-spacing: .4px;
     }
   </style>
 </head>
 <body>
 
   <header>
+    <div class="header-logos">
+      <img class="logo-lldm" src="imgs/LOGO LLDM BLANCO.png" alt="LLDM">
+      <img class="logo-100" src="imgs/WhatsApp Image 2026-04-03 at 12.18.24 AM.jpeg" alt="100 Años">
+    </div>
     <h1>Dashboards de Asistencia</h1>
     <p>Selecciona una zona para ver el reporte interactivo</p>
   </header>
@@ -117,7 +146,7 @@
 
   </div>
 
-  <footer>Control de Asistencia · Generado con Claude Code</footer>
+  <footer>Control de Asistencia 2026</footer>
 
 </body>
 </html>
