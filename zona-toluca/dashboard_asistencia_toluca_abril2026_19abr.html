@@ -1,345 +1,256 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Asistencia Zona 1 Toluca · 19 Abril 2026</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-  <style>
-    :root {
-      --gd: #1b5e35; --gm: #2e7d52; --gl: #e8f5ee; --gb: #a8d5b8;
-      --go: #c9a227; --gol: #fdf3d7; --gob: #e8cc7a; --god: #8a6d0b;
-      --am: #b7770d; --r: #c0392b;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f4f7f4; color: #1a2e1a; padding: 1.5rem 1rem; }
-
-    /* Header */
-    .hdr {
-      background: linear-gradient(90deg, #1b5e35, #2e7d52, #c9a227);
-      color: #fff; border-radius: 14px; padding: 1.5rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;
-    }
-    .hdr-left { display: flex; flex-direction: column; gap: .4rem; }
-    .hdr-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .85; }
-    .hdr-title { font-size: 1.5rem; font-weight: 800; }
-    .hdr-title span { color: var(--gob); }
-    .hdr-pills { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .25rem; }
-    .hdr-pill { font-size: .78rem; font-weight: 700; border-radius: 20px; padding: .25rem .85rem; }
-    .pill-g { background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.4); }
-    .pill-o { background: rgba(201,162,39,.3); border: 1px solid var(--gob); }
-    .hdr-meta { font-size: .82rem; opacity: .8; margin-top: .2rem; }
-    .hdr-right { display: flex; align-items: center; }
-    .btn-print {
-      background: var(--go); color: #fff; border: none; border-radius: 8px;
-      padding: .55rem 1.1rem; font-size: .82rem; font-weight: 700;
-      cursor: pointer; display: flex; align-items: center; gap: .4rem;
-    }
-    .btn-print:hover { background: var(--god); }
-
-    /* Metrics */
-    .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-    .mc {
-      background: #fff; border: 1.5px solid var(--gb); border-radius: 12px;
-      padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: .2rem;
-    }
-    .mc-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; color: var(--gm); }
-    .mc-val { font-size: 1.6rem; font-weight: 800; color: var(--gd); }
-    .mc-unit { font-size: .7rem; color: var(--go); font-weight: 700; }
-
-    /* Charts */
-    .charts { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-    .chart-box {
-      background: #fff; border: 1.5px solid var(--gb); border-radius: 12px; padding: 1.25rem;
-    }
-    .chart-title { font-size: .82rem; font-weight: 700; color: var(--gd); margin-bottom: .75rem; }
-    .chart-wrap { position: relative; height: 220px; }
-    .chart-wrap-donut { position: relative; height: 220px; }
-    .chart-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-
-    /* Iglesias */
-    .section-title { font-size: .9rem; font-weight: 700; color: var(--gd); margin-bottom: .75rem; letter-spacing: .3px; }
-    .ig-list { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.5rem; }
-    .ig-row {
-      background: #fff; border: 1.5px solid var(--gb); border-radius: 10px;
-      overflow: hidden; cursor: pointer;
-    }
-    .ig-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: .75rem 1rem; transition: background .15s;
-    }
-    .ig-header:hover { background: var(--gl); }
-    .ig-left { display: flex; align-items: center; gap: .75rem; flex: 1; min-width: 0; }
-    .ig-clave { font-size: .68rem; font-weight: 700; background: var(--gl); border: 1px solid var(--gb); color: var(--gm); border-radius: 4px; padding: .15rem .45rem; white-space: nowrap; }
-    .ig-name { font-size: .88rem; font-weight: 600; color: var(--gd); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ig-bar-wrap { flex: 1; max-width: 120px; height: 6px; background: var(--gl); border-radius: 3px; margin: 0 .75rem; }
-    .ig-bar { height: 6px; background: var(--gm); border-radius: 3px; }
-    .ig-count { font-size: .88rem; font-weight: 800; color: var(--gd); white-space: nowrap; }
-    .ig-chevron { font-size: .75rem; color: var(--gm); margin-left: .5rem; transition: transform .25s; }
-    .ig-row.open .ig-chevron { transform: rotate(180deg); }
-    .ig-body { display: none; border-top: 1px solid var(--gb); }
-    .ig-row.open .ig-body { display: block; }
-    .ig-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
-    .ig-table th { background: var(--gl); color: var(--gm); font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; padding: .45rem .75rem; text-align: left; }
-    .ig-table th.center { text-align: center; }
-    .ig-table td { padding: .45rem .75rem; border-top: 1px solid #eef5f1; color: #333; }
-    .ig-table td.center { text-align: center; }
-    .hora-normal { color: var(--gm); font-weight: 600; }
-    .hora-retardo { color: var(--am); font-weight: 700; }
-    .hora-tarde { color: var(--r); font-weight: 700; }
-
-    /* Staff */
-    .staff-section {
-      background: var(--gol); border: 1.5px solid var(--gob); border-radius: 12px;
-      padding: 1.25rem; margin-bottom: 1.5rem;
-    }
-    .staff-title { font-size: .88rem; font-weight: 700; color: var(--god); margin-bottom: .75rem; letter-spacing: .3px; }
-    .staff-empty { font-size: .82rem; color: #aaa; font-style: italic; }
-
-    /* Print */
-    @media print {
-      body { padding: .5rem; background: #fff; }
-      .btn-print { display: none; }
-      .ig-body { display: block !important; }
-      .ig-chevron { display: none; }
-      .chart-box, .mc { border: 1px solid #ccc; }
-    }
-
-    /* Mobile */
-    @media (max-width: 640px) {
-      .metrics { grid-template-columns: repeat(2, 1fr); }
-      .charts { grid-template-columns: 1fr; }
-      .chart-row2 { grid-template-columns: 1fr; }
-      .hdr { flex-direction: column; }
-      .ig-bar-wrap { display: none; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistencia · Zona 1 Toluca · 19 Abril 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gd:#1b5e35;--gm:#2e7d52;--gl:#e8f5ee;--gb:#a8d5b8;--go:#c9a227;--gol:#fdf3d7;--gob:#e8cc7a;--god:#8a6d0b;--rl:#fff0f0;--r:#c0392b;--al:#fff8e6;--am:#b7770d;--bd:#cde0d4;--surf:#f7faf8}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--surf);color:#1a2e1f;padding:1.5rem 1.25rem}
+.wrap{max-width:900px;margin:0 auto}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;gap:1rem}
+.hdr-eyebrow{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--go);margin-bottom:4px}
+.hdr-title{font-size:22px;font-weight:700;color:var(--gd);line-height:1.2;margin-bottom:6px}
+.hdr-title span{color:var(--go)}
+.hdr-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.hdr-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid}
+.pill-g{background:var(--gl);color:var(--gd);border-color:var(--gb)}
+.pill-o{background:var(--gol);color:var(--god);border-color:var(--gob)}
+.hdr-meta{font-size:11px;color:#5a7264;display:flex;gap:10px;flex-wrap:wrap}
+.print-btn{display:flex;align-items:center;gap:5px;background:var(--go);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.print-btn:hover{background:var(--god)}
+.print-btn svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.accent{height:3px;background:linear-gradient(90deg,var(--gd),var(--gm),var(--go));border-radius:2px;margin-bottom:1rem}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.mc{background:#fff;border:0.5px solid var(--bd);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--go)}
+.mc-lbl{font-size:10px;color:#5a7264;margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.mc-val{font-size:20px;font-weight:600;color:var(--gd);display:flex;align-items:baseline;gap:4px;line-height:1.2}
+.mc-unit{font-size:11px;font-weight:600;color:var(--go)}
+.mc-sub{font-size:10px;color:#5a7264;margin-top:3px}
+.card{background:#fff;border:0.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.9rem}
+.ct{font-size:14px;font-weight:600;color:var(--gd);margin-bottom:2px}
+.cs{font-size:11px;color:#5a7264;margin-bottom:.85rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;font-size:11px;color:#5a7264;align-items:center}
+.lsq{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.lln{width:16px;height:2.5px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.zones{display:flex;gap:5px;margin-bottom:.55rem;flex-wrap:wrap;font-size:10px}
+.zb{padding:2px 6px;border-radius:4px;font-weight:600}
+.cl{display:flex;flex-direction:column;gap:4px}
+.cr{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:7px;cursor:pointer;border:0.5px solid transparent;transition:background .12s;user-select:none}
+.cr:hover{background:var(--gl);border-color:var(--gb)}
+.cr.active{background:var(--gl);border-color:var(--gm)}
+.ck{font-size:9px;color:#5a7264;background:var(--surf);border:0.5px solid var(--bd);padding:2px 5px;border-radius:4px;font-weight:600;min-width:68px;text-align:center;flex-shrink:0}
+.cr.active .ck{background:var(--gd);color:#fff;border-color:var(--gd)}
+.cn{font-size:12px;color:#1a2e1f;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr.active .cn{color:var(--gd);font-weight:500}
+.cbw{width:72px;height:4px;background:var(--gl);border-radius:3px;flex-shrink:0}
+.cb{height:4px;border-radius:3px;background:var(--gm)}
+.cc{font-size:11px;font-weight:600;color:#5a7264;min-width:20px;text-align:right;flex-shrink:0}
+.cr.active .cc{color:var(--gd)}
+.panel{display:none;margin-top:.9rem;border-top:1px solid var(--bd);padding-top:.9rem}
+.panel.open{display:block}
+.ph{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ph h3{font-size:14px;font-weight:600;color:var(--gd)}
+.pk{font-size:10px;color:#fff;background:var(--go);padding:2px 7px;border-radius:4px;font-weight:600}
+.pc{font-size:11px;color:#5a7264}
+.pt{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.pt th{text-align:left;font-size:10px;color:#5a7264;font-weight:600;padding:4px 7px;border-bottom:1px solid var(--bd);background:var(--surf)}
+.pt th.tc,.pt td.tc{text-align:center}
+.pt td{padding:4px 7px;color:#1a2e1f;border-bottom:0.5px solid var(--bd)}
+.pt tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600}
+.bc{background:var(--gl);color:var(--gd);border:0.5px solid var(--gb)}
+.bm{background:var(--gol);color:var(--god);border:0.5px solid var(--gob)}
+.bo{background:#f0f0f0;color:#666;border:0.5px solid #ddd}
+.tn{color:#5a7264;font-size:12px}
+.ta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--am);background:var(--al);border:0.5px solid #f0c060;padding:1px 6px;border-radius:4px}
+.tl{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--r);background:var(--rl);border:0.5px solid #f5c0bb;padding:1px 6px;border-radius:4px}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.da{background:var(--am)}.dl{background:var(--r)}
+.tleg{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#5a7264;margin-bottom:.7rem;align-items:center}
+@media(max-width:640px){
+  body{padding:1rem .75rem}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .row2{grid-template-columns:1fr}
+  .hdr{flex-direction:column;gap:.75rem}
+  .hdr-title{font-size:19px}
+  .ck{min-width:55px;font-size:8px}
+  .cn{font-size:11px}
+  .cbw{width:40px}
+  .mc-val{font-size:17px}
+}
+@media print{
+  body{background:#fff;padding:.5rem;font-size:11px;color:#000}
+  .print-btn,.tleg,.cs{display:none!important}
+  .panel{display:none!important}
+  .accent,.mc::before,.badge,.ta,.tl,.ck,.pk,.cb,.zb,.hdr-pill{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-section{display:block!important}
+  .no-print{display:none!important}
+  .card{border:1px solid #ccc;break-inside:avoid}
+  .row2{grid-template-columns:1fr 1fr}
+}
+.print-section{display:none}
+.pct{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:1rem;break-inside:avoid;table-layout:fixed}
+.pct caption{text-align:left;font-size:11px;font-weight:600;color:#1b5e35;padding:5px 0 3px;border-bottom:2px solid #a8d5b8;display:table-caption}
+.pct th{background:#e8f5ee;color:#1b5e35;font-weight:600;padding:3px 5px;border:0.5px solid #a8d5b8;font-size:9px;text-transform:uppercase}
+.pct th.tc,.pct td.tc{text-align:center}
+.pct td{padding:3px 5px;border:0.5px solid #cde0d4;color:#1a2e1f}
+.pg-break{page-break-before:always}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<script>
-const DATA = [{"iglesia":"TEMASCALCINGO - PASTORES","clave":"MXMX-72","count":28,"personas":[{"nombre":"Porfirio García Romero","hora":"13:56","grado":"Coro"},{"nombre":"Keyla García Romero","hora":"13:57","grado":"Coro"},{"nombre":"Natanael González García","hora":"13:57","grado":"Coro"},{"nombre":"Suni Jaanai González García","hora":"13:58","grado":"Coro"},{"nombre":"Elvira García Aguilar","hora":"13:59","grado":"Coro"},{"nombre":"Betsaida García Ramírez","hora":"14:00","grado":"Coro"},{"nombre":"Magdiel Garcia Flores","hora":"14:01","grado":"Coro"},{"nombre":"Gerson Bigvai Bahena García","hora":"14:01","grado":"Coro"},{"nombre":"Moisés García Romero","hora":"14:01","grado":"Coro"},{"nombre":"Nayeli García Martínez","hora":"14:02","grado":"Coro"},{"nombre":"Karen García Martínez","hora":"14:02","grado":"Coro"},{"nombre":"Simei García Romero","hora":"14:02","grado":"Coro"},{"nombre":"Jemima García Ramírez","hora":"14:02","grado":"Coro"},{"nombre":"Cesia Garcia Ramirez","hora":"14:03","grado":"Coro"},{"nombre":"Raziel Levi García Martínez.","hora":"14:04","grado":"Coro"},{"nombre":"Hugo Silvestre García Aguilar","hora":"14:04","grado":"Coro"},{"nombre":"Abner Zuriel Gonzalez García","hora":"14:04","grado":"Coro"},{"nombre":"Neftali Garcia Flores","hora":"14:07","grado":"Miembro"},{"nombre":"Madai García García","hora":"14:08","grado":"Coro"},{"nombre":"Jahaziel García García","hora":"14:09","grado":"Coro"},{"nombre":"Remo García Aguilar","hora":"14:09","grado":"Coro"},{"nombre":"Betsabé García García","hora":"14:09","grado":"Coro"},{"nombre":"Rebeca Colín García","hora":"14:17","grado":"Coro"},{"nombre":"Loruhama García Flores","hora":"14:19","grado":"Coro"},{"nombre":"Bethanan Colín González","hora":"14:19","grado":"Coro"},{"nombre":"Abisai García Martínez","hora":"14:19","grado":"Coro"},{"nombre":"Daniela Garcia Martinez","hora":"14:30","grado":"Miembro"},{"nombre":"Misael Uziel García Martínez","hora":"14:33","grado":"Coro"}]},{"iglesia":"ATLACOMULCO - MANTO DEL RIO","clave":"MXMX-10","count":13,"personas":[{"nombre":"Zuri Saday Monroy Cruz","hora":"13:58","grado":"Coro"},{"nombre":"Saudi Dolores Aguilar","hora":"13:58","grado":"Coro"},{"nombre":"Loami Esvai Monroy Trejo","hora":"13:59","grado":"Coro"},{"nombre":"Abisai Monroy Garcia","hora":"13:59","grado":"Coro"},{"nombre":"Nazareth Flores Olmos","hora":"14:00","grado":"Coro"},{"nombre":"Lizbeth Flores Olmos","hora":"14:00","grado":"Coro"},{"nombre":"Betsy Arisai Monroy Ibarra","hora":"14:02","grado":"Coro"},{"nombre":"Esther Jenaro Primero","hora":"14:02","grado":"Coro"},{"nombre":"Jahdai Romero Reyes","hora":"14:04","grado":"Coro"},{"nombre":"Keila Martínez Juárez","hora":"14:04","grado":"Miembro"},{"nombre":"José Carlos Morales Mendoza","hora":"14:05","grado":"Coro"},{"nombre":"Sarai Monroy García","hora":"14:05","grado":"Coro"},{"nombre":"Tamar Aguilar Morales","hora":"14:06","grado":"Miembro"}]},{"iglesia":"IXTLAHUACA - CONCEPCION ENYEGE","clave":"MXMX-64","count":8,"personas":[{"nombre":"Magdalena Rivera Mendoza","hora":"13:55","grado":"Coro"},{"nombre":"Angélica Moran Castelan","hora":"13:56","grado":"Coro"},{"nombre":"Ángel Eduardo Jiménez Quiroz","hora":"13:56","grado":"Coro"},{"nombre":"Lizeth Posadas Anacleto","hora":"13:58","grado":"Coro"},{"nombre":"Sara Reyes Hernandez","hora":"13:58","grado":"Coro"},{"nombre":"Guadalupe Hernández Reyes","hora":"13:58","grado":"Coro"},{"nombre":"Atlai Evaristo Cruz","hora":"14:04","grado":"Coro"},{"nombre":"Juan Javier León Dávalos","hora":"14:04","grado":"Coro"}]},{"iglesia":"ACAMBAY - CENTRO","clave":"MXMX-65","count":8,"personas":[{"nombre":"Araceli Martínez Navarrete","hora":"14:25","grado":"Coro"},{"nombre":"Betsua Eliam Arellano Martínez","hora":"14:35","grado":"Coro"},{"nombre":"Juana Apolinar Corona","hora":"14:43","grado":"Coro"},{"nombre":"Moisés Mauro del Río","hora":"14:50","grado":"Coro"},{"nombre":"América Herrera Carlos","hora":"14:51","grado":"Coro"},{"nombre":"Alejandra Rodríguez Calixto","hora":"14:55","grado":"Coro"},{"nombre":"Ana Ortíz Rosaliano","hora":"14:55","grado":"Coro"},{"nombre":"Radai Miranda Martínez","hora":"14:58","grado":"Coro"}]},{"iglesia":"TOLUCA - COLONIA SEMINARIO","clave":"MXMX-53","count":2,"personas":[{"nombre":"Oliver Emanuel García Nava","hora":"13:59","grado":"Coro"},{"nombre":"Angel Abraham García Nava","hora":"13:59","grado":"Coro"}]},{"iglesia":"SAN FELIPE DE PROGRESO - SAN LUCA","clave":"MXMX-52","count":2,"personas":[{"nombre":"Karina Cruz González","hora":"14:25","grado":"Coro"},{"nombre":"Leonardo Garcia Durán","hora":"14:29","grado":"Coro"}]},{"iglesia":"ATLACOMULCO - SAN JUAN DE LOS JARROS","clave":"MXMX-13","count":1,"personas":[{"nombre":"Jediael Fuentes Luciano","hora":"14:06","grado":"Coro"}]},{"iglesia":"SAN MARTIN CUAUTLALPAN","clave":"MXMX-75","count":1,"personas":[{"nombre":"Segio Barcenas Vazquez","hora":"14:09","grado":"Miembro"}]},{"iglesia":"PUEBLO NUEVO - DE LOS ANG. EL ORO","clave":"MXMX-95","count":1,"personas":[{"nombre":"Saul Gonzalez Martinez","hora":"14:17","grado":"Coro"}]},{"iglesia":"Pastores, Temascalcingo. EdoMex","clave":"MX-72","count":1,"personas":[{"nombre":"Rahel Rosales Salazar","hora":"14:18","grado":"HIJO (A) MINISTRO"}]}];
-const STAFF = [];
-const BL = ["13:50","14:00","14:10","14:20","14:30","14:40","14:50"];
-const BV = [17,30,6,3,3,1,5];
-const SLOT_LABELS = ["13:30","14:00","14:30"];
-const SLOT_VALS = [17,39,9];
-const ROLES = {"Coro":59,"Miembro":5,"HIJO (A) MINISTRO":1};
-const INICIO = 14*60; // 14:00
-const RETARDO = 15*60;
-const TARDE = 16*60;
-</script>
-
-<!-- Header -->
 <div class="hdr">
-  <div class="hdr-left">
-    <div class="hdr-eyebrow">Zona 1 · Toluca</div>
+  <div>
+    <div class="hdr-eyebrow">Zona 1 Toluca</div>
     <div class="hdr-title">Asistencia <span>19 Abril 2026</span></div>
     <div class="hdr-pills">
-      <span class="hdr-pill pill-g">65 asistentes</span>
-      <span class="hdr-pill pill-o">10 iglesias</span>
+      <span class="hdr-pill pill-g">65 Asistentes</span>
+      <span class="hdr-pill pill-o">10 Iglesias</span>
     </div>
-    <div class="hdr-meta">Inicio: 14:00 Hrs &nbsp;·&nbsp; Fin: 14:58 Hrs</div>
+    <div class="hdr-meta">
+      <span>Inicio: 14:00 Hrs</span>
+      <span style="color:var(--gb)">·</span>
+      <span>Fin: 18:00 Hrs</span>
+    </div>
   </div>
-  <div class="hdr-right">
-    <button class="btn-print" onclick="window.print()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-      Imprimir / PDF
-    </button>
-  </div>
+  <button class="print-btn" onclick="window.print()">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Imprimir / PDF
+  </button>
 </div>
+<div class="accent"></div>
 
-<!-- Métricas -->
 <div class="metrics">
   <div class="mc">
-    <div class="mc-label">Total asistentes</div>
+    <div class="mc-lbl">Total asistentes</div>
     <div class="mc-val">65</div>
+    <div class="mc-sub">Registros únicos</div>
   </div>
   <div class="mc">
-    <div class="mc-label">Iglesias</div>
+    <div class="mc-lbl">Iglesias</div>
     <div class="mc-val">10</div>
+    <div class="mc-sub">Congregaciones</div>
   </div>
   <div class="mc">
-    <div class="mc-label">Promedio entrada</div>
+    <div class="mc-lbl">Promedio de entrada</div>
     <div class="mc-val">14:10 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">+10 min del inicio</div>
   </div>
   <div class="mc">
-    <div class="mc-label">Bloque pico</div>
+    <div class="mc-lbl">Bloque pico</div>
     <div class="mc-val">14:00 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">30 personas en ese bloque</div>
   </div>
 </div>
 
-<!-- Gráfica principal 10 min + dona -->
-<div class="charts">
-  <div class="chart-box">
-    <div class="chart-title">Entradas por bloque de 10 minutos</div>
-    <div class="chart-wrap"><canvas id="chartBlocks"></canvas></div>
+<div class="card">
+  <div class="ct">Entradas por bloque de 10 minutos</div>
+  <div class="cs">Barras = cantidad por bloque · Línea dorada = tendencia suavizada</div>
+  <div class="zones">
+    <span class="zb" style="background:#e8f5ee;color:#1b5e35">■ Puntual &lt;15:00 Hrs</span>
+    <span class="zb" style="background:#fff8e6;color:#b7770d">■ Retardo 15:00–16:00 Hrs</span>
+    <span class="zb" style="background:#fff0f0;color:#c0392b">■ Tarde &gt;16:00 Hrs</span>
   </div>
-  <div class="chart-box">
-    <div class="chart-title">Distribución por grado</div>
-    <div class="chart-wrap-donut"><canvas id="chartDonut"></canvas></div>
+  <div class="leg">
+    <span><span class="lsq" style="background:#2e7d52"></span>Entradas por bloque</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="lln" style="background:#c9a227"></span>Tendencia</span>
+  </div>
+  <div style="position:relative;height:220px"><canvas id="c1"></canvas></div>
+</div>
+
+<div class="row2">
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Bloques de 30 minutos</div>
+    <div class="cs">Total de personas por período</div>
+    <div style="position:relative;height:190px"><canvas id="c2"></canvas></div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Integrantes</div>
+    <div class="cs">Distribución por grado</div>
+    <div class="leg">
+      <span><span class="lsq" style="background:#2e7d52"></span>Coro 59</span>
+      <span><span class="lsq" style="background:#c9a227"></span>Miembro 5</span>
+      <span><span class="lsq" style="background:#888"></span>Otro 1</span>
+    </div>
+    <div style="position:relative;height:155px"><canvas id="c3"></canvas></div>
   </div>
 </div>
 
-<!-- Gráfica 30 min -->
-<div class="chart-row2">
-  <div class="chart-box">
-    <div class="chart-title">Entradas por franja de 30 minutos</div>
-    <div class="chart-wrap"><canvas id="chartSlots"></canvas></div>
+<div class="card" style="margin-top:.9rem">
+  <div class="ct">Iglesias participantes</div>
+  <div class="cs no-print">Clic en una iglesia para ver sus asistentes</div>
+  <div class="tleg no-print">
+    <span style="display:flex;align-items:center;gap:4px"><span class="ta" style="font-size:9px;padding:1px 5px"><span class="dot da"></span>Retardo</span>después de las 15:00 Hrs</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="tl" style="font-size:9px;padding:1px 5px"><span class="dot dl"></span>Tarde</span>después de las 16:00 Hrs</span>
+  </div>
+  <div class="cl" id="churchList"></div>
+  <div class="panel" id="memberPanel">
+    <div class="ph"><h3 id="panelTitle"></h3><span class="pk" id="panelKey"></span><span class="pc" id="panelSub"></span></div>
+    <table class="pt">
+      <colgroup><col style="width:28px"><col><col style="width:72px"><col style="width:72px"></colgroup>
+      <thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead>
+      <tbody id="personBody"></tbody>
+    </table>
   </div>
 </div>
 
-<!-- Lista iglesias -->
-<div class="section-title">Asistentes por iglesia</div>
-<div class="ig-list" id="igList"></div>
-
-<!-- Staff -->
-<div class="staff-section">
-  <div class="staff-title">CREDENCIAL DE STAFF</div>
-  <div id="staffContent"></div>
+<div class="print-section pg-break" id="printSection">
+  <div style="margin-bottom:.75rem">
+    <div style="font-size:13px;font-weight:700;color:#1b5e35;margin-bottom:2px">Detalle de asistentes por iglesia</div>
+    <div style="font-size:10px;color:#5a7264">Asistencia · 19 de abril 2026 · Zona 1 Toluca · Inicio: 14:00 Hrs · Fin: 18:00 Hrs</div>
+  </div>
+  <div id="printChurches"></div>
 </div>
 
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-// ── Helpers ──
-function horaClass(h) {
-  const [hh, mm] = h.split(':').map(Number);
-  const mins = hh*60 + mm;
-  if (mins >= TARDE) return 'hora-tarde';
-  if (mins >= RETARDO) return 'hora-retardo';
-  return 'hora-normal';
-}
+const DATA=[{"iglesia":"TEMASCALCINGO - PASTORES","clave":"MXMX-72","count":28,"personas":[{"nombre":"Porfirio García Romero","hora":"13:56","grado":"Coro"},{"nombre":"Keyla García Romero","hora":"13:57","grado":"Coro"},{"nombre":"Natanael González García","hora":"13:57","grado":"Coro"},{"nombre":"Suni Jaanai González García","hora":"13:58","grado":"Coro"},{"nombre":"Elvira García Aguilar","hora":"13:59","grado":"Coro"},{"nombre":"Betsaida García Ramírez","hora":"14:00","grado":"Coro"},{"nombre":"Magdiel Garcia Flores","hora":"14:01","grado":"Coro"},{"nombre":"Gerson Bigvai Bahena García","hora":"14:01","grado":"Coro"},{"nombre":"Moisés García Romero","hora":"14:01","grado":"Coro"},{"nombre":"Nayeli García Martínez","hora":"14:02","grado":"Coro"},{"nombre":"Karen García Martínez","hora":"14:02","grado":"Coro"},{"nombre":"Simei García Romero","hora":"14:02","grado":"Coro"},{"nombre":"Jemima García Ramírez","hora":"14:02","grado":"Coro"},{"nombre":"Cesia Garcia Ramirez","hora":"14:03","grado":"Coro"},{"nombre":"Raziel Levi García Martínez.","hora":"14:04","grado":"Coro"},{"nombre":"Hugo Silvestre García Aguilar","hora":"14:04","grado":"Coro"},{"nombre":"Abner Zuriel Gonzalez García","hora":"14:04","grado":"Coro"},{"nombre":"Neftali Garcia Flores","hora":"14:07","grado":"Miembro"},{"nombre":"Madai García García","hora":"14:08","grado":"Coro"},{"nombre":"Jahaziel García García","hora":"14:09","grado":"Coro"},{"nombre":"Remo García Aguilar","hora":"14:09","grado":"Coro"},{"nombre":"Betsabé García García","hora":"14:09","grado":"Coro"},{"nombre":"Rebeca Colín García","hora":"14:17","grado":"Coro"},{"nombre":"Loruhama García Flores","hora":"14:19","grado":"Coro"},{"nombre":"Bethanan Colín González","hora":"14:19","grado":"Coro"},{"nombre":"Abisai García Martínez","hora":"14:19","grado":"Coro"},{"nombre":"Daniela Garcia Martinez","hora":"14:30","grado":"Miembro"},{"nombre":"Misael Uziel García Martínez","hora":"14:33","grado":"Coro"}]},{"iglesia":"ATLACOMULCO - MANTO DEL RIO","clave":"MXMX-10","count":13,"personas":[{"nombre":"Zuri Saday Monroy Cruz","hora":"13:58","grado":"Coro"},{"nombre":"Saudi Dolores Aguilar","hora":"13:58","grado":"Coro"},{"nombre":"Loami Esvai Monroy Trejo","hora":"13:59","grado":"Coro"},{"nombre":"Abisai Monroy Garcia","hora":"13:59","grado":"Coro"},{"nombre":"Nazareth Flores Olmos","hora":"14:00","grado":"Coro"},{"nombre":"Lizbeth Flores Olmos","hora":"14:00","grado":"Coro"},{"nombre":"Betsy Arisai Monroy Ibarra","hora":"14:02","grado":"Coro"},{"nombre":"Esther Jenaro Primero","hora":"14:02","grado":"Coro"},{"nombre":"Jahdai Romero Reyes","hora":"14:04","grado":"Coro"},{"nombre":"Keila Martínez Juárez","hora":"14:04","grado":"Miembro"},{"nombre":"José Carlos Morales Mendoza","hora":"14:05","grado":"Coro"},{"nombre":"Sarai Monroy García","hora":"14:05","grado":"Coro"},{"nombre":"Tamar Aguilar Morales","hora":"14:06","grado":"Miembro"}]},{"iglesia":"IXTLAHUACA - CONCEPCION ENYEGE","clave":"MXMX-64","count":8,"personas":[{"nombre":"Magdalena Rivera Mendoza","hora":"13:55","grado":"Coro"},{"nombre":"Angélica Moran Castelan","hora":"13:56","grado":"Coro"},{"nombre":"Ángel Eduardo Jiménez Quiroz","hora":"13:56","grado":"Coro"},{"nombre":"Lizeth Posadas Anacleto","hora":"13:58","grado":"Coro"},{"nombre":"Sara Reyes Hernandez","hora":"13:58","grado":"Coro"},{"nombre":"Guadalupe Hernández Reyes","hora":"13:58","grado":"Coro"},{"nombre":"Atlai Evaristo Cruz","hora":"14:04","grado":"Coro"},{"nombre":"Juan Javier León Dávalos","hora":"14:04","grado":"Coro"}]},{"iglesia":"ACAMBAY - CENTRO","clave":"MXMX-65","count":8,"personas":[{"nombre":"Araceli Martínez Navarrete","hora":"14:25","grado":"Coro"},{"nombre":"Betsua Eliam Arellano Martínez","hora":"14:35","grado":"Coro"},{"nombre":"Juana Apolinar Corona","hora":"14:43","grado":"Coro"},{"nombre":"Moisés Mauro del Río","hora":"14:50","grado":"Coro"},{"nombre":"América Herrera Carlos","hora":"14:51","grado":"Coro"},{"nombre":"Alejandra Rodríguez Calixto","hora":"14:55","grado":"Coro"},{"nombre":"Ana Ortíz Rosaliano","hora":"14:55","grado":"Coro"},{"nombre":"Radai Miranda Martínez","hora":"14:58","grado":"Coro"}]},{"iglesia":"TOLUCA - COLONIA SEMINARIO","clave":"MXMX-53","count":2,"personas":[{"nombre":"Oliver Emanuel García Nava","hora":"13:59","grado":"Coro"},{"nombre":"Angel Abraham García Nava","hora":"13:59","grado":"Coro"}]},{"iglesia":"SAN FELIPE DE PROGRESO - SAN LUCA","clave":"MXMX-52","count":2,"personas":[{"nombre":"Karina Cruz González","hora":"14:25","grado":"Coro"},{"nombre":"Leonardo Garcia Durán","hora":"14:29","grado":"Coro"}]},{"iglesia":"ATLACOMULCO - SAN JUAN DE LOS JARROS","clave":"MXMX-13","count":1,"personas":[{"nombre":"Jediael Fuentes Luciano","hora":"14:06","grado":"Coro"}]},{"iglesia":"SAN MARTIN CUAUTLALPAN","clave":"MXMX-75","count":1,"personas":[{"nombre":"Segio Barcenas Vazquez","hora":"14:09","grado":"Miembro"}]},{"iglesia":"PUEBLO NUEVO - DE LOS ANG. EL ORO","clave":"MXMX-95","count":1,"personas":[{"nombre":"Saul Gonzalez Martinez","hora":"14:17","grado":"Coro"}]},{"iglesia":"Pastores, Temascalcingo. EdoMex","clave":"MX-72","count":1,"personas":[{"nombre":"Rahel Rosales Salazar","hora":"14:18","grado":"HIJO (A) MINISTRO"}]}];
 
-function movAvg(d, w) {
-  return d.map((_, i) => {
-    const s = Math.max(0, i - Math.floor(w/2));
-    const e = Math.min(d.length, s + w);
-    const sl = d.slice(s, e);
-    return Math.round(sl.reduce((a,b)=>a+b,0)/sl.length*10)/10;
+function tm(h){const[hr,mn]=h.split(':');return+hr*60+ +mn}
+function timeBadge(h){const m=tm(h);if(m>=960)return`<span class="tl"><span class="dot dl"></span>${h}</span>`;if(m>=900)return`<span class="ta"><span class="dot da"></span>${h}</span>`;return`<span class="tn">${h}</span>`;}
+function gradeBadge(g){const c=g==='Coro'?'bc':g==='Miembro'?'bm':'bo';return`<span class="badge ${c}">${g}</span>`;}
+
+const MAX=DATA[0].count;let activeIdx=null;
+const list=document.getElementById('churchList'),panel=document.getElementById('memberPanel'),tbody=document.getElementById('personBody');
+DATA.forEach((d,i)=>{
+  const pct=Math.round(d.count/MAX*100),row=document.createElement('div');row.className='cr';
+  row.innerHTML=`<span class="ck">${d.clave}</span><span class="cn">${d.iglesia}</span><div class="cbw"><div class="cb" style="width:${pct}%"></div></div><span class="cc">${d.count}</span>`;
+  row.addEventListener('click',()=>{
+    if(activeIdx===i){row.classList.remove('active');panel.classList.remove('open');activeIdx=null;return;}
+    document.querySelectorAll('.cr').forEach(r=>r.classList.remove('active'));
+    row.classList.add('active');activeIdx=i;
+    document.getElementById('panelTitle').textContent=d.iglesia;
+    document.getElementById('panelKey').textContent=d.clave;
+    document.getElementById('panelSub').textContent=`${d.count} asistente${d.count!==1?'s':''}`;
+    tbody.innerHTML=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:10px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
+    panel.classList.add('open');
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
   });
-}
-
-function barColor(label) {
-  const [hh, mm] = label.split(':').map(Number);
-  const mins = hh*60 + mm;
-  if (mins + 10 <= RETARDO) return '#2e7d52';
-  if (mins >= TARDE) return '#c0392b';
-  return '#b7770d';
-}
-
-// ── Gráfica bloques 10 min ──
-new Chart(document.getElementById('chartBlocks'), {
-  type: 'bar',
-  data: {
-    labels: BL,
-    datasets: [
-      {
-        type: 'bar', label: 'Entradas', data: BV, order: 2,
-        backgroundColor: BL.map(barColor),
-        borderRadius: 4, borderSkipped: false,
-      },
-      {
-        type: 'line', label: 'Tendencia (promedio móvil)', data: movAvg(BV, 3), order: 1,
-        borderColor: '#c9a227', backgroundColor: 'rgba(201,162,39,.12)',
-        borderWidth: 2.5, pointRadius: 3, pointBackgroundColor: '#c9a227',
-        tension: .4, fill: false,
-      }
-    ]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    interaction: { mode: 'index', intersect: false },
-    plugins: {
-      legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } },
-      tooltip: { callbacks: { title: ctx => `Bloque ${ctx[0].label} Hrs` } }
-    },
-    scales: {
-      x: { grid: { display: false } },
-      y: { beginAtZero: true, ticks: { stepSize: 5 } }
-    }
-  }
+  list.appendChild(row);
 });
 
-// ── Gráfica franjas 30 min ──
-new Chart(document.getElementById('chartSlots'), {
-  type: 'bar',
-  data: {
-    labels: SLOT_LABELS,
-    datasets: [{
-      label: 'Asistentes', data: SLOT_VALS,
-      backgroundColor: ['#1b5e35','#2e7d52','#a8d5b8'],
-      borderRadius: 5, borderSkipped: false,
-    }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false } },
-    scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
-  }
+const pc=document.getElementById('printChurches');
+DATA.forEach(d=>{
+  const rows=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:9px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
+  pc.innerHTML+=`<table class="pct"><caption>${d.iglesia} &nbsp;<span style="font-weight:400;color:#5a7264">${d.clave} · ${d.count} asistente${d.count!==1?'s':''}</span></caption><thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead><tbody>${rows}</tbody></table>`;
 });
 
-// ── Dona grados ──
-const roleKeys = Object.keys(ROLES);
-const roleVals = Object.values(ROLES);
-const roleColors = { 'Coro': '#1b5e35', 'Miembro': '#c9a227', 'HIJO (A) MINISTRO': '#888' };
-new Chart(document.getElementById('chartDonut'), {
-  type: 'doughnut',
-  data: {
-    labels: roleKeys,
-    datasets: [{ data: roleVals, backgroundColor: roleKeys.map(k => roleColors[k] || '#aaa'), borderWidth: 2 }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: {
-      legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } }
-    },
-    cutout: '62%'
-  }
-});
+const bl=["13:50","14:00","14:10","14:20","14:30","14:40","14:50"];
+const bv=[17,30,6,3,3,1,5];
+const bColors=bl.map(l=>{const m=tm(l);return m>=960?'rgba(192,57,43,0.75)':m>=900?'rgba(183,119,13,0.75)':'rgba(46,125,82,0.82)';});
+function movAvg(d,w){return d.map((_,i)=>{const s=Math.max(0,i-Math.floor(w/2)),e=Math.min(d.length,s+w),sl=d.slice(s,e);return Math.round(sl.reduce((a,b)=>a+b,0)/sl.length*10)/10;});}
 
-// ── Lista de iglesias ──
-const maxCount = Math.max(...DATA.map(d => d.count));
-const igList = document.getElementById('igList');
-DATA.forEach(ig => {
-  const pct = Math.round(ig.count / maxCount * 100);
-  const rows = ig.personas.map(p => `
-    <tr>
-      <td>${p.nombre}</td>
-      <td class="center ${horaClass(p.hora)}">${p.hora}</td>
-      <td class="center">${p.grado}</td>
-    </tr>`).join('');
+new Chart(document.getElementById('c1'),{data:{labels:bl,datasets:[{type:'bar',label:'Entradas',data:bv,backgroundColor:bColors,borderRadius:5,borderSkipped:false,order:2,yAxisID:'y'},{type:'line',label:'Tendencia',data:movAvg(bv,3),borderColor:'#c9a227',backgroundColor:'rgba(201,162,39,0.06)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#c9a227',pointBorderColor:'#fff',pointBorderWidth:2,tension:0.45,fill:false,order:1,yAxisID:'y'}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`Bloque ${ctx[0].label} Hrs`,label:ctx=>ctx.dataset.type==='bar'?`  Entradas: ${ctx.parsed.y} persona${ctx.parsed.y!==1?'s':''}`:`  Tendencia: ${ctx.parsed.y}`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{stepSize:5,font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
 
-  igList.innerHTML += `
-    <div class="ig-row" onclick="this.classList.toggle('open')">
-      <div class="ig-header">
-        <div class="ig-left">
-          <span class="ig-clave">${ig.clave}</span>
-          <span class="ig-name">${ig.iglesia}</span>
-        </div>
-        <div class="ig-bar-wrap"><div class="ig-bar" style="width:${pct}%"></div></div>
-        <span class="ig-count">${ig.count}</span>
-        <span class="ig-chevron">▼</span>
-      </div>
-      <div class="ig-body">
-        <table class="ig-table">
-          <thead><tr><th>Nombre</th><th class="center">Hora</th><th class="center">Grado</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>`;
-});
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:["13:30","14:00","14:30"],datasets:[{label:'Asistentes',data:[17,39,9],backgroundColor:['#2e7d52','#1b5e35','#a8d5b8'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`${ctx[0].label} Hrs`,label:ctx=>`${ctx.parsed.y} personas`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
 
-// ── Staff ──
-const staffEl = document.getElementById('staffContent');
-if (STAFF.length === 0) {
-  staffEl.innerHTML = '<div class="staff-empty">Sin registros de staff en este evento.</div>';
-} else {
-  staffEl.innerHTML = `<table class="ig-table" style="max-width:400px">
-    <thead><tr><th>Nombre</th><th class="center">Hora</th></tr></thead>
-    <tbody>${STAFF.map(s=>`<tr><td>${s.nombre}</td><td class="center">${s.hora}</td></tr>`).join('')}</tbody>
-  </table>`;
-}
+new Chart(document.getElementById('c3'),{type:'doughnut',data:{labels:['Coro','Miembro','Otro'],datasets:[{data:[59,5,1],backgroundColor:['#2e7d52','#c9a227','#888'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,usePointStyle:true}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed} (${Math.round(ctx.parsed/65*100)}%)`}}}}});
 </script>
-
 </body>
 </html>
