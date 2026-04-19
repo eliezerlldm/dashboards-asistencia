@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboards de Asistencia</title>
+  <title>Dashboards de Asistencia · LLDM</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,31 +15,22 @@
       padding: 2rem 1rem;
     }
 
+    /* ── Header ── */
     header {
       background: #fff;
       border: 2px solid #a8d5b8;
       color: #1b5e35;
       padding: 1.5rem 2rem;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-bottom: 2rem;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: .75rem;
-    }
-
-    .header-logos {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-
-    .logo-lldm {
-      height: 70px;
-      width: auto;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.3));
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .logo-lldm-wrap {
@@ -62,104 +53,254 @@
     header h1 { font-size: 1.6rem; font-weight: 700; letter-spacing: .5px; color: #1b5e35; }
     header p  { font-size: .9rem; color: #2e7d52; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-      max-width: 900px;
+    /* ── Zonas ── */
+    .zonas {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      max-width: 700px;
       margin: 0 auto;
     }
 
-    .card {
+    .zona-card {
       background: #fff;
       border: 1.5px solid #a8d5b8;
       border-radius: 12px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      transition: box-shadow .2s, transform .2s;
+      overflow: hidden;
+    }
+
+    .zona-header {
       display: flex;
-      flex-direction: column;
-      gap: .6rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s;
     }
 
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(27,94,53,.15);
-      transform: translateY(-3px);
+    .zona-header:hover { background: #f0faf4; }
+
+    .zona-left {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
     }
 
-    .card-badge {
-      font-size: .72rem;
-      font-weight: 600;
+    .zona-badge {
+      font-size: .7rem;
+      font-weight: 700;
       letter-spacing: .6px;
       text-transform: uppercase;
-      color: #2e7d52;
-      background: #e8f5ee;
-      border: 1px solid #a8d5b8;
+      color: #fff;
+      background: #2e7d52;
       border-radius: 20px;
-      padding: .2rem .7rem;
-      align-self: flex-start;
+      padding: .25rem .75rem;
+      white-space: nowrap;
     }
 
-    .card-title {
-      font-size: 1.1rem;
+    .zona-badge.distrito { background: #c9a227; }
+
+    .zona-nombre {
+      font-size: 1rem;
       font-weight: 700;
       color: #1b5e35;
     }
 
-    .card-meta {
-      font-size: .82rem;
-      color: #555;
+    .zona-count {
+      font-size: .78rem;
+      color: #888;
     }
 
-    .card-arrow {
-      margin-top: auto;
-      font-size: .85rem;
-      color: #c9a227;
+    .zona-chevron {
+      font-size: 1rem;
+      color: #2e7d52;
+      transition: transform .25s;
+    }
+
+    .zona-card.open .zona-chevron { transform: rotate(180deg); }
+
+    /* ── Lista de dashboards ── */
+    .zona-body {
+      display: none;
+      border-top: 1px solid #e0ede6;
+      padding: .5rem 0;
+    }
+
+    .zona-card.open .zona-body { display: block; }
+
+    .dash-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .7rem 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background .15s;
+      gap: 1rem;
+    }
+
+    .dash-item:hover { background: #f0faf4; }
+
+    .dash-fecha {
+      font-size: .9rem;
       font-weight: 600;
+      color: #1b5e35;
     }
 
+    .dash-meta {
+      font-size: .78rem;
+      color: #777;
+    }
+
+    .dash-arrow {
+      font-size: .82rem;
+      color: #c9a227;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .empty-msg {
+      padding: .9rem 1.25rem;
+      font-size: .85rem;
+      color: #aaa;
+      font-style: italic;
+    }
+
+    /* ── Footer ── */
     footer {
       text-align: center;
-      margin-top: 3rem;
+      margin-top: 2.5rem;
       font-size: .78rem;
       color: #2e7d52;
       font-weight: 600;
       letter-spacing: .4px;
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.3rem; }
+      .zona-nombre { font-size: .92rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="header-logos">
-      <div class="logo-lldm-wrap">
-        <img class="logo-lldm" src="imgs/LOGO LLDM BLANCO.png" alt="LLDM">
-      </div>
+    <div class="logo-lldm-wrap">
+      <img class="logo-lldm" src="imgs/LOGO LLDM BLANCO.png" alt="LLDM">
     </div>
     <h1>Dashboards de Asistencia</h1>
-    <p>Selecciona una zona para ver el reporte interactivo</p>
+    <p>Selecciona una zona para ver los reportes disponibles</p>
   </header>
 
-  <div class="grid">
+  <div class="zonas">
 
-    <a class="card" href="zona-ecatepec/dashboard_asistencia_zona2_abril2026.html">
-      <span class="card-badge">Zona 2</span>
-      <div class="card-title">Zona Ecatepec</div>
-      <div class="card-meta">12 abril · 316 asistentes</div>
-      <div class="card-arrow">Ver dashboard →</div>
-    </a>
+    <!-- Zona 1 Toluca -->
+    <div class="zona-card" onclick="toggle(this)">
+      <div class="zona-header">
+        <div class="zona-left">
+          <span class="zona-badge">Zona 1</span>
+          <div>
+            <div class="zona-nombre">Toluca</div>
+            <div class="zona-count">1 reporte disponible</div>
+          </div>
+        </div>
+        <span class="zona-chevron">▼</span>
+      </div>
+      <div class="zona-body">
+        <a class="dash-item" href="zona-toluca/dashboard_asistencia_toluca_abril2026.html" onclick="event.stopPropagation()">
+          <div>
+            <div class="dash-fecha">Abril 2026</div>
+            <div class="dash-meta">12 abril · 173 asistentes</div>
+          </div>
+          <span class="dash-arrow">Ver →</span>
+        </a>
+      </div>
+    </div>
 
-    <a class="card" href="zona-toluca/dashboard_asistencia_toluca_abril2026.html">
-      <span class="card-badge">Zona 1</span>
-      <div class="card-title">Zona Toluca</div>
-      <div class="card-meta">12 abril · 173 asistentes</div>
-      <div class="card-arrow">Ver dashboard →</div>
-    </a>
+    <!-- Zona 2 Ecatepec -->
+    <div class="zona-card" onclick="toggle(this)">
+      <div class="zona-header">
+        <div class="zona-left">
+          <span class="zona-badge">Zona 2</span>
+          <div>
+            <div class="zona-nombre">Ecatepec</div>
+            <div class="zona-count">1 reporte disponible</div>
+          </div>
+        </div>
+        <span class="zona-chevron">▼</span>
+      </div>
+      <div class="zona-body">
+        <a class="dash-item" href="zona-ecatepec/dashboard_asistencia_zona2_abril2026.html" onclick="event.stopPropagation()">
+          <div>
+            <div class="dash-fecha">Abril 2026</div>
+            <div class="dash-meta">12 abril · 316 asistentes</div>
+          </div>
+          <span class="dash-arrow">Ver →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Zona 3 Neza -->
+    <div class="zona-card" onclick="toggle(this)">
+      <div class="zona-header">
+        <div class="zona-left">
+          <span class="zona-badge">Zona 3</span>
+          <div>
+            <div class="zona-nombre">Neza</div>
+            <div class="zona-count">Sin reportes aún</div>
+          </div>
+        </div>
+        <span class="zona-chevron">▼</span>
+      </div>
+      <div class="zona-body">
+        <div class="empty-msg">Próximamente — aún no hay dashboards para esta zona.</div>
+      </div>
+    </div>
+
+    <!-- Distrito 18 -->
+    <div class="zona-card" onclick="toggle(this)">
+      <div class="zona-header">
+        <div class="zona-left">
+          <span class="zona-badge distrito">Distrito 18</span>
+          <div>
+            <div class="zona-nombre">Distrito 18</div>
+            <div class="zona-count">Sin reportes aún</div>
+          </div>
+        </div>
+        <span class="zona-chevron">▼</span>
+      </div>
+      <div class="zona-body">
+        <div class="empty-msg">Próximamente — aún no hay dashboards para este distrito.</div>
+      </div>
+    </div>
+
+    <!-- Distrito 19 -->
+    <div class="zona-card" onclick="toggle(this)">
+      <div class="zona-header">
+        <div class="zona-left">
+          <span class="zona-badge distrito">Distrito 19</span>
+          <div>
+            <div class="zona-nombre">Distrito 19</div>
+            <div class="zona-count">Sin reportes aún</div>
+          </div>
+        </div>
+        <span class="zona-chevron">▼</span>
+      </div>
+      <div class="zona-body">
+        <div class="empty-msg">Próximamente — aún no hay dashboards para este distrito.</div>
+      </div>
+    </div>
 
   </div>
 
   <footer>Control de Asistencia 2026</footer>
+
+  <script>
+    function toggle(card) {
+      card.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
