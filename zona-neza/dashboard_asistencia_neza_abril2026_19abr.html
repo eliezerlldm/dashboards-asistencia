@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistencia · Zona 3 Neza · 19 Abril 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gd:#1b5e35;--gm:#2e7d52;--gl:#e8f5ee;--gb:#a8d5b8;--go:#c9a227;--gol:#fdf3d7;--gob:#e8cc7a;--god:#8a6d0b;--rl:#fff0f0;--r:#c0392b;--al:#fff8e6;--am:#b7770d;--bd:#cde0d4;--surf:#f7faf8}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--surf);color:#1a2e1f;padding:1.5rem 1.25rem}
+.wrap{max-width:900px;margin:0 auto}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;gap:1rem}
+.hdr-eyebrow{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--go);margin-bottom:4px}
+.hdr-title{font-size:22px;font-weight:700;color:var(--gd);line-height:1.2;margin-bottom:6px}
+.hdr-title span{color:var(--go)}
+.hdr-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.hdr-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid}
+.pill-g{background:var(--gl);color:var(--gd);border-color:var(--gb)}
+.pill-o{background:var(--gol);color:var(--god);border-color:var(--gob)}
+.hdr-meta{font-size:11px;color:#5a7264;display:flex;gap:10px;flex-wrap:wrap}
+.print-btn{display:flex;align-items:center;gap:5px;background:var(--go);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.print-btn:hover{background:var(--god)}
+.print-btn svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.accent{height:3px;background:linear-gradient(90deg,var(--gd),var(--gm),var(--go));border-radius:2px;margin-bottom:1rem}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.mc{background:#fff;border:0.5px solid var(--bd);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--go)}
+.mc-lbl{font-size:10px;color:#5a7264;margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.mc-val{font-size:20px;font-weight:600;color:var(--gd);display:flex;align-items:baseline;gap:4px;line-height:1.2}
+.mc-unit{font-size:11px;font-weight:600;color:var(--go)}
+.mc-sub{font-size:10px;color:#5a7264;margin-top:3px}
+.card{background:#fff;border:0.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.9rem}
+.ct{font-size:14px;font-weight:600;color:var(--gd);margin-bottom:2px}
+.cs{font-size:11px;color:#5a7264;margin-bottom:.85rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;font-size:11px;color:#5a7264;align-items:center}
+.lsq{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.lln{width:16px;height:2.5px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.zones{display:flex;gap:5px;margin-bottom:.55rem;flex-wrap:wrap;font-size:10px}
+.zb{padding:2px 6px;border-radius:4px;font-weight:600}
+.cl{display:flex;flex-direction:column;gap:4px}
+.cr{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:7px;cursor:pointer;border:0.5px solid transparent;transition:background .12s;user-select:none}
+.cr:hover{background:var(--gl);border-color:var(--gb)}
+.cr.active{background:var(--gl);border-color:var(--gm)}
+.ck{font-size:9px;color:#5a7264;background:var(--surf);border:0.5px solid var(--bd);padding:2px 5px;border-radius:4px;font-weight:600;min-width:68px;text-align:center;flex-shrink:0}
+.cr.active .ck{background:var(--gd);color:#fff;border-color:var(--gd)}
+.cn{font-size:12px;color:#1a2e1f;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr.active .cn{color:var(--gd);font-weight:500}
+.cbw{width:72px;height:4px;background:var(--gl);border-radius:3px;flex-shrink:0}
+.cb{height:4px;border-radius:3px;background:var(--gm)}
+.cc{font-size:11px;font-weight:600;color:#5a7264;min-width:20px;text-align:right;flex-shrink:0}
+.cr.active .cc{color:var(--gd)}
+.panel{display:none;margin-top:.9rem;border-top:1px solid var(--bd);padding-top:.9rem}
+.panel.open{display:block}
+.ph{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ph h3{font-size:14px;font-weight:600;color:var(--gd)}
+.pk{font-size:10px;color:#fff;background:var(--go);padding:2px 7px;border-radius:4px;font-weight:600}
+.pc{font-size:11px;color:#5a7264}
+.pt{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.pt th{text-align:left;font-size:10px;color:#5a7264;font-weight:600;padding:4px 7px;border-bottom:1px solid var(--bd);background:var(--surf)}
+.pt th.tc,.pt td.tc{text-align:center}
+.pt td{padding:4px 7px;color:#1a2e1f;border-bottom:0.5px solid var(--bd)}
+.pt tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600}
+.bc{background:var(--gl);color:var(--gd);border:0.5px solid var(--gb)}
+.bm{background:var(--gol);color:var(--god);border:0.5px solid var(--gob)}
+.bo{background:#f0f0f0;color:#666;border:0.5px solid #ddd}
+.tn{color:#5a7264;font-size:12px}
+.ta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--am);background:var(--al);border:0.5px solid #f0c060;padding:1px 6px;border-radius:4px}
+.tl{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--r);background:var(--rl);border:0.5px solid #f5c0bb;padding:1px 6px;border-radius:4px}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.da{background:var(--am)}.dl{background:var(--r)}
+.tleg{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#5a7264;margin-bottom:.7rem;align-items:center}
+@media(max-width:640px){
+  body{padding:1rem .75rem}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .row2{grid-template-columns:1fr}
+  .hdr{flex-direction:column;gap:.75rem}
+  .hdr-title{font-size:19px}
+  .ck{min-width:55px;font-size:8px}
+  .cn{font-size:11px}
+  .cbw{width:40px}
+  .mc-val{font-size:17px}
+}
+@media print{
+  body{background:#fff;padding:.5rem;font-size:11px;color:#000}
+  .print-btn,.tleg,.cs{display:none!important}
+  .panel{display:none!important}
+  .accent,.mc::before,.badge,.ta,.tl,.ck,.pk,.cb,.zb,.hdr-pill{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-section{display:block!important}
+  .no-print{display:none!important}
+  .card{border:1px solid #ccc;break-inside:avoid}
+  .row2{grid-template-columns:1fr 1fr}
+}
+.print-section{display:none}
+.pct{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:1rem;break-inside:avoid;table-layout:fixed}
+.pct caption{text-align:left;font-size:11px;font-weight:600;color:#1b5e35;padding:5px 0 3px;border-bottom:2px solid #a8d5b8;display:table-caption}
+.pct th{background:#e8f5ee;color:#1b5e35;font-weight:600;padding:3px 5px;border:0.5px solid #a8d5b8;font-size:9px;text-transform:uppercase}
+.pct th.tc,.pct td.tc{text-align:center}
+.pct td{padding:3px 5px;border:0.5px solid #cde0d4;color:#1a2e1f}
+.pg-break{page-break-before:always}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div>
+    <div class="hdr-eyebrow">Zona 3 Oriente · Neza</div>
+    <div class="hdr-title">Asistencia <span>19 Abril 2026</span></div>
+    <div class="hdr-pills">
+      <span class="hdr-pill pill-g">64 Asistentes</span>
+      <span class="hdr-pill pill-o">15 Iglesias</span>
+    </div>
+    <div class="hdr-meta">
+      <span>Inicio: 14:00 Hrs</span>
+      <span style="color:var(--gb)">·</span>
+      <span>Fin: 18:00 Hrs</span>
+    </div>
+  </div>
+  <button class="print-btn" onclick="window.print()">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Imprimir / PDF
+  </button>
+</div>
+<div class="accent"></div>
+
+<div class="metrics">
+  <div class="mc">
+    <div class="mc-lbl">Total asistentes</div>
+    <div class="mc-val">64</div>
+    <div class="mc-sub">Registros únicos</div>
+  </div>
+  <div class="mc">
+    <div class="mc-lbl">Iglesias</div>
+    <div class="mc-val">15</div>
+    <div class="mc-sub">Congregaciones</div>
+  </div>
+  <div class="mc">
+    <div class="mc-lbl">Promedio de entrada</div>
+    <div class="mc-val">15:48 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">+108 min del inicio</div>
+  </div>
+  <div class="mc">
+    <div class="mc-lbl">Bloque pico</div>
+    <div class="mc-val">15:00 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">10 personas en ese bloque</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ct">Entradas por bloque de 10 minutos</div>
+  <div class="cs">Barras = cantidad por bloque · Línea dorada = tendencia suavizada</div>
+  <div class="zones">
+    <span class="zb" style="background:#e8f5ee;color:#1b5e35">■ Puntual &lt;15:00 Hrs</span>
+    <span class="zb" style="background:#fff8e6;color:#b7770d">■ Retardo 15:00–16:00 Hrs</span>
+    <span class="zb" style="background:#fff0f0;color:#c0392b">■ Tarde &gt;16:00 Hrs</span>
+  </div>
+  <div class="leg">
+    <span><span class="lsq" style="background:#2e7d52"></span>Entradas por bloque</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="lln" style="background:#c9a227"></span>Tendencia</span>
+  </div>
+  <div style="position:relative;height:220px"><canvas id="c1"></canvas></div>
+</div>
+
+<div class="row2">
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Bloques de 30 minutos</div>
+    <div class="cs">Total de personas por período</div>
+    <div style="position:relative;height:190px"><canvas id="c2"></canvas></div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Integrantes</div>
+    <div class="cs">Distribución por grado</div>
+    <div class="leg">
+      <span><span class="lsq" style="background:#2e7d52"></span>Coro 59</span>
+      <span><span class="lsq" style="background:#c9a227"></span>Miembro 5</span>
+    </div>
+    <div style="position:relative;height:155px"><canvas id="c3"></canvas></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:.9rem">
+  <div class="ct">Iglesias participantes</div>
+  <div class="cs no-print">Clic en una iglesia para ver sus asistentes</div>
+  <div class="tleg no-print">
+    <span style="display:flex;align-items:center;gap:4px"><span class="ta" style="font-size:9px;padding:1px 5px"><span class="dot da"></span>Retardo</span>después de las 15:00 Hrs</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="tl" style="font-size:9px;padding:1px 5px"><span class="dot dl"></span>Tarde</span>después de las 16:00 Hrs</span>
+  </div>
+  <div class="cl" id="churchList"></div>
+  <div class="panel" id="memberPanel">
+    <div class="ph"><h3 id="panelTitle"></h3><span class="pk" id="panelKey"></span><span class="pc" id="panelSub"></span></div>
+    <table class="pt">
+      <colgroup><col style="width:28px"><col><col style="width:72px"><col style="width:72px"></colgroup>
+      <thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead>
+      <tbody id="personBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="print-section pg-break" id="printSection">
+  <div style="margin-bottom:.75rem">
+    <div style="font-size:13px;font-weight:700;color:#1b5e35;margin-bottom:2px">Detalle de asistentes por iglesia</div>
+    <div style="font-size:10px;color:#5a7264">Asistencia · 19 de abril 2026 · Zona 3 Oriente (Neza) · Inicio: 14:00 Hrs · Fin: 18:00 Hrs</div>
+  </div>
+  <div id="printChurches"></div>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const DATA=[{"iglesia":"CHIMALHUACAN - BO.LABRADORES STA.ELENA","clave":"MXMX-19","count":20,"personas":[{"nombre":"David Chávez Núñez","hora":"14:30","grado":"Coro"},{"nombre":"Anayely Calvo Arzate","hora":"14:51","grado":"Coro"},{"nombre":"Areli Florentino Flores","hora":"15:00","grado":"Coro"},{"nombre":"Damaris Areli Martínez Díaz","hora":"15:02","grado":"Coro"},{"nombre":"Ana Laura Marquez Monterrosas","hora":"15:02","grado":"Coro"},{"nombre":"Elidet Yesenia Guzmán Cruz","hora":"15:04","grado":"Coro"},{"nombre":"Abigail Flores Padilla","hora":"15:06","grado":"Coro"},{"nombre":"Vazti Jezhabel Ruiz Gonzalez","hora":"15:08","grado":"Coro"},{"nombre":"Sonia Rojas Florentino","hora":"15:22","grado":"Coro"},{"nombre":"Betsaida Sarai López Silva","hora":"15:35","grado":"Coro"},{"nombre":"Pricila Calderon Rojas","hora":"15:36","grado":"Coro"},{"nombre":"Abdi Hefziba Miranda Calderon","hora":"15:36","grado":"Miembro"},{"nombre":"María Reyna Díaz Vazquez","hora":"15:36","grado":"Coro"},{"nombre":"Brenda Reyes Lopez","hora":"15:41","grado":"Coro"},{"nombre":"Aroni Joana Galindo Martinez","hora":"15:52","grado":"Coro"},{"nombre":"Nora Martinez Serrano","hora":"15:53","grado":"Coro"},{"nombre":"Javier Hernández Contreras","hora":"16:18","grado":"Coro"},{"nombre":"Atlai Ruiz González","hora":"16:19","grado":"Miembro"},{"nombre":"Jeziel Radai Hernández Calvo","hora":"16:19","grado":"Coro"},{"nombre":"Antonio Edrei Hernandez Miranda","hora":"16:32","grado":"Coro"}]},{"iglesia":"CD. NEZA - ESPERANZA","clave":"MXMX-03","count":11,"personas":[{"nombre":"Adriana Mora Mendez","hora":"15:20","grado":"Coro"},{"nombre":"Elien Martinez Martinez","hora":"15:32","grado":"Coro"},{"nombre":"Martha Gabriela Padilla Heredia","hora":"15:41","grado":"Coro"},{"nombre":"Teresa Herrera Cordova","hora":"15:51","grado":"Coro"},{"nombre":"Basemat Abigail Hernández Avila","hora":"15:51","grado":"Coro"},{"nombre":"Guadalupe Garcia Avila","hora":"15:53","grado":"Coro"},{"nombre":"Nohemi García Ávila","hora":"15:54","grado":"Coro"},{"nombre":"Elizabeth Calvo Sanchez","hora":"16:48","grado":"Coro"},{"nombre":"Anita Martinez Hernandez","hora":"16:50","grado":"Coro"},{"nombre":"Lidia Vidal Vazquez","hora":"16:52","grado":"Coro"},{"nombre":"Merari Piña Castillo","hora":"17:19","grado":"Coro"}]},{"iglesia":"OTUMBA","clave":"MXMX-61","count":5,"personas":[{"nombre":"Loida Hanani González Zepahua.","hora":"14:49","grado":"Coro"},{"nombre":"Keila González","hora":"14:52","grado":"Miembro"},{"nombre":"Job René Gámez López","hora":"16:13","grado":"Coro"},{"nombre":"Alberto González Yáñez","hora":"16:14","grado":"Coro"},{"nombre":"Said Alfonso Gámez López","hora":"16:48","grado":"Miembro"}]},{"iglesia":"NVA. SAN ISIDRO - CHALCO","clave":"MXMX-70","count":5,"personas":[{"nombre":"Elisa Merad Borja García","hora":"15:08","grado":"Coro"},{"nombre":"Ma. Magdalena Santos Ramírez","hora":"15:18","grado":"Coro"},{"nombre":"Edilberta Santos Nolasco","hora":"15:21","grado":"Coro"},{"nombre":"Josefina Ramirez Hilario","hora":"15:23","grado":"Coro"},{"nombre":"Ramiro Santos Nolasco","hora":"16:49","grado":"Coro"}]},{"iglesia":"SAN VICENTE CHICOLOAPAN - FRANCISCO VILLA","clave":"MXMX-09","count":4,"personas":[{"nombre":"Genahi Buelna Luis","hora":"14:42","grado":"Coro"},{"nombre":"Bitia Radai Ramírez Martínez","hora":"14:51","grado":"Coro"},{"nombre":"Uri Abdiel Ramírez Martínez","hora":"16:14","grado":"Coro"},{"nombre":"David Reyes Ramírez","hora":"16:17","grado":"Coro"}]},{"iglesia":"TULTITLAN - EL TESORO","clave":"MXMX-40","count":4,"personas":[{"nombre":"Jazmin Marbella Marcial Morales","hora":"15:30","grado":"Coro"},{"nombre":"Jorge Luis Santos Márquez","hora":"16:31","grado":"Coro"},{"nombre":"Milka Martínez Méndez","hora":"16:54","grado":"Coro"},{"nombre":"Geraldine Ailin Bonilla San Juan","hora":"17:27","grado":"Coro"}]},{"iglesia":"IXTAPALUCA - COL. MARGARITA MORAN","clave":"MXMX-66","count":3,"personas":[{"nombre":"Betsua Aridai Pimentel Castañeda","hora":"14:54","grado":"Coro"},{"nombre":"Sonia Castañeda Carrera","hora":"15:00","grado":"Coro"},{"nombre":"Libni Simei Martínez García","hora":"15:02","grado":"Coro"}]},{"iglesia":"CD. NEZA - MARAVILLAS","clave":"MXMX-04","count":3,"personas":[{"nombre":"Ammi Jael Tovar Canales","hora":"15:04","grado":"Coro"},{"nombre":"Elias Hernández Flores","hora":"15:54","grado":"Coro"},{"nombre":"Joel Gordian Hernández","hora":"16:54","grado":"Coro"}]},{"iglesia":"CERRO DE LAS PALOMAS","clave":"MXMX-122","count":2,"personas":[{"nombre":"María Elena Pérez Cisneros","hora":"15:13","grado":"Coro"},{"nombre":"Pablo Arias Marin","hora":"16:12","grado":"Coro"}]},{"iglesia":"CD. NEZA - TAMAULIPAS","clave":"MXMX-30","count":2,"personas":[{"nombre":"Rosa Josefa Guerra Morales","hora":"16:05","grado":"Coro"},{"nombre":"Martha Alejandra Jiménez Méndez","hora":"16:31","grado":"Coro"}]},{"iglesia":"CHIMALHUACAN - ISRAEL","clave":"MXMX-35","count":1,"personas":[{"nombre":"Dana Keli Flores Ferman","hora":"14:40","grado":"Coro"}]},{"iglesia":"CD. NEZA - LA AURORA","clave":"MXMX-02","count":1,"personas":[{"nombre":"Maria Judith Almonte Gutiérrez","hora":"16:29","grado":"Coro"}]},{"iglesia":"CHALCO DE DIAZ COVARRUBIAS","clave":"MXMX-86","count":1,"personas":[{"nombre":"Luis Jehieli Colín Aramburo","hora":"16:39","grado":"Coro"}]},{"iglesia":"AZCAPOTZALCO - SANTA LUCIA","clave":"MXCDMX-07","count":1,"personas":[{"nombre":"Otoniel Orozco Ramírez","hora":"16:39","grado":"Coro"}]},{"iglesia":"ATLAUTLA DE VICTORIA","clave":"MXMX-63","count":1,"personas":[{"nombre":"Isaac Hernandez Paez","hora":"16:49","grado":"Miembro"}]}];
+
+function tm(h){const[hr,mn]=h.split(':');return+hr*60+ +mn}
+function timeBadge(h){const m=tm(h);if(m>=960)return`<span class="tl"><span class="dot dl"></span>${h}</span>`;if(m>=900)return`<span class="ta"><span class="dot da"></span>${h}</span>`;return`<span class="tn">${h}</span>`;}
+function gradeBadge(g){const c=g==='Coro'?'bc':g==='Miembro'?'bm':'bo';return`<span class="badge ${c}">${g}</span>`;}
+
+const MAX=DATA[0].count;let activeIdx=null;
+const list=document.getElementById('churchList'),panel=document.getElementById('memberPanel'),tbody=document.getElementById('personBody');
+DATA.forEach((d,i)=>{
+  const pct=Math.round(d.count/MAX*100),row=document.createElement('div');row.className='cr';
+  row.innerHTML=`<span class="ck">${d.clave}</span><span class="cn">${d.iglesia}</span><div class="cbw"><div class="cb" style="width:${pct}%"></div></div><span class="cc">${d.count}</span>`;
+  row.addEventListener('click',()=>{
+    if(activeIdx===i){row.classList.remove('active');panel.classList.remove('open');activeIdx=null;return;}
+    document.querySelectorAll('.cr').forEach(r=>r.classList.remove('active'));
+    row.classList.add('active');activeIdx=i;
+    document.getElementById('panelTitle').textContent=d.iglesia;
+    document.getElementById('panelKey').textContent=d.clave;
+    document.getElementById('panelSub').textContent=`${d.count} asistente${d.count!==1?'s':''}`;
+    tbody.innerHTML=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:10px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
+    panel.classList.add('open');
+    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+  });
+  list.appendChild(row);
+});
+
+const pc=document.getElementById('printChurches');
+DATA.forEach(d=>{
+  const rows=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:9px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
+  pc.innerHTML+=`<table class="pct"><caption>${d.iglesia} &nbsp;<span style="font-weight:400;color:#5a7264">${d.clave} · ${d.count} asistente${d.count!==1?'s':''}</span></caption><thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead><tbody>${rows}</tbody></table>`;
+});
+
+const bl=["14:30","14:40","14:50","15:00","15:10","15:20","15:30","15:40","15:50","16:00","16:10","16:20","16:30","16:40","16:50","17:10","17:20"];
+const bv=[1,3,4,10,2,4,6,2,7,1,8,1,5,4,4,1,1];
+const bColors=bl.map(l=>{const m=tm(l);return m>=960?'rgba(192,57,43,0.75)':m>=900?'rgba(183,119,13,0.75)':'rgba(46,125,82,0.82)';});
+function movAvg(d,w){return d.map((_,i)=>{const s=Math.max(0,i-Math.floor(w/2)),e=Math.min(d.length,s+w),sl=d.slice(s,e);return Math.round(sl.reduce((a,b)=>a+b,0)/sl.length*10)/10;});}
+
+new Chart(document.getElementById('c1'),{data:{labels:bl,datasets:[{type:'bar',label:'Entradas',data:bv,backgroundColor:bColors,borderRadius:5,borderSkipped:false,order:2,yAxisID:'y'},{type:'line',label:'Tendencia',data:movAvg(bv,3),borderColor:'#c9a227',backgroundColor:'rgba(201,162,39,0.06)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#c9a227',pointBorderColor:'#fff',pointBorderWidth:2,tension:0.45,fill:false,order:1,yAxisID:'y'}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`Bloque ${ctx[0].label} Hrs`,label:ctx=>ctx.dataset.type==='bar'?`  Entradas: ${ctx.parsed.y} persona${ctx.parsed.y!==1?'s':''}`:`  Tendencia: ${ctx.parsed.y}`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{stepSize:2,font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
+
+new Chart(document.getElementById('c2'),{type:'bar',data:{labels:["14:30","15:00","15:30","16:00","16:30","17:00"],datasets:[{label:'Asistentes',data:[8,16,15,10,13,2],backgroundColor:['rgba(46,125,82,0.82)','rgba(183,119,13,0.75)','rgba(183,119,13,0.75)','rgba(192,57,43,0.75)','rgba(192,57,43,0.75)','rgba(192,57,43,0.75)'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`${ctx[0].label} Hrs`,label:ctx=>`${ctx.parsed.y} personas`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+
+new Chart(document.getElementById('c3'),{type:'doughnut',data:{labels:['Coro','Miembro'],datasets:[{data:[59,5],backgroundColor:['#2e7d52','#c9a227'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,usePointStyle:true}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed} (${Math.round(ctx.parsed/64*100)}%)`}}}}});
+</script>
+</body>
+</html>
