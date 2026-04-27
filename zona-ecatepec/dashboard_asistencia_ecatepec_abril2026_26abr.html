@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistencia · Zona 2 Ecatepec · 26 Abril 2026</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--gd:#1b5e35;--gm:#2e7d52;--gl:#e8f5ee;--gb:#a8d5b8;--go:#c9a227;--gol:#fdf3d7;--gob:#e8cc7a;--god:#8a6d0b;--rl:#fff0f0;--r:#c0392b;--al:#fff8e6;--am:#b7770d;--bd:#cde0d4;--surf:#f7faf8}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--surf);color:#1a2e1f;padding:1.5rem 1.25rem}
+.wrap{max-width:900px;margin:0 auto}
+.hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.1rem;gap:1rem}
+.hdr-eyebrow{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--go);margin-bottom:4px}
+.hdr-title{font-size:22px;font-weight:700;color:var(--gd);line-height:1.2;margin-bottom:6px}
+.hdr-title span{color:var(--go)}
+.hdr-pills{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.hdr-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid}
+.pill-g{background:var(--gl);color:var(--gd);border-color:var(--gb)}
+.pill-o{background:var(--gol);color:var(--god);border-color:var(--gob)}
+.hdr-meta{font-size:11px;color:#5a7264;display:flex;gap:10px;flex-wrap:wrap}
+.print-btn{display:flex;align-items:center;gap:5px;background:var(--go);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.print-btn:hover{background:var(--god)}
+.print-btn svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.accent{height:3px;background:linear-gradient(90deg,var(--gd),var(--gm),var(--go));border-radius:2px;margin-bottom:1rem}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.mc{background:#fff;border:0.5px solid var(--bd);border-radius:10px;padding:12px 14px;position:relative;overflow:hidden}
+.mc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--go)}
+.mc-lbl{font-size:10px;color:#5a7264;margin-bottom:5px;font-weight:500;text-transform:uppercase;letter-spacing:.3px}
+.mc-val{font-size:20px;font-weight:600;color:var(--gd);display:flex;align-items:baseline;gap:4px;line-height:1.2}
+.mc-unit{font-size:11px;font-weight:600;color:var(--go)}
+.mc-sub{font-size:10px;color:#5a7264;margin-top:3px}
+.card{background:#fff;border:0.5px solid var(--bd);border-radius:12px;padding:1.1rem 1.25rem;margin-bottom:.9rem}
+.ct{font-size:14px;font-weight:600;color:var(--gd);margin-bottom:2px}
+.cs{font-size:11px;color:#5a7264;margin-bottom:.85rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;font-size:11px;color:#5a7264;align-items:center}
+.lsq{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.lln{width:16px;height:2.5px;border-radius:2px;display:inline-block;margin-right:3px;vertical-align:middle}
+.zones{display:flex;gap:5px;margin-bottom:.55rem;flex-wrap:wrap;font-size:10px}
+.zb{padding:2px 6px;border-radius:4px;font-weight:600}
+.cl{display:flex;flex-direction:column;gap:4px}
+.cr{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:7px;cursor:pointer;border:0.5px solid transparent;transition:background .12s;user-select:none}
+.cr:hover{background:var(--gl);border-color:var(--gb)}
+.cr.active{background:var(--gl);border-color:var(--gm)}
+.ck{font-size:9px;color:#5a7264;background:var(--surf);border:0.5px solid var(--bd);padding:2px 5px;border-radius:4px;font-weight:600;min-width:68px;text-align:center;flex-shrink:0}
+.cr.active .ck{background:var(--gd);color:#fff;border-color:var(--gd)}
+.cn{font-size:12px;color:#1a2e1f;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cr.active .cn{color:var(--gd);font-weight:500}
+.cbw{width:72px;height:4px;background:var(--gl);border-radius:3px;flex-shrink:0}
+.cb{height:4px;border-radius:3px;background:var(--gm)}
+.cc{font-size:11px;font-weight:600;color:#5a7264;min-width:20px;text-align:right;flex-shrink:0}
+.cr.active .cc{color:var(--gd)}
+.panel{display:none;margin-top:.9rem;border-top:1px solid var(--bd);padding-top:.9rem}
+.panel.open{display:block}
+.ph{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.ph h3{font-size:14px;font-weight:600;color:var(--gd)}
+.pk{font-size:10px;color:#fff;background:var(--go);padding:2px 7px;border-radius:4px;font-weight:600}
+.pc{font-size:11px;color:#5a7264}
+.pt{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+.pt th{text-align:left;font-size:10px;color:#5a7264;font-weight:600;padding:4px 7px;border-bottom:1px solid var(--bd);background:var(--surf)}
+.pt th.tc,.pt td.tc{text-align:center}
+.pt td{padding:4px 7px;color:#1a2e1f;border-bottom:0.5px solid var(--bd)}
+.pt tr:last-child td{border-bottom:none}
+.badge{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600}
+.bc{background:var(--gl);color:var(--gd);border:0.5px solid var(--gb)}
+.bm{background:var(--gol);color:var(--god);border:0.5px solid var(--gob)}
+.bo{background:#f0f0f0;color:#666;border:0.5px solid #ddd}
+.tn{color:#5a7264;font-size:12px}
+.ta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--am);background:var(--al);border:0.5px solid #f0c060;padding:1px 6px;border-radius:4px}
+.tl{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--r);background:var(--rl);border:0.5px solid #f5c0bb;padding:1px 6px;border-radius:4px}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.da{background:var(--am)}.dl{background:var(--r)}
+.tleg{display:flex;gap:14px;flex-wrap:wrap;font-size:10px;color:#5a7264;margin-bottom:.7rem;align-items:center}
+@media(max-width:640px){
+  body{padding:1rem .75rem}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .row2{grid-template-columns:1fr}
+  .hdr{flex-direction:column;gap:.75rem}
+  .hdr-title{font-size:19px}
+  .ck{min-width:55px;font-size:8px}
+  .cn{font-size:11px}
+  .cbw{width:40px}
+  .mc-val{font-size:17px}
+}
+@media print{
+  body{background:#fff;padding:.5rem;font-size:11px;color:#000}
+  .print-btn,.tleg,.cs{display:none!important}
+  .panel{display:none!important}
+  .accent,.mc::before,.badge,.ta,.tl,.ck,.pk,.cb,.zb,.hdr-pill{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .print-section{display:block!important}
+  .no-print{display:none!important}
+  .card{border:1px solid #ccc;break-inside:avoid}
+  .row2{grid-template-columns:1fr 1fr}
+}
+.print-section{display:none}
+.pct{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:1rem;break-inside:avoid;table-layout:fixed}
+.pct caption{text-align:left;font-size:11px;font-weight:600;color:#1b5e35;padding:5px 0 3px;border-bottom:2px solid #a8d5b8;display:table-caption}
+.pct th{background:#e8f5ee;color:#1b5e35;font-weight:600;padding:3px 5px;border:0.5px solid #a8d5b8;font-size:9px;text-transform:uppercase}
+.pct th.tc,.pct td.tc{text-align:center}
+.pct td{padding:3px 5px;border:0.5px solid #cde0d4;color:#1a2e1f}
+.pg-break{page-break-before:always}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hdr">
+  <div>
+    <div class="hdr-eyebrow">Zona 2 · Ecatepec</div>
+    <div class="hdr-title">Asistencia <span>26 Abril 2026</span></div>
+    <div class="hdr-pills">
+      <span class="hdr-pill pill-g">457 asistentes</span>
+      <span class="hdr-pill pill-o">36 iglesias</span>
+    </div>
+    <div class="hdr-meta">
+      <span>Inicio: 14:00 Hrs</span>
+      <span style="color:var(--gb)">·</span>
+      <span>Fin: 18:00 Hrs</span>
+    </div>
+  </div>
+  <button class="print-btn" onclick="window.print()">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Imprimir / PDF
+  </button>
+</div>
+<div class="accent"></div>
+
+<div class="metrics">
+  <div class="mc"><div class="mc-lbl">Total asistentes</div><div class="mc-val">457</div><div class="mc-sub">Registros únicos</div></div>
+  <div class="mc"><div class="mc-lbl">Iglesias</div><div class="mc-val">36</div><div class="mc-sub">Congregaciones</div></div>
+  <div class="mc"><div class="mc-lbl">Promedio de entrada</div><div class="mc-val">14:31 <span class="mc-unit">Hrs</span></div><div class="mc-sub">hora promedio</div></div>
+  <div class="mc"><div class="mc-lbl">Bloque pico</div><div class="mc-val">14:30 <span class="mc-unit">Hrs</span></div><div class="mc-sub">80 personas en ese bloque</div></div>
+</div>
+
+<div class="card">
+  <div class="ct">Entradas por bloque de 10 minutos</div>
+  <div class="cs">Barras = cantidad por bloque · Línea dorada = tendencia suavizada</div>
+  <div class="zones">
+    <span class="zb" style="background:#e8f5ee;color:#1b5e35">&#9632; Puntual &lt;15:00 Hrs</span>
+    <span class="zb" style="background:#fff8e6;color:#b7770d">&#9632; Retardo 15:00–16:00 Hrs</span>
+    <span class="zb" style="background:#fff0f0;color:#c0392b">&#9632; Tarde &gt;16:00 Hrs</span>
+  </div>
+  <div class="leg">
+    <span><span class="lsq" style="background:#2e7d52"></span>Entradas por bloque</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="lln" style="background:#c9a227"></span>Tendencia</span>
+  </div>
+  <div style="position:relative;height:220px"><canvas id="c1"></canvas></div>
+</div>
+
+<div class="row2">
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Bloques de 30 minutos</div>
+    <div class="cs">Total de personas por período</div>
+    <div style="position:relative;height:190px"><canvas id="c2"></canvas></div>
+  </div>
+  <div class="card" style="margin-bottom:0">
+    <div class="ct">Integrantes</div>
+    <div class="cs">Distribución por grado</div>
+    <div class="leg"><span><span class="lsq" style="background:#2e7d52"></span>Coro 421</span> <span><span class="lsq" style="background:#c9a227"></span>Miembro 36</span></div>
+    <div style="position:relative;height:155px"><canvas id="c3"></canvas></div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:.9rem">
+  <div class="ct">Iglesias participantes</div>
+  <div class="cs no-print">Clic en una iglesia para ver sus asistentes</div>
+  <div class="tleg no-print">
+    <span style="display:flex;align-items:center;gap:4px"><span class="ta" style="font-size:9px;padding:1px 5px"><span class="dot da"></span>Retardo</span>después de las 15:00 Hrs</span>
+    <span style="display:flex;align-items:center;gap:4px"><span class="tl" style="font-size:9px;padding:1px 5px"><span class="dot dl"></span>Tarde</span>después de las 16:00 Hrs</span>
+  </div>
+  <div class="cl" id="churchList"></div>
+  <div class="panel" id="memberPanel">
+    <div class="ph"><h3 id="panelTitle"></h3><span class="pk" id="panelKey"></span><span class="pc" id="panelSub"></span></div>
+    <table class="pt">
+      <colgroup><col style="width:28px"><col><col style="width:72px"><col style="width:72px"></colgroup>
+      <thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead>
+      <tbody id="personBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="print-section pg-break" id="printSection">
+  <div style="margin-bottom:.75rem">
+    <div style="font-size:13px;font-weight:700;color:#1b5e35;margin-bottom:2px">Detalle de asistentes por iglesia</div>
+    <div style="font-size:10px;color:#5a7264">Asistencia · 26 de abril 2026 · Zona 2 Ecatepec · Inicio: 14:00 Hrs · Fin: 18:00 Hrs</div>
+  </div>
+  <div id="printChurches"></div>
+</div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const DATA=[{"iglesia":"NAUCALPAN - AMPL. BENITO JUAREZ","clave":"MXMX-11","count":40,"personas":[{"nombre":"Carlos Emilio Palma Rivera","hora":"13:25","grado":"Coro"},{"nombre":"Marisol Madaí Ramírez Barajas","hora":"13:26","grado":"Miembro"},{"nombre":"Samay Medina Martinez","hora":"13:28","grado":"Coro"},{"nombre":"Abisua Jocabed Mellin Quiroz","hora":"13:29","grado":"Coro"},{"nombre":"Maricruz Ojeda Castro","hora":"13:29","grado":"Miembro"},{"nombre":"Bitia Jahmaí Mellín Hernández","hora":"13:29","grado":"Miembro"},{"nombre":"Carlos Michelle Romero Martinez","hora":"13:29","grado":"Coro"},{"nombre":"Miguel Raul Romero Vazquez","hora":"13:29","grado":"Coro"},{"nombre":"José Eduardo Dominguez Dolores","hora":"13:30","grado":"Miembro"},{"nombre":"Montserrat Belmont Jiménez","hora":"13:30","grado":"Miembro"},{"nombre":"Maria Del Carmen Leon Navarro","hora":"13:31","grado":"Coro"},{"nombre":"Ada Martínez León","hora":"13:31","grado":"Coro"},{"nombre":"Jose Alberto Rodríguez Cirilo","hora":"13:31","grado":"Coro"},{"nombre":"Abigail Calixto Rodríguez","hora":"13:31","grado":"Coro"},{"nombre":"Edreí Omar Martínez León","hora":"13:34","grado":"Coro"},{"nombre":"Mara Rachell Martinez Linares","hora":"13:35","grado":"Coro"},{"nombre":"Fernando Alpizar Vicente","hora":"13:35","grado":"Coro"},{"nombre":"Héctor Martínez Barrón","hora":"13:35","grado":"Coro"},{"nombre":"Maritza Martínez Robles","hora":"13:37","grado":"Coro"},{"nombre":"Anallely Areli Reyes Rafael","hora":"13:38","grado":"Coro"},{"nombre":"Sonia Clara Rafael Díaz","hora":"13:38","grado":"Miembro"},{"nombre":"María Guadalupe Ramirez Aguilar","hora":"13:38","grado":"Coro"},{"nombre":"Angélica Velasco Ramirez","hora":"13:38","grado":"Coro"},{"nombre":"Luis Daniel Mendoza Pérez","hora":"13:40","grado":"Miembro"},{"nombre":"Héctor Abraham Martínez León","hora":"13:46","grado":"Coro"},{"nombre":"Eliezer Jozabed Mellín Hernández","hora":"13:47","grado":"Miembro"},{"nombre":"Jaziel Abisai Martínez González","hora":"13:47","grado":"Miembro"},{"nombre":"Josue Yael Velasco Rivera","hora":"13:48","grado":"Coro"},{"nombre":"Samuel Josue Artega Segundo","hora":"13:49","grado":"Coro"},{"nombre":"Jenny Melissa Guzman Salazar","hora":"13:49","grado":"Coro"},{"nombre":"Emmanuel Jassai De Jesús Marínez","hora":"13:49","grado":"Miembro"},{"nombre":"Vanessa Ninel Cortes Guzmán","hora":"13:49","grado":"Coro"},{"nombre":"Saul Adoraim De Jesús Linarte","hora":"13:50","grado":"Coro"},{"nombre":"Zury Rebeca De Jesús Martínez","hora":"13:50","grado":"Coro"},{"nombre":"Nereyda Linarte Hernández","hora":"13:57","grado":"Coro"},{"nombre":"Princesa González Jerónimo","hora":"13:57","grado":"Miembro"},{"nombre":"Lorena Azucena González Jerónimo","hora":"13:57","grado":"Miembro"},{"nombre":"Rosalba De Jesús López","hora":"13:58","grado":"Miembro"},{"nombre":"Imelde Linarte González","hora":"13:58","grado":"Coro"},{"nombre":"Cesar Linarte Linarte","hora":"14:11","grado":"Miembro"}]},{"iglesia":"ECATEPEC - JARDINES DE MORELOS","clave":"MXMX-34","count":35,"personas":[{"nombre":"Lizeth Cruz Gazca","hora":"13:58","grado":"Coro"},{"nombre":"Karla Madai Quiroz Camargo","hora":"13:58","grado":"Coro"},{"nombre":"Mareli Jasubi Rojas Cruz","hora":"14:08","grado":"Coro"},{"nombre":"Marcelina Cruz Medina","hora":"14:09","grado":"Coro"},{"nombre":"Edrey Benjamín Sotelo Cruz","hora":"14:09","grado":"Coro"},{"nombre":"Leslie Rojas Cruz","hora":"14:09","grado":"Coro"},{"nombre":"Keila Madaí García Mayen","hora":"14:10","grado":"Coro"},{"nombre":"Elisa Yaretzi García Mayén","hora":"14:10","grado":"Coro"},{"nombre":"Brígida Cornejo Corona","hora":"14:11","grado":"Coro"},{"nombre":"Eliaquim García Cornejo","hora":"14:11","grado":"Coro"},{"nombre":"Egla Naarahi Rojas Cruz","hora":"14:11","grado":"Coro"},{"nombre":"Rebeca Castillo González","hora":"14:11","grado":"Coro"},{"nombre":"Valentina Sánchez Labra","hora":"14:11","grado":"Coro"},{"nombre":"Michael Gabriel Cruz Torres","hora":"14:12","grado":"Coro"},{"nombre":"Nara Raquel Méndez Ávila","hora":"14:14","grado":"Coro"},{"nombre":"Ruth Abigail Gonzalez Granillo","hora":"14:17","grado":"Coro"},{"nombre":"Jair Uziel Hernandez Arellano","hora":"14:17","grado":"Coro"},{"nombre":"Daniel Silva López","hora":"14:18","grado":"Coro"},{"nombre":"Rut Sadai González Cipriano","hora":"14:21","grado":"Coro"},{"nombre":"Dana Zareth Gonzalez Granillo","hora":"14:22","grado":"Coro"},{"nombre":"Jafet Cruz Gazca","hora":"14:22","grado":"Coro"},{"nombre":"Priscila Betsabe Moreno Vial","hora":"14:23","grado":"Coro"},{"nombre":"Alicia Torres Serrato","hora":"14:23","grado":"Coro"},{"nombre":"Alejandra Isabel Barrera Lozano","hora":"14:23","grado":"Coro"},{"nombre":"Hernandez Villatoro Christopher David","hora":"14:25","grado":"Coro"},{"nombre":"Estrella Fuentes Santiago","hora":"14:27","grado":"Coro"},{"nombre":"Priscila Vial Valdez","hora":"14:27","grado":"Coro"},{"nombre":"Noemí Flores Posadas","hora":"14:28","grado":"Coro"},{"nombre":"Jehu Clemente Balón","hora":"14:30","grado":"Coro"},{"nombre":"Samuel Brito Galicia","hora":"14:30","grado":"Miembro"},{"nombre":"Maricela Ramiro Mora","hora":"14:53","grado":"Coro"},{"nombre":"Uziel Hibraim Gonzalez Granillo","hora":"15:06","grado":"Coro"},{"nombre":"Sanchez Ramiro Equer Mizraim","hora":"15:09","grado":"Coro"},{"nombre":"Rut Flores Posadas","hora":"15:37","grado":"Coro"},{"nombre":"Ruben Granillo Lopez","hora":"16:05","grado":"Coro"}]},{"iglesia":"ECATEPEC - GRANJAS VALLE DE GPE.","clave":"MXMX-08","count":27,"personas":[{"nombre":"Estefania Anguiano Camargo","hora":"13:25","grado":"Coro"},{"nombre":"Víctor Manuel López Sántiz","hora":"13:25","grado":"Coro"},{"nombre":"Eunice Madai Hilario Ramírez","hora":"14:19","grado":"Coro"},{"nombre":"Ismerai Ramírez Cuevas","hora":"14:20","grado":"Coro"},{"nombre":"Jonathan Gamaliel Gasca Loria","hora":"14:20","grado":"Coro"},{"nombre":"Abigail Betsabé Alvarez López","hora":"14:28","grado":"Coro"},{"nombre":"Eliezer Álvarez Iturbide","hora":"14:29","grado":"Coro"},{"nombre":"Uziel Eliezer Alvarez García","hora":"14:30","grado":"Coro"},{"nombre":"Angeles Monserrat Delgado Barrios","hora":"14:34","grado":"Coro"},{"nombre":"Betsaida Mariam Alvarez Mercado","hora":"14:34","grado":"Coro"},{"nombre":"Ruth Abigail Hilario Ramírez","hora":"14:34","grado":"Coro"},{"nombre":"Gabriel Gasca Loria","hora":"14:34","grado":"Coro"},{"nombre":"Dana Madai Gazca Loria","hora":"14:35","grado":"Coro"},{"nombre":"Ezequiel Joaquin Santibañez Camargo","hora":"14:35","grado":"Coro"},{"nombre":"Suri Madai Cruz García","hora":"14:35","grado":"Coro"},{"nombre":"Hever Aron Lopez Estrada","hora":"14:36","grado":"Coro"},{"nombre":"Maria Magdalena De Jesús López Acosta","hora":"14:38","grado":"Coro"},{"nombre":"Georgina Camargo Álvarez","hora":"14:40","grado":"Coro"},{"nombre":"Daniel Alvarez Monterrosas","hora":"14:49","grado":"Coro"},{"nombre":"Joab Asael Pérez Lara","hora":"14:50","grado":"Coro"},{"nombre":"Erika Monterrosas Marin","hora":"14:51","grado":"Coro"},{"nombre":"Sara Márquez Mondragón","hora":"14:52","grado":"Coro"},{"nombre":"Cisneros De Jesús Joaquin","hora":"15:01","grado":"Coro"},{"nombre":"Ana Lidia Cisneros De Jesús","hora":"15:03","grado":"Coro"},{"nombre":"Francisco Javier Roque Ibañez","hora":"15:04","grado":"Coro"},{"nombre":"Zurisadaí Cisneros De Jesús","hora":"15:06","grado":"Coro"},{"nombre":"Elizabeth Márquez Mondragón","hora":"15:09","grado":"Coro"}]},{"iglesia":"ECATEPEC - SAN AGUSTIN","clave":"MXMX-07","count":25,"personas":[{"nombre":"Sara Elizabeth Martínez Licona","hora":"14:19","grado":"Coro"},{"nombre":"Ana Rachel Martínez Licona","hora":"14:19","grado":"Coro"},{"nombre":"Manuela Licona López","hora":"14:20","grado":"Coro"},{"nombre":"Viridiana Huerta Bernal","hora":"14:34","grado":"Coro"},{"nombre":"Blanca Margarita Barajas Islas","hora":"14:41","grado":"Coro"},{"nombre":"Oswaldo Jose Robles Reyes","hora":"14:45","grado":"Miembro"},{"nombre":"Naason Itai Granillo Montes","hora":"14:48","grado":"Coro"},{"nombre":"Egla Abisag León López","hora":"14:48","grado":"Coro"},{"nombre":"Berenice Lizeth Castillo Flores","hora":"14:50","grado":"Miembro"},{"nombre":"Tehina Madai Avila Cruz","hora":"14:51","grado":"Coro"},{"nombre":"Ricardo Salazar Jimenez","hora":"14:51","grado":"Coro"},{"nombre":"Adriana Cruz Moreno","hora":"14:51","grado":"Coro"},{"nombre":"Genoveva Villa Hernández","hora":"14:51","grado":"Coro"},{"nombre":"Minerva Pascual Ángeles","hora":"14:52","grado":"Coro"},{"nombre":"Marisela Rodríguez Cuevas","hora":"14:53","grado":"Coro"},{"nombre":"Alfio Emmanuel Robles Reyes","hora":"14:53","grado":"Coro"},{"nombre":"Natalia Bernal Hernandez","hora":"14:55","grado":"Coro"},{"nombre":"Felipa Bernal Hernandez","hora":"15:00","grado":"Coro"},{"nombre":"Resendiz Leon Martín Alexis","hora":"15:00","grado":"Coro"},{"nombre":"Gessuri Sareth Hidalgo Ojeda","hora":"15:01","grado":"Coro"},{"nombre":"Judith Gonzalez Cardenas","hora":"15:02","grado":"Miembro"},{"nombre":"Dolores Jaimes Ramirez","hora":"15:08","grado":"Coro"},{"nombre":"Magali Jaimes Ramiro","hora":"15:12","grado":"Coro"},{"nombre":"Carmen Tovar Castillo","hora":"16:05","grado":"Coro"},{"nombre":"Tito Olvera Santiago","hora":"16:09","grado":"Coro"}]},{"iglesia":"VILLA NICOLAS ROMERO","clave":"MXMX-22","count":22,"personas":[{"nombre":"Marcela Hernández Hernández","hora":"13:21","grado":"Coro"},{"nombre":"Libni Samaí Bernal Ramirez","hora":"13:23","grado":"Miembro"},{"nombre":"Rocio Pérez Cruz","hora":"13:24","grado":"Coro"},{"nombre":"Ester Madai Rosales Esparza","hora":"13:24","grado":"Coro"},{"nombre":"Elisa Rosales Esparza","hora":"13:24","grado":"Coro"},{"nombre":"Eunice Esparza Mata","hora":"13:24","grado":"Coro"},{"nombre":"Sommer Ziletay Medina Gonzalez","hora":"13:26","grado":"Coro"},{"nombre":"Leamsi Ishibolet Medina González","hora":"13:28","grado":"Coro"},{"nombre":"Alejandra Figueroa Altamirano","hora":"13:28","grado":"Coro"},{"nombre":"Camila Hadai Levario Santos","hora":"13:29","grado":"Coro"},{"nombre":"Judith Medina Peña","hora":"13:29","grado":"Coro"},{"nombre":"Jahaziel Gómez Rosales","hora":"13:37","grado":"Coro"},{"nombre":"Rahel Pérez Mirafuentes","hora":"13:47","grado":"Coro"},{"nombre":"Daniel Perez Gonzalez","hora":"13:47","grado":"Coro"},{"nombre":"Merab Romero Mireles","hora":"13:47","grado":"Coro"},{"nombre":"Jezreel Zaragoza Romero","hora":"13:49","grado":"Coro"},{"nombre":"Graciela Cruz Cruz","hora":"14:21","grado":"Miembro"},{"nombre":"Olga Mendoza Cruz","hora":"14:25","grado":"Coro"},{"nombre":"Crispina Valeria Ruiz Ruiz","hora":"14:31","grado":"Coro"},{"nombre":"Gabriel Rosales Sánchez","hora":"14:32","grado":"Coro"},{"nombre":"Gabriel Adoraim Rosales Esparza","hora":"14:32","grado":"Coro"},{"nombre":"Consuelo Martínez","hora":"16:38","grado":"Coro"}]},{"iglesia":"ECATEPEC - CD. CUAUHTEMOC","clave":"MXMX-28","count":20,"personas":[{"nombre":"Juana Noemi Juárez Vázquez","hora":"14:09","grado":"Coro"},{"nombre":"Vicente Mendoza Angelica","hora":"14:18","grado":"Coro"},{"nombre":"Lidia Jozabed Juarez Cruz","hora":"14:18","grado":"Coro"},{"nombre":"Salma Samai Cruz Hernandez","hora":"14:24","grado":"Coro"},{"nombre":"Cecilio Hernandez Gloria","hora":"14:26","grado":"Coro"},{"nombre":"Keila Jazmin Huerta Ramirez","hora":"14:28","grado":"Coro"},{"nombre":"Miguel Josue Cruz Cecilio","hora":"14:31","grado":"Coro"},{"nombre":"Karen Estrella Sosa Arenas","hora":"14:31","grado":"Coro"},{"nombre":"Claudia Elizabeth Alvarez Oñate","hora":"14:32","grado":"Coro"},{"nombre":"Yelitza Yasmin Hernández Bello","hora":"14:33","grado":"Coro"},{"nombre":"Isaac Efrain Rosas Mendoza","hora":"14:34","grado":"Coro"},{"nombre":"Sara Zuleima Mendoza Monroy.","hora":"14:34","grado":"Coro"},{"nombre":"Johana Ivatte Gutierrez Luna","hora":"14:35","grado":"Coro"},{"nombre":"Huerta Jiménez Josué","hora":"14:35","grado":"Coro"},{"nombre":"Josue Mendoza Severiano","hora":"14:35","grado":"Coro"},{"nombre":"Elizabeth Cruz Cecilio","hora":"14:35","grado":"Coro"},{"nombre":"Nazon Israel De La Rosa Vargas","hora":"14:38","grado":"Coro"},{"nombre":"Jehu Adoraim Cruz Hernández","hora":"14:38","grado":"Coro"},{"nombre":"Santa Carolina Estrada Arenas","hora":"14:40","grado":"Coro"},{"nombre":"Bethsua Janaai Garcia Beltran","hora":"14:40","grado":"Coro"}]},{"iglesia":"NEXTLALPAN - FRACC.17","clave":"MXMX-89","count":19,"personas":[{"nombre":"Amsi Naarai Hernández Morelos","hora":"14:18","grado":"Coro"},{"nombre":"Lidia Chacón Beltrán","hora":"14:24","grado":"Coro"},{"nombre":"Naason David Fragoso López","hora":"14:24","grado":"Coro"},{"nombre":"Juana Julieta Rodriguez Perez","hora":"14:28","grado":"Miembro"},{"nombre":"Ady Jehudit Mendoza Morales","hora":"14:31","grado":"Coro"},{"nombre":"Abinadab Gonzalez Sanchez","hora":"14:31","grado":"Miembro"},{"nombre":"Asael Lorenzo Bautista","hora":"14:31","grado":"Miembro"},{"nombre":"Gadiel Adlai Mendoza Morales","hora":"14:31","grado":"Coro"},{"nombre":"Deidally Zoribel Silva García","hora":"14:32","grado":"Coro"},{"nombre":"Sunem Sinai Lorenzo Bautista","hora":"14:32","grado":"Coro"},{"nombre":"Ruamis Abisua Mendoza Morales","hora":"14:32","grado":"Coro"},{"nombre":"Elena Rios Ruiz","hora":"14:33","grado":"Coro"},{"nombre":"Abisai Josafat Aguilar Ramos","hora":"14:37","grado":"Coro"},{"nombre":"Samuel Fuentes González","hora":"14:40","grado":"Coro"},{"nombre":"Imelda Huerta Guzmán","hora":"14:40","grado":"Coro"},{"nombre":"Amsi Samai Castillo Cisneros","hora":"14:44","grado":"Coro"},{"nombre":"Tania Jennifer Ramos Ríos","hora":"14:59","grado":"Coro"},{"nombre":"Brayan Aguilar Ramos","hora":"15:00","grado":"Coro"},{"nombre":"Juan Adolfo Toral Fragoso","hora":"16:42","grado":"Coro"}]},{"iglesia":"LIBERTAD","clave":"MXMX-103","count":19,"personas":[{"nombre":"Marhai Pérez Uribe","hora":"14:19","grado":"Coro"},{"nombre":"Jael Hareli Perez Gonzalez","hora":"14:20","grado":"Coro"},{"nombre":"Bisrai De La Cruz Avelino","hora":"14:23","grado":"Coro"},{"nombre":"Marai Del Pilar Monroy Salas","hora":"14:23","grado":"Coro"},{"nombre":"Jonatan Cortés De La Cruz","hora":"14:25","grado":"Coro"},{"nombre":"Yoselin Yathsiri Juárez González","hora":"14:26","grado":"Coro"},{"nombre":"Teresa Itzel Herrera Monroy","hora":"14:26","grado":"Coro"},{"nombre":"Fernanda Belen González Jiménez","hora":"14:27","grado":"Coro"},{"nombre":"Ariadne González Jiménez","hora":"14:27","grado":"Coro"},{"nombre":"Berenice Abigail Sánchez Rodríguez","hora":"14:31","grado":"Coro"},{"nombre":"Libni Betsai Sánchez Pérez","hora":"14:31","grado":"Coro"},{"nombre":"Agustín Sánchez Carlos","hora":"14:31","grado":"Coro"},{"nombre":"Lorenzo Hernández Cesar Neftalí","hora":"14:33","grado":"Coro"},{"nombre":"Lorenzo Hernández Heber Uziel","hora":"14:34","grado":"Coro"},{"nombre":"David Rodríguez Muñoz","hora":"15:01","grado":"Coro"},{"nombre":"Maria Guadalupe Villaseñor Resendis","hora":"15:14","grado":"Coro"},{"nombre":"Jerzon Julian Mendez Mahecha","hora":"15:40","grado":"Coro"},{"nombre":"Aaron Geovanni Ramirez Sánchez","hora":"17:21","grado":"Coro"},{"nombre":"Santiago Asael Ramírez Sanchez","hora":"17:21","grado":"Coro"}]},{"iglesia":"SAN MARTIN TECAMAC","clave":"MXMX-16","count":18,"personas":[{"nombre":"Eunice Medel Rodriguez","hora":"13:35","grado":"Coro"},{"nombre":"Rebeca Rodriguez Dominguez","hora":"13:36","grado":"Coro"},{"nombre":"Salmai Segundo Cruz","hora":"13:37","grado":"Coro"},{"nombre":"Joab Moya Morales","hora":"14:59","grado":"Coro"},{"nombre":"Magdiel Moya Chávez","hora":"15:00","grado":"Coro"},{"nombre":"Angélica Elizabeth Moya Morales","hora":"15:02","grado":"Coro"},{"nombre":"Elizabeth Castro Rosas","hora":"15:04","grado":"Coro"},{"nombre":"María Del Carmen Moya González","hora":"15:05","grado":"Coro"},{"nombre":"Alexis Daniel Rico Hernandez","hora":"15:06","grado":"Coro"},{"nombre":"Betzabeth Vidal Hilario","hora":"15:06","grado":"Coro"},{"nombre":"Alexa Anahí Sanchez Vidal","hora":"15:07","grado":"Coro"},{"nombre":"Carlos Ramón Jaime","hora":"15:07","grado":"Coro"},{"nombre":"Magdiel Levi Moya Morales","hora":"15:07","grado":"Coro"},{"nombre":"Jehu David Castro Rosas","hora":"15:07","grado":"Coro"},{"nombre":"Arenas Rosas Naara Heldai","hora":"15:07","grado":"Coro"},{"nombre":"Oralia Camacho Martínez","hora":"15:07","grado":"Coro"},{"nombre":"José David Rosas Cuenca","hora":"15:08","grado":"Coro"},{"nombre":"Rosas Ramón Eliezer Jazak","hora":"15:10","grado":"Coro"}]},{"iglesia":"NICOLAS ROMERO - JIMENEZ CANTU","clave":"MXMX-43","count":17,"personas":[{"nombre":"Zoar Elizabeth Lupercio Miranda","hora":"13:51","grado":"Coro"},{"nombre":"Eluzai Pérez Lupercio","hora":"13:51","grado":"Coro"},{"nombre":"Betzua Perez Lupercio","hora":"13:51","grado":"Coro"},{"nombre":"Daniel Camacho Navas","hora":"14:18","grado":"Coro"},{"nombre":"Martha Laura Najera Camacho","hora":"14:18","grado":"Coro"},{"nombre":"Karla Abigail Huerta Aguilar","hora":"14:21","grado":"Coro"},{"nombre":"Ruben Olalde Camacho","hora":"14:25","grado":"Coro"},{"nombre":"Camacho Ortíz Amsi Merari","hora":"14:29","grado":"Coro"},{"nombre":"Camacho Vázquez Génesis Jatzibet","hora":"14:29","grado":"Coro"},{"nombre":"Camacho Pérez Cesia Berenice","hora":"14:29","grado":"Coro"},{"nombre":"Abigail Pérez Pérez","hora":"14:29","grado":"Coro"},{"nombre":"Javier Castro Salgado","hora":"14:30","grado":"Coro"},{"nombre":"Jacob Abimael Mendoza Jaimes","hora":"14:42","grado":"Coro"},{"nombre":"Damaris Rodríguez Ramírez","hora":"14:42","grado":"Coro"},{"nombre":"Zabdi Melo Arana","hora":"15:05","grado":"Coro"},{"nombre":"Gerson Joel Camacho Navas","hora":"15:05","grado":"Coro"},{"nombre":"Miriam Marlene Huerta Aguilar","hora":"16:38","grado":"Coro"}]},{"iglesia":"ECATEPEC - COL. LOS BORDOS","clave":"MXMX-29","count":16,"personas":[{"nombre":"Juda Bezaleel Mayorga Cadena","hora":"14:44","grado":"Coro"},{"nombre":"Juan Segura Gómez","hora":"14:47","grado":"Coro"},{"nombre":"Naason Segura Gómez","hora":"14:47","grado":"Coro"},{"nombre":"Asher Azriel Arellano Lopez","hora":"14:47","grado":"Coro"},{"nombre":"Levi Azael López Ramírez","hora":"14:47","grado":"Coro"},{"nombre":"Zabdiel Atlai López Ramirez","hora":"14:48","grado":"Coro"},{"nombre":"Ana Beatriz López Chávez","hora":"14:48","grado":"Coro"},{"nombre":"Adriana Medina González","hora":"14:48","grado":"Coro"},{"nombre":"Betzabe Santana Ramírez","hora":"14:48","grado":"Coro"},{"nombre":"Morales Santana Ana Rahel","hora":"14:49","grado":"Coro"},{"nombre":"Mónica Torres Ramirez","hora":"14:50","grado":"Coro"},{"nombre":"Eulalia Pérez Mendez","hora":"14:51","grado":"Coro"},{"nombre":"Elisama Elisabeth reyes reyes","hora":"14:52","grado":"Coro"},{"nombre":"Elsa Norma Martinez Palacios","hora":"14:53","grado":"Coro"},{"nombre":"María Teresa Gutiérrez Hernández","hora":"14:54","grado":"Coro"},{"nombre":"Absalón López Echeverría","hora":"14:57","grado":"Coro"}]},{"iglesia":"TLALNEPANTLA - ACUEDUCTO TENAYUCA","clave":"MXMX-20","count":15,"personas":[{"nombre":"María Elena Piña Castillo","hora":"13:14","grado":"Coro"},{"nombre":"Rafael Hernandez Cruz","hora":"13:14","grado":"Coro"},{"nombre":"Jesus Sandoval Funes","hora":"13:15","grado":"Coro"},{"nombre":"Jahaziel González Ortega","hora":"13:15","grado":"Coro"},{"nombre":"Etni Lobillo Arteaga","hora":"13:15","grado":"Coro"},{"nombre":"Ruth Sofía Sanchez Sanchez","hora":"13:15","grado":"Coro"},{"nombre":"Billhan Lobillo Arteaga","hora":"13:15","grado":"Coro"},{"nombre":"Sua Husim De Jesús Navarrete","hora":"13:16","grado":"Coro"},{"nombre":"Amsi Sunem González Ramírez","hora":"13:32","grado":"Coro"},{"nombre":"Abigail Ramirez Santiago","hora":"13:34","grado":"Coro"},{"nombre":"Esli Merab García Martínez","hora":"14:41","grado":"Coro"},{"nombre":"Musi Edrei De Jesús Martinez","hora":"14:45","grado":"Coro"},{"nombre":"Sarai Martinez Lugo","hora":"14:49","grado":"Coro"},{"nombre":"Wendy Mishell García Duran","hora":"16:12","grado":"Coro"},{"nombre":"Fernanda Saraí García Durán","hora":"16:13","grado":"Coro"}]},{"iglesia":"SAN JUAN TEOTIHUACAN","clave":"MXMX-14","count":15,"personas":[{"nombre":"Tamar Almavet Gonzalez Abrajan","hora":"14:30","grado":"Coro"},{"nombre":"Adriana Adlai Nava Encarnación","hora":"14:31","grado":"Coro"},{"nombre":"Isaac Vargas Leyva","hora":"14:31","grado":"Coro"},{"nombre":"Betsabe Peralta Hernández","hora":"14:31","grado":"Coro"},{"nombre":"Regina Islas Martinez","hora":"14:31","grado":"Coro"},{"nombre":"Fredy Isai Perez Suatez","hora":"14:34","grado":"Coro"},{"nombre":"Inés Ramirez Ortiz","hora":"14:39","grado":"Coro"},{"nombre":"Elisa Damaris Figueroa Ramírez","hora":"14:39","grado":"Coro"},{"nombre":"Horeb Amisadai Cruz Islas","hora":"14:53","grado":"Coro"},{"nombre":"Isaac Eliadcin Martinez Rodriguez","hora":"14:55","grado":"Coro"},{"nombre":"Hephzi Bethel Fernández Zaragoza","hora":"15:12","grado":"Coro"},{"nombre":"Isai Hernández Valencia","hora":"16:19","grado":"Coro"},{"nombre":"Marthina Esther Elizabeth Salinas Silva","hora":"16:20","grado":"Coro"},{"nombre":"Milca Jezreel Nebaí Salinas Silva","hora":"16:21","grado":"Coro"},{"nombre":"Mariela Concepción Silva Sosa","hora":"16:21","grado":"Coro"}]},{"iglesia":"HUEHUETOCA","clave":"MXMX-81","count":14,"personas":[{"nombre":"Emanuel Mendez Beristain","hora":"14:11","grado":"Miembro"},{"nombre":"Amsi Galilea Ruiz Perez","hora":"14:11","grado":"Coro"},{"nombre":"Monica Valdez Rodriguez","hora":"14:12","grado":"Miembro"},{"nombre":"Salma Aridai Ruiz Perez","hora":"14:12","grado":"Coro"},{"nombre":"Marlen Melo Rojas","hora":"14:13","grado":"Miembro"},{"nombre":"Dana Valencia Landero","hora":"14:14","grado":"Coro"},{"nombre":"Blanca Raceli Perez Cruz","hora":"14:15","grado":"Coro"},{"nombre":"Mariia Isabel Melo Rojas","hora":"14:16","grado":"Coro"},{"nombre":"Janet Betbiraí Ruiz Pérez","hora":"14:17","grado":"Coro"},{"nombre":"David Abimael Valdez Rodriguez","hora":"14:18","grado":"Coro"},{"nombre":"Elisua Arenas Cruz","hora":"14:21","grado":"Coro"},{"nombre":"Valeria Sanchez Losada","hora":"14:22","grado":"Miembro"},{"nombre":"Abdiel Marcial Romero","hora":"14:24","grado":"Coro"},{"nombre":"Abisai Bravo De Miguel","hora":"15:08","grado":"Coro"}]},{"iglesia":"ECATEPEC - ALFREDO DEL MAZO","clave":"MXMX-46","count":14,"personas":[{"nombre":"Judith Masvani Alvarez García","hora":"14:14","grado":"Miembro"},{"nombre":"Francisco Azael Ramírez Alvarez","hora":"14:56","grado":"Coro"},{"nombre":"Abisai Vargas Gonzáles","hora":"14:57","grado":"Coro"},{"nombre":"Vargas González Benjamín","hora":"14:59","grado":"Coro"},{"nombre":"Beatriz Resendiz Ramirez","hora":"15:00","grado":"Coro"},{"nombre":"Santiago Aguilar Sara","hora":"15:00","grado":"Coro"},{"nombre":"María Esther Reséndiz Ramírez","hora":"15:00","grado":"Coro"},{"nombre":"Salma Belem Santiago Aguilar","hora":"15:00","grado":"Coro"},{"nombre":"Gama Hernandez Josue Abisai","hora":"15:01","grado":"Coro"},{"nombre":"Noe Mizraim Vargas González","hora":"15:03","grado":"Coro"},{"nombre":"Zabdi Drucila Navarro García","hora":"15:04","grado":"Coro"},{"nombre":"Noemí Gama Hernández","hora":"15:04","grado":"Coro"},{"nombre":"Libni Madai Vargas Navarro","hora":"15:05","grado":"Coro"},{"nombre":"Karen Gama Hernandez","hora":"15:17","grado":"Coro"}]},{"iglesia":"ECATEPEC - PRIZO NO. 1","clave":"MXMX-06","count":13,"personas":[{"nombre":"Edrei Aminadab Zárate Arellano","hora":"15:10","grado":"Coro"},{"nombre":"Jehieli Salmai Zarate Arellano","hora":"15:37","grado":"Coro"},{"nombre":"Karen Solís Toto","hora":"15:37","grado":"Coro"},{"nombre":"Maressa Yael Álvarez Martínez","hora":"15:38","grado":"Coro"},{"nombre":"Edgar Valentín Solís Palafox","hora":"15:38","grado":"Coro"},{"nombre":"Edgar Solis Alvarez","hora":"15:38","grado":"Miembro"},{"nombre":"Juan Gerardo Alvarez Díaz","hora":"15:38","grado":"Coro"},{"nombre":"Consuelo Díaz Zaragoza","hora":"15:38","grado":"Coro"},{"nombre":"Elisua Naharai Pascual Garcia","hora":"15:39","grado":"Coro"},{"nombre":"Gerson Israel Álvarez Martínez","hora":"15:39","grado":"Coro"},{"nombre":"Rosario Raquel Zárate Guadarrama","hora":"15:39","grado":"Coro"},{"nombre":"Berenice Martínez Beltrán","hora":"15:39","grado":"Coro"},{"nombre":"Esli Janai Nava Gaytán","hora":"15:40","grado":"Coro"}]},{"iglesia":"CUAUTITLAN - LAZARO CARDENAS","clave":"MXMX-32","count":12,"personas":[{"nombre":"Lia Eldahi Aivar López","hora":"13:46","grado":"Coro"},{"nombre":"Bisbirai de la Cruz Zochiquixtle","hora":"14:03","grado":"Coro"},{"nombre":"Debora Rebeca Nava de la Cruz","hora":"14:04","grado":"Coro"},{"nombre":"Heladio De la Cruz Amador","hora":"14:09","grado":"Coro"},{"nombre":"Judith Jiménez Rojo","hora":"14:32","grado":"Coro"},{"nombre":"Thelma Girón Hernández","hora":"14:32","grado":"Coro"},{"nombre":"Zabdi Elienai Melchor Salvador","hora":"14:34","grado":"Coro"},{"nombre":"Priscila López Cortés","hora":"14:52","grado":"Coro"},{"nombre":"Blanca Esther Agreda Pérez","hora":"15:32","grado":"Coro"},{"nombre":"Nun Aldama Rojas","hora":"15:32","grado":"Coro"},{"nombre":"Miriam Patricia Torres Velázquez","hora":"15:32","grado":"Coro"},{"nombre":"Luis Daniel Ramírez López","hora":"16:09","grado":"Coro"}]},{"iglesia":"SAN JUAN TEOTIHUACAN - ATLATONGO","clave":"MXMX-36","count":11,"personas":[{"nombre":"Libni Zaret Morales Menchaca","hora":"13:42","grado":"Coro"},{"nombre":"Aguilar Sánchez Jocabed","hora":"13:42","grado":"Coro"},{"nombre":"Alma Karina Sanchez Quintero","hora":"13:43","grado":"Coro"},{"nombre":"Adiel Aguilar Sánchez","hora":"13:43","grado":"Coro"},{"nombre":"Nain Azareel Cruz Sanchez","hora":"13:43","grado":"Coro"},{"nombre":"Pedro Israel Menchaca Cortes","hora":"13:46","grado":"Coro"},{"nombre":"Erika Palmas Romero","hora":"13:47","grado":"Coro"},{"nombre":"Fabiola Rosas Menchaca","hora":"13:47","grado":"Coro"},{"nombre":"Adriel Itai Muños Martínez","hora":"13:47","grado":"Coro"},{"nombre":"Candelaria Amparo Valencia Menchaca","hora":"13:48","grado":"Coro"},{"nombre":"Zohet Ezbai Muñoz Martinez","hora":"13:48","grado":"Coro"}]},{"iglesia":"HÉROES TECAMAC","clave":"MXMX-128","count":11,"personas":[{"nombre":"Fabián Nava Libna Bigvaí","hora":"13:59","grado":"Coro"},{"nombre":"Jennifer Berenice Moreno Endoqui","hora":"13:59","grado":"Coro"},{"nombre":"Jorge Israel Moreno Correa","hora":"14:09","grado":"Coro"},{"nombre":"Elvira Santos Romero","hora":"14:11","grado":"Coro"},{"nombre":"Má. Guadalupe Oñate Álvarez","hora":"14:21","grado":"Coro"},{"nombre":"Sonia Becerril García","hora":"14:24","grado":"Coro"},{"nombre":"Jeriel de la Paz Adame","hora":"14:26","grado":"Coro"},{"nombre":"Carlos Saúl Romero Becerril","hora":"14:26","grado":"Coro"},{"nombre":"Benjamin Joel Domínguez Oñate","hora":"14:27","grado":"Coro"},{"nombre":"Gerson Domínguez Oñate","hora":"14:54","grado":"Coro"},{"nombre":"Loamy Sarai Alarcón Juarez","hora":"14:54","grado":"Coro"}]},{"iglesia":"SAN JUAN TEOTIHUACAN - EL PALOMAR","clave":"MXMX-68","count":10,"personas":[{"nombre":"Ma.De Lourdes Contreras Cortes","hora":"13:48","grado":"Coro"},{"nombre":"Andrea Gordillo Valencia","hora":"14:19","grado":"Coro"},{"nombre":"Elizabeth Valencia Garcia","hora":"14:24","grado":"Coro"},{"nombre":"Aridai Hernandez Martinez","hora":"14:25","grado":"Coro"},{"nombre":"Vania Rosas Cruz","hora":"14:25","grado":"Coro"},{"nombre":"Bictán Cruz Alvarez","hora":"14:25","grado":"Coro"},{"nombre":"Esther Martínez Valencia","hora":"14:30","grado":"Coro"},{"nombre":"Gerzon Rosas Cruz","hora":"14:30","grado":"Coro"},{"nombre":"Santiago Gael Hernández Martínez","hora":"14:30","grado":"Coro"},{"nombre":"Eliasib Mizrraim Martinez Valencia","hora":"14:32","grado":"Coro"}]},{"iglesia":"TLANEPANTLA - LAZARO CARDENAS","clave":"MXMX-23","count":10,"personas":[{"nombre":"Mata Hernández Natalia","hora":"14:26","grado":"Coro"},{"nombre":"Hernández Hernández Maruca","hora":"14:29","grado":"Miembro"},{"nombre":"Hefziba Zurisadai Aguilar Orozco","hora":"14:29","grado":"Coro"},{"nombre":"Yanin Cabral Rosas","hora":"14:30","grado":"Coro"},{"nombre":"María Delia Morales Plata","hora":"14:32","grado":"Coro"},{"nombre":"Leonardo Mata Hernandez","hora":"14:38","grado":"Coro"},{"nombre":"Josefina Cisneros Garcia","hora":"14:41","grado":"Coro"},{"nombre":"Nimsi Cruz García","hora":"14:43","grado":"Coro"},{"nombre":"Cruz Hernandez Eder Itai","hora":"14:43","grado":"Coro"},{"nombre":"Bigvai Cruz Hernandez","hora":"15:12","grado":"Coro"}]},{"iglesia":"TEQUIXQUIAC","clave":"MXMX-67","count":9,"personas":[{"nombre":"Zulem Ortiz Arroyo","hora":"13:45","grado":"Coro"},{"nombre":"Elías Ortiz Arroyo","hora":"13:45","grado":"Coro"},{"nombre":"Carlos Díaz Arroyo","hora":"13:46","grado":"Coro"},{"nombre":"Mauricio Diaz Arroyo","hora":"13:46","grado":"Coro"},{"nombre":"Ana Evelyn Vargas Rodriguez","hora":"14:12","grado":"Coro"},{"nombre":"Galilea Engadi Miguel Reyes","hora":"14:29","grado":"Coro"},{"nombre":"Juana Ines Aivar Vargas","hora":"14:51","grado":"Coro"},{"nombre":"Danna Samai Patiño Aivar","hora":"14:51","grado":"Coro"},{"nombre":"Rafael Abdón López López","hora":"14:53","grado":"Coro"}]},{"iglesia":"NEXTLALPAN - PRADOS DE SAN FRANCISCO","clave":"MXMX-83","count":9,"personas":[{"nombre":"Abril Anamín Caballero Rodríguez","hora":"14:57","grado":"Coro"},{"nombre":"Vasni López Montes","hora":"14:57","grado":"Coro"},{"nombre":"Dalila Elisa Sandoval Castelan","hora":"15:13","grado":"Coro"},{"nombre":"Uzias Rodríguez López","hora":"15:33","grado":"Miembro"},{"nombre":"Amsi Jehieli Rodriguez Miguel","hora":"15:36","grado":"Coro"},{"nombre":"Sarai Jasel Miguel De Rodriguez","hora":"15:37","grado":"Coro"},{"nombre":"Patricia Castelan Peña","hora":"15:52","grado":"Coro"},{"nombre":"Maribel Delgado Salazar","hora":"16:10","grado":"Coro"},{"nombre":"Paula Montes Vargas","hora":"16:19","grado":"Coro"}]},{"iglesia":"TECAMAC - SAN PEDRO ATZOMPA","clave":"MXMX-55","count":8,"personas":[{"nombre":"Rubí Julieta Sánchez Palma","hora":"13:20","grado":"Coro"},{"nombre":"Gloria Almazán Zabala","hora":"13:21","grado":"Coro"},{"nombre":"Eréndira Amneris Sánchez Palma","hora":"13:21","grado":"Coro"},{"nombre":"Alejandro Mizael Sanchez Palma","hora":"13:21","grado":"Coro"},{"nombre":"Bezai Merari Cardona Torres","hora":"13:24","grado":"Coro"},{"nombre":"Atlai Naason Hernandez Guillen","hora":"13:29","grado":"Coro"},{"nombre":"Brianne Eduardo Rojas Estrada","hora":"14:50","grado":"Coro"},{"nombre":"Nayeli Janeth Martinez Diaz","hora":"14:51","grado":"Coro"}]},{"iglesia":"ANAHUAC 2A SECCION","clave":"MXMX-111","count":8,"personas":[{"nombre":"Delfina Valencia Casique","hora":"14:18","grado":"Coro"},{"nombre":"Rosalba Medel Moreno","hora":"14:19","grado":"Coro"},{"nombre":"Bertha Genoveva Sánchez Ruiz","hora":"14:19","grado":"Coro"},{"nombre":"Merari Elisúa Valencia Montiel","hora":"14:22","grado":"Coro"},{"nombre":"Sabetai Mariel Valencia Montiel","hora":"14:24","grado":"Coro"},{"nombre":"Febe Mairani Valencia Contreras","hora":"14:29","grado":"Coro"},{"nombre":"Alejandro Hernández Medel","hora":"14:31","grado":"Coro"},{"nombre":"Jaime Rodríguez Domínguez","hora":"14:39","grado":"Coro"}]},{"iglesia":"LA PIEDAD - IZCALLI","clave":"MXMX-124","count":8,"personas":[{"nombre":"Febe Sulem Trejo Cordova","hora":"14:31","grado":"Coro"},{"nombre":"Juan Emanuel Ignacio González","hora":"14:32","grado":"Coro"},{"nombre":"Jakceline González Ramírez","hora":"14:32","grado":"Coro"},{"nombre":"Sebastián Emmanuel Ramírez González","hora":"14:33","grado":"Coro"},{"nombre":"Josue Efraín Ignacio González","hora":"14:33","grado":"Coro"},{"nombre":"Eyeniza Merari Pérez Cruz","hora":"14:33","grado":"Coro"},{"nombre":"Salma Merab Hernandez Perez","hora":"14:34","grado":"Coro"},{"nombre":"Saudí Yamilet Trejo Córdova","hora":"14:36","grado":"Coro"}]},{"iglesia":"ECATEPEC - SAN JOSE XALOSTOC","clave":"MXMX-58","count":6,"personas":[{"nombre":"Johana Samai Crisostomo Romero","hora":"14:20","grado":"Miembro"},{"nombre":"Sarabi Adaia Battz Romero","hora":"14:21","grado":"Miembro"},{"nombre":"Salma Tare Battz Romero","hora":"14:21","grado":"Coro"},{"nombre":"Naaran Naharaim Guzman Martinez","hora":"14:21","grado":"Coro"},{"nombre":"Naasón Moreno González","hora":"14:26","grado":"Coro"},{"nombre":"Jared Benjamín Mendez Ramirez","hora":"14:28","grado":"Coro"}]},{"iglesia":"TULTEPEC - COL. LAS BRISAS","clave":"MXMX-87","count":6,"personas":[{"nombre":"Lizbeth Carbajal Escobar","hora":"14:32","grado":"Coro"},{"nombre":"Alexandra Rubio Martinez","hora":"14:33","grado":"Coro"},{"nombre":"Rebeca Santos Romero","hora":"14:33","grado":"Coro"},{"nombre":"Romero Santos Elisabet","hora":"14:34","grado":"Coro"},{"nombre":"Elizabeth Santos Morales","hora":"14:34","grado":"Coro"},{"nombre":"Ausencio Romero Maldonado","hora":"14:37","grado":"Coro"}]},{"iglesia":"TLALNEPANTLA - LOS GAVILANES","clave":"MXMX-77","count":5,"personas":[{"nombre":"Hernández Cisneros Itzel Merari","hora":"14:40","grado":"Coro"},{"nombre":"Roberto Torres Mendoza","hora":"14:44","grado":"Coro"},{"nombre":"Naomi Tamara Cisneros Cadena","hora":"14:48","grado":"Coro"},{"nombre":"Rosalía Cadena San Agustín","hora":"14:48","grado":"Coro"},{"nombre":"Pedro Cisnero Garcia","hora":"14:50","grado":"Coro"}]},{"iglesia":"ECATEPEC - CD. AZTECA","clave":"MXMX-42","count":4,"personas":[{"nombre":"Sandra Sánchez Martínez","hora":"14:17","grado":"Coro"},{"nombre":"Elienai Hernandez Sánchez","hora":"14:17","grado":"Coro"},{"nombre":"Gabriel Quiroz Cañas","hora":"15:12","grado":"Coro"},{"nombre":"Eunice Adaia Hernández Sánchez","hora":"15:25","grado":"Coro"}]},{"iglesia":"ESTRELLA","clave":"MXMX-114","count":4,"personas":[{"nombre":"Rebeca Elizabeth Paredes Hernández","hora":"14:32","grado":"Coro"},{"nombre":"Saudí Jael España García","hora":"14:33","grado":"Coro"},{"nombre":"Abigail García Lima","hora":"14:33","grado":"Coro"},{"nombre":"David Paredes Cruz","hora":"15:17","grado":"Coro"}]},{"iglesia":"TLALNEPANTLA - CONSTITUCION DE 1917","clave":"MXMX-27","count":3,"personas":[{"nombre":"Imelda Martinez Guadarrama","hora":"14:41","grado":"Miembro"},{"nombre":"Reyna Elizabeth Lima Salgado","hora":"14:42","grado":"Coro"},{"nombre":"Celestino Martinez Morales","hora":"14:42","grado":"Coro"}]},{"iglesia":"EL PEDREGAL","clave":"MXMX-117","count":1,"personas":[{"nombre":"Boniek Bautista Hernández","hora":"13:48","grado":"Coro"}]},{"iglesia":"TULTITLAN - PRADOS DE ECATEPEC","clave":"MXMX-05","count":1,"personas":[{"nombre":"Isaac Zabdiel Miranda Biurquis","hora":"14:04","grado":"Miembro"}]},{"iglesia":"CHIMALHUACAN - LUIS CORDOBA","clave":"MXMX-69","count":1,"personas":[{"nombre":"Isaí Hernández Bautista","hora":"14:19","grado":"Coro"}]},{"iglesia":"BENITO JUAREZ","clave":"MXMX-121","count":1,"personas":[{"nombre":"Ruth Jimenéz Almazan","hora":"14:42","grado":"Miembro"}]}];
+const BL=["13:10", "13:20", "13:30", "13:40", "13:50", "14:00", "14:10", "14:20", "14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "17:20"];
+const BV=[8, 27, 21, 31, 14, 10, 42, 62, 80, 37, 37, 39, 10, 1, 18, 2, 1, 4, 5, 3, 2, 1, 2];
+const SL=["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
+const SV=[35, 66, 114, 154, 50, 21, 12, 3, 2];
+const ROLES={"Coro": 421, "Miembro": 36};
+
+function tm(h){var p=h.split(":");return+p[0]*60+ +p[1];}
+function timeBadge(h){var m=tm(h);if(m>=960)return'<span class="tl"><span class="dot dl"></span>'+h+'</span>';if(m>=900)return'<span class="ta"><span class="dot da"></span>'+h+'</span>';return'<span class="tn">'+h+'</span>';}
+function gradeBadge(g){var c=g==="Coro"?"bc":g==="Miembro"?"bm":"bo";return'<span class="badge '+c+'">'+g+'</span>';}
+
+var MAX=DATA[0].count,activeIdx=null;
+var list=document.getElementById("churchList"),panel=document.getElementById("memberPanel"),tbody=document.getElementById("personBody");
+DATA.forEach(function(d,i){
+  var pct=Math.round(d.count/MAX*100),row=document.createElement("div");row.className="cr";
+  row.innerHTML='<span class="ck">'+d.clave+'</span><span class="cn">'+d.iglesia+'</span><div class="cbw"><div class="cb" style="width:'+pct+'%"></div></div><span class="cc">'+d.count+'</span>';
+  row.addEventListener("click",function(){
+    if(activeIdx===i){row.classList.remove("active");panel.classList.remove("open");activeIdx=null;return;}
+    document.querySelectorAll(".cr").forEach(function(r){r.classList.remove("active");});
+    row.classList.add("active");activeIdx=i;
+    document.getElementById("panelTitle").textContent=d.iglesia;
+    document.getElementById("panelKey").textContent=d.clave;
+    document.getElementById("panelSub").textContent=d.count+" asistente"+(d.count!==1?"s":"");
+    tbody.innerHTML=d.personas.map(function(p,j){
+      return'<tr><td style="color:#aaa;font-size:10px;text-align:center">'+(j+1)+'</td><td>'+p.nombre+'</td><td class="tc">'+timeBadge(p.hora)+'</td><td class="tc">'+gradeBadge(p.grado)+'</td></tr>';
+    }).join("");
+    panel.classList.add("open");
+    setTimeout(function(){panel.scrollIntoView({behavior:"smooth",block:"nearest"});},60);
+  });
+  list.appendChild(row);
+});
+
+var pc=document.getElementById("printChurches");
+DATA.forEach(function(d){
+  var rows=d.personas.map(function(p,j){
+    return'<tr><td style="color:#aaa;font-size:9px;text-align:center">'+(j+1)+'</td><td>'+p.nombre+'</td><td class="tc">'+timeBadge(p.hora)+'</td><td class="tc">'+gradeBadge(p.grado)+'</td></tr>';
+  }).join("");
+  pc.innerHTML+='<table class="pct"><caption>'+d.iglesia+' &nbsp;<span style="font-weight:400;color:#5a7264">'+d.clave+' &middot; '+d.count+' asistente'+(d.count!==1?"s":"")+'</span></caption><thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead><tbody>'+rows+'</tbody></table>';
+});
+
+var bColors=BL.map(function(l){var m=tm(l);return m>=960?"rgba(192,57,43,0.75)":m>=900?"rgba(183,119,13,0.75)":"rgba(46,125,82,0.82)";});
+function movAvg(d,w){return d.map(function(_,i){var s=Math.max(0,i-Math.floor(w/2)),e=Math.min(d.length,s+w),sl=d.slice(s,e);return Math.round(sl.reduce(function(a,b){return a+b;},0)/sl.length*10)/10;});}
+
+new Chart(document.getElementById("c1"),{
+  data:{labels:BL,datasets:[
+    {type:"bar",label:"Entradas",data:BV,backgroundColor:bColors,borderRadius:5,borderSkipped:false,order:2,yAxisID:"y"},
+    {type:"line",label:"Tendencia",data:movAvg(BV,3),borderColor:"#c9a227",backgroundColor:"rgba(201,162,39,0.06)",borderWidth:2.5,pointRadius:4,pointBackgroundColor:"#c9a227",pointBorderColor:"#fff",pointBorderWidth:2,tension:0.45,fill:false,order:1,yAxisID:"y"}
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:"index",intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{
+        title:function(ctx){return "Bloque "+ctx[0].label+" Hrs";},
+        label:function(ctx){return ctx.dataset.type==="bar"?"  Entradas: "+ctx.parsed.y+" persona"+(ctx.parsed.y!==1?"s":""):"  Tendencia: "+ctx.parsed.y;}
+      }}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:"rgba(0,0,0,0.05)"},ticks:{stepSize:5,font:{size:10}}},
+      x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}
+    }
+  }
+});
+
+var slotColors=SL.map(function(l){var m=tm(l);if(m>=17*60)return"#f5c0bb";if(m>=16*60+30)return"#c0392b";if(m>=16*60)return"#e8908a";if(m>=15*60+30)return"#f5d88a";if(m>=15*60)return"#c9a227";return"#2e7d52";});
+new Chart(document.getElementById("c2"),{
+  type:"bar",
+  data:{labels:SL,datasets:[{label:"Asistentes",data:SV,backgroundColor:slotColors,borderRadius:4}]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{
+      title:function(ctx){return ctx[0].label+" Hrs";},
+      label:function(ctx){return ctx.parsed.y+" personas";}
+    }}},
+    scales:{y:{beginAtZero:true,grid:{color:"rgba(0,0,0,0.05)"}},x:{grid:{display:false},ticks:{font:{size:10}}}}
+  }
+});
+
+var roleKeys=Object.keys(ROLES),roleVals=roleKeys.map(function(k){return ROLES[k];});
+var roleColors=roleKeys.map(function(k){return k==="Coro"?"#2e7d52":k==="Miembro"?"#c9a227":"#8a9e8e";});
+new Chart(document.getElementById("c3"),{
+  type:"doughnut",
+  data:{labels:roleKeys,datasets:[{data:roleVals,backgroundColor:roleColors,borderColor:"#fff",borderWidth:2}]},
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:"65%",
+    plugins:{
+      legend:{position:"bottom",labels:{font:{size:11},padding:10,usePointStyle:true}},
+      tooltip:{callbacks:{label:function(ctx){return ctx.label+": "+ctx.parsed+" ("+Math.round(ctx.parsed/457*100)+"%)";}}}
+    }
+  }
+});
+</script>
+</body>
+</html>
