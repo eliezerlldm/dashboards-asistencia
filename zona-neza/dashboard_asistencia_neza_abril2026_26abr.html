@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asistencia Zona 3 Oriente (Neza) — 26 Abril 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gd:#1b5e35;--gm:#2e7d52;--gl:#e8f5ee;--gb:#a8d5b8;
+  --go:#c9a227;--gol:#fdf3d7;--gob:#e8cc7a;--god:#8a6d0b;
+  --am:#b7770d;--r:#c0392b;--tx:#1a2e1f;--mu:#5a7a62;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f4f7f5;color:var(--tx);padding:1.5rem 1.25rem;max-width:960px;margin:0 auto}
+
+/* Header */
+.hdr{background:linear-gradient(90deg,#1b5e35,#2e7d52,#c9a227);border-radius:16px;padding:1.5rem 1.75rem;color:#fff;margin-bottom:1.25rem;position:relative}
+.hdr-eyebrow{font-size:0.78rem;font-weight:600;letter-spacing:.08em;opacity:.85;text-transform:uppercase;margin-bottom:.25rem}
+.hdr-title{font-size:1.55rem;font-weight:700;line-height:1.2;margin-bottom:.75rem}
+.hdr-title span{font-weight:400;opacity:.9}
+.hdr-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem}
+.hdr-pill{padding:.28rem .75rem;border-radius:20px;font-size:.8rem;font-weight:600}
+.pill-g{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35)}
+.pill-o{background:rgba(201,162,39,.35);border:1px solid rgba(201,162,39,.55)}
+.hdr-meta{font-size:.8rem;opacity:.8}
+.btn-print{position:absolute;top:1.25rem;right:1.25rem;background:var(--go);color:#fff;border:none;border-radius:8px;padding:.45rem .85rem;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:.4rem}
+.btn-print:hover{background:var(--god)}
+
+/* Metrics */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:1.25rem}
+.mc{background:#fff;border-radius:12px;padding:1rem 1.1rem;border:1px solid var(--gb);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.mc-label{font-size:.72rem;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.mc-val{font-size:1.6rem;font-weight:700;color:var(--gd);line-height:1}
+.mc-unit{font-size:.75rem;color:var(--go);font-weight:600;margin-left:.2rem}
+.mc-sub{font-size:.72rem;color:var(--mu);margin-top:.25rem}
+
+/* Charts */
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-bottom:1.25rem}
+.card{background:#fff;border-radius:12px;padding:1.1rem 1.25rem;border:1px solid var(--gb);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card-title{font-size:.82rem;font-weight:700;color:var(--gd);margin-bottom:.15rem}
+.card-sub{font-size:.72rem;color:var(--mu);margin-bottom:.85rem}
+.chart-wrap{position:relative;height:200px}
+.chart-wrap-lg{position:relative;height:240px}
+
+/* Iglesias */
+.section-title{font-size:1rem;font-weight:700;color:var(--gd);margin:1.25rem 0 .65rem}
+.ig-row{background:#fff;border:1px solid var(--gb);border-radius:10px;margin-bottom:.5rem;overflow:hidden;cursor:pointer;transition:box-shadow .15s}
+.ig-row:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.ig-head{display:flex;align-items:center;padding:.75rem 1rem;gap:.75rem}
+.ig-clave{font-size:.72rem;font-weight:700;color:#fff;background:var(--gm);border-radius:6px;padding:.2rem .5rem;white-space:nowrap}
+.ig-name{flex:1;font-size:.88rem;font-weight:600;color:var(--gd)}
+.ig-bar-wrap{flex:2;height:6px;background:var(--gl);border-radius:3px;overflow:hidden}
+.ig-bar{height:100%;background:linear-gradient(90deg,var(--gd),var(--gm));border-radius:3px}
+.ig-count{font-size:.95rem;font-weight:700;color:var(--gd);min-width:32px;text-align:right}
+.ig-chevron{font-size:.7rem;color:var(--mu);margin-left:.25rem;transition:transform .2s}
+.ig-row.open .ig-chevron{transform:rotate(180deg)}
+.ig-detail{display:none;border-top:1px solid var(--gl)}
+.ig-row.open .ig-detail{display:block}
+.ig-table{width:100%;border-collapse:collapse;font-size:.8rem}
+.ig-table th{background:var(--gl);color:var(--mu);font-weight:600;padding:.45rem .75rem;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
+.ig-table th.tc{text-align:center}
+.ig-table td{padding:.4rem .75rem;border-top:1px solid var(--gl)}
+.ig-table td.tc{text-align:center}
+.ig-table tr:hover td{background:#f9fdfb}
+.t-ret{color:var(--am);font-weight:600}
+.t-tard{color:var(--r);font-weight:600}
+
+/* Staff */
+.staff-section{background:var(--gol);border:1.5px solid var(--gob);border-radius:12px;padding:1.1rem 1.25rem;margin-top:1.25rem}
+.staff-title{font-size:.95rem;font-weight:700;color:var(--god);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.5rem}
+.staff-card{background:#fff;border:1px solid var(--gob);border-radius:8px;padding:.5rem .75rem;display:flex;justify-content:space-between;align-items:center}
+.staff-name{font-size:.8rem;font-weight:600;color:var(--god)}
+.staff-hora{font-size:.75rem;color:var(--am)}
+
+/* Print */
+@media print{
+  .btn-print{display:none}
+  body{background:#fff;padding:.5rem}
+  .card,.ig-row,.staff-section{box-shadow:none;break-inside:avoid}
+  .ig-detail{display:block!important}
+  .ig-chevron{display:none}
+  .hdr{-webkit-print-color-adjust:exact;print-color-adjust:exact;border-radius:8px}
+  .metrics{page-break-inside:avoid}
+  .row2{display:none}
+}
+
+@media (max-width:640px){
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .row2{grid-template-columns:1fr}
+  .hdr-title{font-size:1.2rem}
+  .btn-print{position:static;margin-top:.75rem}
+  canvas{max-height:180px}
+  body{padding:1rem .75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-eyebrow">Zona 3 Oriente (Neza)</div>
+  <div class="hdr-title">Asistencia <span>26 Abril 2026</span></div>
+  <div class="hdr-pills">
+    <span class="hdr-pill pill-g">316 asistentes</span>
+    <span class="hdr-pill pill-o">27 iglesias</span>
+  </div>
+  <div class="hdr-meta">Inicio: 14:00 Hrs &nbsp;·&nbsp; Fin: 18:00 Hrs</div>
+  <button class="btn-print" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Imprimir / PDF
+  </button>
+</div>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="mc">
+    <div class="mc-label">Total asistentes</div>
+    <div class="mc-val">316</div>
+    <div class="mc-sub">registros únicos</div>
+  </div>
+  <div class="mc">
+    <div class="mc-label">Iglesias</div>
+    <div class="mc-val">27</div>
+    <div class="mc-sub">congregaciones</div>
+  </div>
+  <div class="mc">
+    <div class="mc-label">Promedio entrada</div>
+    <div class="mc-val">15:14 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">hora promedio</div>
+  </div>
+  <div class="mc">
+    <div class="mc-label">Bloque pico</div>
+    <div class="mc-val">14:40 <span class="mc-unit">Hrs</span></div>
+    <div class="mc-sub">99 entradas</div>
+  </div>
+</div>
+
+<!-- CHART 10 MIN (main) -->
+<div class="card" style="margin-bottom:1.25rem">
+  <div class="card-title">Entradas por bloque de 10 minutos</div>
+  <div class="card-sub">Barras = cantidad por bloque &nbsp;·&nbsp; Línea dorada = tendencia (media móvil 3) &nbsp;·&nbsp; <span style="color:var(--gm)">■</span> &lt; 15:00 Hrs &nbsp;<span style="color:var(--am)">■</span> retardo ≥ 15:00 Hrs &nbsp;<span style="color:var(--r)">■</span> tarde ≥ 16:00 Hrs</div>
+  <div class="chart-wrap-lg"><canvas id="c10"></canvas></div>
+</div>
+
+<!-- CHARTS ROW 2 -->
+<div class="row2">
+  <div class="card">
+    <div class="card-title">Total de personas por período de 30 min</div>
+    <div class="card-sub">Distribución acumulada por franja horaria</div>
+    <div class="chart-wrap"><canvas id="c30"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Distribución por grado</div>
+    <div class="card-sub">Coro · Miembro · Staff</div>
+    <div class="chart-wrap"><canvas id="cdona"></canvas></div>
+  </div>
+</div>
+
+<!-- IGLESIAS -->
+<div class="section-title">Iglesias participantes</div>
+<p style="font-size:.75rem;color:var(--mu);margin-bottom:.75rem">Clic en una iglesia para ver sus asistentes</p>
+<div id="iglesias-list"></div>
+
+<!-- STAFF -->
+<div id="staff-section"></div>
+
+<script>
+const DATA = [{"iglesia": "SAN VICENTE CHICOLOAPAN - FRANCISCO VILLA", "clave": "MXMX-09", "count": 37, "personas": [{"nombre": "Genahi Buelna Luis", "hora": "14:48", "grado": "Coro"}, {"nombre": "Betzabe Pascual Cruz", "hora": "14:48", "grado": "Coro"}, {"nombre": "Alma Leticia Marcial Pascual", "hora": "14:49", "grado": "Coro"}, {"nombre": "Abel Mizraim López Tamanis", "hora": "14:50", "grado": "Coro"}, {"nombre": "Esther Mazariegos Pascual", "hora": "14:53", "grado": "Coro"}, {"nombre": "Elisua Hernández García", "hora": "14:54", "grado": "Coro"}, {"nombre": "Abigail Mazariegos Pascual", "hora": "14:54", "grado": "Coro"}, {"nombre": "Uri Sarahi Hernández García", "hora": "14:54", "grado": "Coro"}, {"nombre": "Sergio Hernández Maya", "hora": "14:56", "grado": "Coro"}, {"nombre": "David Reyes Ramírez", "hora": "14:56", "grado": "Coro"}, {"nombre": "Lidia Sarai Reyes Hernández", "hora": "15:01", "grado": "Coro"}, {"nombre": "Zuri Merab Osorno Mora", "hora": "15:08", "grado": "Coro"}, {"nombre": "Otoniel Orozco Ramírez", "hora": "15:23", "grado": "Coro"}, {"nombre": "Jefte Neftali Mazariegos Pascual", "hora": "15:23", "grado": "Coro"}, {"nombre": "Miguel Angel Reyes Ramirez", "hora": "15:44", "grado": "Coro"}, {"nombre": "Angel Abdiel Cruz Flores", "hora": "15:44", "grado": "Coro"}, {"nombre": "Carlos Magdiel López Tamanis", "hora": "15:44", "grado": "Coro"}, {"nombre": "Damaris Illescas Varela", "hora": "15:45", "grado": "Coro"}, {"nombre": "Elisama Hernández García", "hora": "15:45", "grado": "Coro"}, {"nombre": "Elisua González López", "hora": "15:45", "grado": "Coro"}, {"nombre": "Elisua Pascual Serapio", "hora": "15:45", "grado": "Coro"}, {"nombre": "Elizabeth Villapaña Sánchez", "hora": "15:46", "grado": "Coro"}, {"nombre": "Jeksana Liliana Ramírez Leon", "hora": "15:47", "grado": "Coro"}, {"nombre": "Joab Levi Marín Ramírez", "hora": "15:47", "grado": "Coro"}, {"nombre": "Noemí López Nicolás", "hora": "15:48", "grado": "Coro"}, {"nombre": "Omar Maya Ramírez", "hora": "15:48", "grado": "Coro"}, {"nombre": "Rigoberto Salazar Montiel", "hora": "15:49", "grado": "Coro"}, {"nombre": "Santiago Jared Merida Reyes", "hora": "15:49", "grado": "Coro"}, {"nombre": "Sarai Rios Reyes", "hora": "15:49", "grado": "Coro"}, {"nombre": "Shery Sarahi Martínez Marín", "hora": "15:49", "grado": "Coro"}, {"nombre": "Zalatiel Catarino Pascual", "hora": "15:49", "grado": "Coro"}, {"nombre": "Reina Graciela Martínez Jiménez", "hora": "15:50", "grado": "Coro"}, {"nombre": "Bitia Radai Ramírez Martínez", "hora": "16:22", "grado": "Coro"}, {"nombre": "Uri Abdiel Ramírez Martínez", "hora": "16:37", "grado": "Coro"}, {"nombre": "Nimsi Abigail Rocha Hernández", "hora": "16:44", "grado": "Coro"}, {"nombre": "Jacqueline Ramírez Cruz", "hora": "17:07", "grado": "Miembro"}, {"nombre": "Keila Arely Casillas Rivera", "hora": "18:32", "grado": "Miembro"}]}, {"iglesia": "CHIMALHUACAN - BO.LABRADORES STA.ELENA", "clave": "MXMX-19", "count": 29, "personas": [{"nombre": "María Reyna Díaz Vazquez", "hora": "14:38", "grado": "Coro"}, {"nombre": "Anayely Calvo Arzate", "hora": "14:39", "grado": "Coro"}, {"nombre": "Atlai Ruiz González", "hora": "14:40", "grado": "Miembro"}, {"nombre": "Antonio Edrei Hernandez Miranda", "hora": "14:40", "grado": "Coro"}, {"nombre": "Abisai Alonso Marquez", "hora": "14:41", "grado": "Coro"}, {"nombre": "Alberto Gabriel Calvo Moreno", "hora": "14:42", "grado": "Coro"}, {"nombre": "Jeziel Radai Hernández Calvo", "hora": "14:42", "grado": "Coro"}, {"nombre": "Abdi Bigvai Calvo Altamirano", "hora": "14:43", "grado": "Coro"}, {"nombre": "Abigail Martínez Hernández", "hora": "14:43", "grado": "Coro"}, {"nombre": "Abigail Flores Padilla", "hora": "14:43", "grado": "Coro"}, {"nombre": "Rebeca Muñoz Quintero", "hora": "14:46", "grado": "Coro"}, {"nombre": "Karin Neliel Romero Fragoso", "hora": "14:52", "grado": "Coro"}, {"nombre": "Joselyne Elizabeth Parada Pérez", "hora": "14:53", "grado": "Coro"}, {"nombre": "Damaris Areli Martínez Díaz", "hora": "14:57", "grado": "Coro"}, {"nombre": "Areli Florentino Flores", "hora": "15:09", "grado": "Coro"}, {"nombre": "Nancy Hernández Contreras", "hora": "15:10", "grado": "Coro"}, {"nombre": "Brenda Reyes Lopez", "hora": "15:10", "grado": "Coro"}, {"nombre": "Vazti Jezhabel Ruiz Gonzalez", "hora": "15:21", "grado": "Coro"}, {"nombre": "Sonia Rojas Florentino", "hora": "15:47", "grado": "Coro"}, {"nombre": "Jeziel Miranda Moreno", "hora": "15:48", "grado": "Coro"}, {"nombre": "Naara Betsua Reyes Hernández", "hora": "15:52", "grado": "Coro"}, {"nombre": "Pricila Calderon Rojas", "hora": "15:59", "grado": "Coro"}, {"nombre": "Abdi Hefziba Miranda Calderon", "hora": "16:00", "grado": "Miembro"}, {"nombre": "Zuri Samai Aguilar Fuentes", "hora": "16:02", "grado": "Miembro"}, {"nombre": "Claudia Ivette Altamirano López", "hora": "16:37", "grado": "Coro"}, {"nombre": "Ana Laura Marquez Monterrosas", "hora": "16:38", "grado": "Coro"}, {"nombre": "David Martínez Jiménez", "hora": "16:41", "grado": "Coro"}, {"nombre": "Cesia Areli Mendoza Villalva", "hora": "16:41", "grado": "Coro"}, {"nombre": "Katherin Sánchez Barrera", "hora": "16:51", "grado": "Coro"}]}, {"iglesia": "VALLE DE CHALCO - SAN MIGUEL XICO", "clave": "MXMX-56", "count": 26, "personas": [{"nombre": "Maria del Carmen Olvera Ordaz", "hora": "14:43", "grado": "Coro"}, {"nombre": "Jairo Neftali Mendoza Galindo", "hora": "14:43", "grado": "Coro"}, {"nombre": "Jeziel Atlai Álvarez Avendaño", "hora": "14:43", "grado": "Coro"}, {"nombre": "Mónica Nimsi Mendoza Galindo", "hora": "14:46", "grado": "Coro"}, {"nombre": "Mozali Alvarez Avendaño", "hora": "14:48", "grado": "Coro"}, {"nombre": "Francisca Reyes Feliciano", "hora": "14:48", "grado": "Coro"}, {"nombre": "Patricia Galindo Cruz", "hora": "14:48", "grado": "Coro"}, {"nombre": "Ismerai Alvárez Avendaño", "hora": "14:48", "grado": "Coro"}, {"nombre": "Rosellia Rosales Aguilar", "hora": "14:53", "grado": "Coro"}, {"nombre": "Raquel Mendoza Avendaño", "hora": "14:53", "grado": "Coro"}, {"nombre": "Fabiola Reyes Hidalgo", "hora": "14:53", "grado": "Coro"}, {"nombre": "María Guadalupe Colula Colula", "hora": "14:53", "grado": "Coro"}, {"nombre": "Rufina Solis Reyes", "hora": "14:54", "grado": "Coro"}, {"nombre": "Catalina Landin Madrid", "hora": "14:54", "grado": "Coro"}, {"nombre": "Guadalupe Hernandez Gonzalez", "hora": "14:57", "grado": "Coro"}, {"nombre": "Stephanie Bravo Solis", "hora": "14:57", "grado": "Coro"}, {"nombre": "Raul Ramirez Castañeda", "hora": "14:57", "grado": "Coro"}, {"nombre": "Cesar Enrique Dominguez Gonzalez", "hora": "14:57", "grado": "Coro"}, {"nombre": "David Abisai Sanchez Rosales", "hora": "14:57", "grado": "Coro"}, {"nombre": "Ivan Uriel Lozada Garcia", "hora": "14:58", "grado": "Coro"}, {"nombre": "Gerson Antonio Garcia Mendoza", "hora": "14:58", "grado": "Coro"}, {"nombre": "Ángel Daniel Sánchez Rosales", "hora": "14:58", "grado": "Coro"}, {"nombre": "Rogelio Luna Medel", "hora": "14:58", "grado": "Coro"}, {"nombre": "Luis Mario Bravo Solis", "hora": "14:58", "grado": "Coro"}, {"nombre": "Francisco Said Avan Mendoza", "hora": "16:45", "grado": "Coro"}, {"nombre": "Francisco Aván Pérez", "hora": "16:54", "grado": "Miembro"}]}, {"iglesia": "CD. NEZA - LA AURORA", "clave": "MXMX-02", "count": 25, "personas": [{"nombre": "Obed Adonay López López", "hora": "14:39", "grado": "Coro"}, {"nombre": "Job Jonatán Castillo López", "hora": "14:39", "grado": "Coro"}, {"nombre": "Dominga Moreno Sanchez", "hora": "14:40", "grado": "Coro"}, {"nombre": "Maria Del Carmen Correa Sanchez", "hora": "14:40", "grado": "Coro"}, {"nombre": "Florentina Valencia Vicente", "hora": "14:41", "grado": "Coro"}, {"nombre": "Raquel Diaz Sanchez", "hora": "14:41", "grado": "Coro"}, {"nombre": "Maria Judith Almonte Gutiérrez", "hora": "14:41", "grado": "Coro"}, {"nombre": "Ana Joseline Peñaflor Ruiz", "hora": "14:41", "grado": "Coro"}, {"nombre": "Maria Isabel Almonte Gutierrez", "hora": "14:41", "grado": "Coro"}, {"nombre": "Evelin Minerva Martinez Diaz", "hora": "14:42", "grado": "Coro"}, {"nombre": "Alejandra López Cruz", "hora": "14:43", "grado": "Coro"}, {"nombre": "Carlos Zabdiel Lozano Maldonado", "hora": "14:44", "grado": "Coro"}, {"nombre": "Jared Atlai Ordaz Almonte", "hora": "14:44", "grado": "Coro"}, {"nombre": "Jafet Mizrraim Pineda Martinez", "hora": "14:44", "grado": "Coro"}, {"nombre": "Saray Elizabeth Mendoza Pérez", "hora": "14:44", "grado": "Coro"}, {"nombre": "Juan Carlos Pineda Moreno", "hora": "14:44", "grado": "Coro"}, {"nombre": "Quiriab Aminadab León Velázquez", "hora": "14:45", "grado": "Coro"}, {"nombre": "Juan Bautista Rodríguez", "hora": "14:46", "grado": "Coro"}, {"nombre": "Eleazar Hernández Uribe", "hora": "14:46", "grado": "Coro"}, {"nombre": "Gerardo Jair Fernández Calderon", "hora": "14:46", "grado": "Miembro"}, {"nombre": "Rigoberto Calleja Regules", "hora": "14:46", "grado": "Coro"}, {"nombre": "Itaì Asael Calleja Cruz", "hora": "14:46", "grado": "Coro"}, {"nombre": "Ruth Rodríguez Valencia", "hora": "15:45", "grado": "Coro"}, {"nombre": "Elena Martinez Morales", "hora": "15:46", "grado": "Coro"}, {"nombre": "Noemí Cruz Diaz", "hora": "15:46", "grado": "Coro"}]}, {"iglesia": "NVA. SAN ISIDRO - CHALCO", "clave": "MXMX-70", "count": 15, "personas": [{"nombre": "Jacob Moncivais Ortiz", "hora": "14:40", "grado": "Coro"}, {"nombre": "Isai Moncivais Ortiz", "hora": "14:41", "grado": "Coro"}, {"nombre": "Nahum García Ortiz", "hora": "14:41", "grado": "Coro"}, {"nombre": "Josefina Ramirez Hilario", "hora": "14:41", "grado": "Coro"}, {"nombre": "Edilberta Santos Nolasco", "hora": "14:42", "grado": "Coro"}, {"nombre": "Elidia Ramirez Cuevas", "hora": "14:43", "grado": "Coro"}, {"nombre": "Ma. Magdalena Santos Ramírez", "hora": "14:49", "grado": "Coro"}, {"nombre": "Amsi Reyes Santos", "hora": "14:50", "grado": "Coro"}, {"nombre": "Elisa Merad Borja García", "hora": "14:50", "grado": "Coro"}, {"nombre": "José Aminadab García Pérez", "hora": "14:57", "grado": "Coro"}, {"nombre": "Reyna Flora Silva Feria", "hora": "15:11", "grado": "Coro"}, {"nombre": "Zuri Sarahi Rodriguez Silva", "hora": "15:11", "grado": "Coro"}, {"nombre": "Ramiro Santos Nolasco", "hora": "15:12", "grado": "Coro"}, {"nombre": "Lizbeth Rodriguez Silva", "hora": "15:12", "grado": "Coro"}, {"nombre": "Mithany Bezabeel Vilchis Climaco", "hora": "17:07", "grado": "Coro"}]}, {"iglesia": "TULTITLAN - EL TESORO", "clave": "MXMX-40", "count": 14, "personas": [{"nombre": "Jazmin Marbella Marcial Morales", "hora": "14:38", "grado": "Coro"}, {"nombre": "Conrado Hernández Aparicio", "hora": "14:38", "grado": "Coro"}, {"nombre": "Jorge Luis Santos Márquez", "hora": "14:39", "grado": "Coro"}, {"nombre": "Uri Salatiel Velázquez Abriz", "hora": "14:39", "grado": "Coro"}, {"nombre": "Imna Sinai Hernández Valdez", "hora": "14:39", "grado": "Coro"}, {"nombre": "Milka Martínez Méndez", "hora": "14:39", "grado": "Coro"}, {"nombre": "Sarahi Noyola Bautista", "hora": "14:40", "grado": "Coro"}, {"nombre": "Rebeca Hernandez Martinez", "hora": "14:40", "grado": "Coro"}, {"nombre": "Deisl López Pérez", "hora": "14:41", "grado": "Coro"}, {"nombre": "Fidel Bautista Barrera", "hora": "14:44", "grado": "Coro"}, {"nombre": "Miriam Colindres Román", "hora": "14:51", "grado": "Coro"}, {"nombre": "Enoc Esau Perez Uribe", "hora": "16:03", "grado": "Coro"}, {"nombre": "Ana Cecilia Uribe Arango", "hora": "16:09", "grado": "Coro"}, {"nombre": "Eva Noemi Lara Ramirez", "hora": "16:09", "grado": "Coro"}]}, {"iglesia": "IXTAPALUCA - SANTO TOMAS", "clave": "MXMX-51", "count": 14, "personas": [{"nombre": "Reyes Guevara Naydelin", "hora": "14:41", "grado": "Coro"}, {"nombre": "Vanessa González Godínez", "hora": "14:42", "grado": "Coro"}, {"nombre": "Sandra Negrete Espinoza", "hora": "14:43", "grado": "Coro"}, {"nombre": "Nery Alan Reyes Guevara", "hora": "14:43", "grado": "Coro"}, {"nombre": "Tita Guadalupe Gonzalez Godinez", "hora": "14:43", "grado": "Coro"}, {"nombre": "Juan Manuel González Ríos", "hora": "14:43", "grado": "Coro"}, {"nombre": "Liliana Maribel Batres López", "hora": "14:43", "grado": "Coro"}, {"nombre": "Anthony Joel Reyes Guevara", "hora": "14:43", "grado": "Coro"}, {"nombre": "Eliab Espinosa Villegas", "hora": "14:43", "grado": "Miembro"}, {"nombre": "Amitay Delgadillo Brígido", "hora": "14:44", "grado": "Coro"}, {"nombre": "Lo Ammi Delgadillo Brigido", "hora": "14:44", "grado": "Coro"}, {"nombre": "Jonathan Efraín Cruz Martínez", "hora": "14:45", "grado": "Coro"}, {"nombre": "Rosa Borbonio Salas", "hora": "14:48", "grado": "Coro"}, {"nombre": "Laura Jiménez Palacios", "hora": "15:04", "grado": "Coro"}]}, {"iglesia": "VALLE DE CHALCO", "clave": "MXMX-21", "count": 13, "personas": [{"nombre": "Marcela Pérez Méndez", "hora": "14:49", "grado": "Coro"}, {"nombre": "Higinia González Trejo", "hora": "14:50", "grado": "Coro"}, {"nombre": "María Teresa Lugo Ramírez", "hora": "14:51", "grado": "Coro"}, {"nombre": "Josefina Ambroz Seba", "hora": "14:51", "grado": "Coro"}, {"nombre": "María Lucila Reséndiz Pérez", "hora": "15:02", "grado": "Coro"}, {"nombre": "Israel Duran Sotelo", "hora": "15:43", "grado": "Coro"}, {"nombre": "Eleonor Tonantzin Cachú Vargas", "hora": "15:44", "grado": "Coro"}, {"nombre": "Milka Rael Duran Reyes", "hora": "15:45", "grado": "Coro"}, {"nombre": "Moisés Domínguez Ventura", "hora": "15:45", "grado": "Coro"}, {"nombre": "Rafael Mercado González", "hora": "16:09", "grado": "Coro"}, {"nombre": "Angel Oswaldo Mercado Hernández", "hora": "16:13", "grado": "Coro"}, {"nombre": "Seidi Lucero Mercado Hernández", "hora": "16:21", "grado": "Coro"}, {"nombre": "Lizbeth Jessica Hernández Ponce", "hora": "16:22", "grado": "Coro"}]}, {"iglesia": "CHIMALHUACAN - ISRAEL", "clave": "MXMX-35", "count": 12, "personas": [{"nombre": "Isaí Salatiel De La Rosa García", "hora": "14:42", "grado": "Coro"}, {"nombre": "Itaí Ebenezer Santiago López", "hora": "14:43", "grado": "Miembro"}, {"nombre": "Zuny Zadaí Juárez Palacios", "hora": "14:46", "grado": "Miembro"}, {"nombre": "Amsi Abidaly Calderón Martínez", "hora": "14:47", "grado": "Coro"}, {"nombre": "Yessica Alicia Tovar Canales", "hora": "14:54", "grado": "Coro"}, {"nombre": "Abigail Morales Lobato", "hora": "14:56", "grado": "Coro"}, {"nombre": "Cristina López Miguel", "hora": "14:57", "grado": "Coro"}, {"nombre": "Betsabe Muñoz Arias", "hora": "15:01", "grado": "Coro"}, {"nombre": "Dana Keli Flores Ferman", "hora": "15:07", "grado": "Coro"}, {"nombre": "Carlos Daniel López Rodríguez", "hora": "16:03", "grado": "Coro"}, {"nombre": "Rebeca García Morales", "hora": "16:44", "grado": "Coro"}, {"nombre": "Daniel Calderón Maldonado", "hora": "16:44", "grado": "Coro"}]}, {"iglesia": "LOMAS DE BUENA VISTA", "clave": "MXMX-115", "count": 12, "personas": [{"nombre": "Rufina Rivera Mendoza", "hora": "14:45", "grado": "Coro"}, {"nombre": "Maria Dolores Morales Hernández", "hora": "14:45", "grado": "Coro"}, {"nombre": "Elizabeth Román Domínguez", "hora": "14:54", "grado": "Coro"}, {"nombre": "Benjamín Fuentes Rivera", "hora": "15:07", "grado": "Coro"}, {"nombre": "Merari Eunice Sánchez Romero", "hora": "15:12", "grado": "Coro"}, {"nombre": "Sergio Aguilar Hernández", "hora": "15:13", "grado": "Coro"}, {"nombre": "Keyla Betsabé Sánchez Jiménez", "hora": "15:35", "grado": "Coro"}, {"nombre": "Mabel Jiménez Zuñiga", "hora": "15:40", "grado": "Coro"}, {"nombre": "Pedro Sánchez Reyes", "hora": "15:41", "grado": "Coro"}, {"nombre": "Noemi Jiménez Zuñiga", "hora": "15:41", "grado": "Coro"}, {"nombre": "Jadiel Aminadab Hernández Jiménez", "hora": "15:45", "grado": "Coro"}, {"nombre": "Juliet Hernandez Morales", "hora": "17:22", "grado": "Miembro"}]}, {"iglesia": "CHIMALHUACAN - LUIS CORDOBA", "clave": "MXMX-69", "count": 12, "personas": [{"nombre": "Misael Neftalí Hernández Florentino", "hora": "14:50", "grado": "Coro"}, {"nombre": "Yaneth Hernández Calvo", "hora": "14:51", "grado": "Coro"}, {"nombre": "Febe Rojas Hernández", "hora": "14:53", "grado": "Coro"}, {"nombre": "Socorro Martínez Cruz", "hora": "15:02", "grado": "Coro"}, {"nombre": "Jaqueline Tiburcio Vázquez", "hora": "15:02", "grado": "Coro"}, {"nombre": "Eugenia Bautista Bautista", "hora": "15:03", "grado": "Coro"}, {"nombre": "Alicia Bautista San Juan", "hora": "15:03", "grado": "Coro"}, {"nombre": "Zabdiel Hernández Bautista", "hora": "15:04", "grado": "Coro"}, {"nombre": "Heriberto Abraham Salazar Ortíz", "hora": "15:08", "grado": "Coro"}, {"nombre": "Abraham Uriel Salazar Bautista", "hora": "15:14", "grado": "Coro"}, {"nombre": "Gabriela Leticia García Vásquez", "hora": "15:21", "grado": "Coro"}, {"nombre": "Verónica Sandoval Cruz", "hora": "16:03", "grado": "Coro"}]}, {"iglesia": "CD. NEZA - MARAVILLAS", "clave": "MXMX-04", "count": 12, "personas": [{"nombre": "María De Lourdes Mezes Nolasco", "hora": "15:01", "grado": "Coro"}, {"nombre": "Consuelo Emilia Barrios Nabor", "hora": "15:02", "grado": "Coro"}, {"nombre": "Irma Canales Martinez", "hora": "15:02", "grado": "Coro"}, {"nombre": "Salomé Álvaro Llanes Lozada", "hora": "15:04", "grado": "Coro"}, {"nombre": "Miguel Ángel Mercado Aguilar", "hora": "15:04", "grado": "Coro"}, {"nombre": "Andrés Ramírez Molina", "hora": "15:29", "grado": "Coro"}, {"nombre": "Rocío Yasmín Rodríguez Brindiz", "hora": "15:33", "grado": "Coro"}, {"nombre": "Adlai Ramírez Molina", "hora": "15:33", "grado": "Coro"}, {"nombre": "Abraham Gabriel Ortiz", "hora": "15:34", "grado": "Coro"}, {"nombre": "Mauro Ramírez Velasco", "hora": "15:34", "grado": "Coro"}, {"nombre": "Pedro Damián Ledezma Ordaz", "hora": "15:34", "grado": "Miembro"}, {"nombre": "María Eugenia Hernández Rodríguez", "hora": "16:40", "grado": "Coro"}]}, {"iglesia": "CHIMALHUACAN - CD. ALEGRE", "clave": "MXMX-57", "count": 11, "personas": [{"nombre": "Serafina Villa Tomanis", "hora": "14:52", "grado": "Coro"}, {"nombre": "Ruth Keren Santiago Aguilar", "hora": "14:56", "grado": "Coro"}, {"nombre": "Eliézer Mandujano Vazquez", "hora": "14:57", "grado": "Coro"}, {"nombre": "Giezi Yael Machorro Sanchez", "hora": "14:57", "grado": "Coro"}, {"nombre": "Susana Vazquez Sánchez", "hora": "14:58", "grado": "Coro"}, {"nombre": "Libna Azurim Mandujano Vazquez", "hora": "14:58", "grado": "Coro"}, {"nombre": "Samir Baruc Machorro Sanchez", "hora": "15:22", "grado": "Coro"}, {"nombre": "Aidee Sanchez Gonzalez", "hora": "15:23", "grado": "Coro"}, {"nombre": "Libni Merari Machorro Sanchez", "hora": "15:23", "grado": "Coro"}, {"nombre": "Abner Hernández Bautista", "hora": "15:23", "grado": "Coro"}, {"nombre": "Judith Bautista Enríquez", "hora": "16:00", "grado": "Coro"}]}, {"iglesia": "CHIMALHUACAN - XALTIPAC", "clave": "MXMX-26", "count": 11, "personas": [{"nombre": "Saul Isaias Gonzalez Salas", "hora": "14:58", "grado": "Coro"}, {"nombre": "Isabel Guadalupe Mejia Campiran", "hora": "14:59", "grado": "Coro"}, {"nombre": "Julia Flores Santiago", "hora": "15:00", "grado": "Coro"}, {"nombre": "AbdielSalgado López", "hora": "15:00", "grado": "Coro"}, {"nombre": "Rebeca Betsabe Perez Gonzalez", "hora": "15:01", "grado": "Coro"}, {"nombre": "Basilica Lopez Bautista", "hora": "15:01", "grado": "Coro"}, {"nombre": "Daniel Joel Diaz Lopez", "hora": "15:03", "grado": "Coro"}, {"nombre": "Areli Gonzalez Flores", "hora": "15:03", "grado": "Coro"}, {"nombre": "Aziel Jared Salgado Alvarez", "hora": "15:03", "grado": "Miembro"}, {"nombre": "Cesar Benjamin Hernández Ruiz", "hora": "15:03", "grado": "Coro"}, {"nombre": "Maribel Salvador Saavedra", "hora": "15:08", "grado": "Coro"}]}, {"iglesia": "CHALCO DE DIAZ COVARRUBIAS", "clave": "MXMX-86", "count": 9, "personas": [{"nombre": "Gaudencio Barrera Palacios", "hora": "14:37", "grado": "Coro"}, {"nombre": "Laura Patricia García González", "hora": "14:41", "grado": "Coro"}, {"nombre": "Karla Franco Carrera", "hora": "14:45", "grado": "Coro"}, {"nombre": "Elisa Barrera Franco", "hora": "14:50", "grado": "Coro"}, {"nombre": "Abdi Elizabeth López Mauries", "hora": "14:53", "grado": "Coro"}, {"nombre": "Brayan Camilo Núñez", "hora": "14:59", "grado": "Coro"}, {"nombre": "Emiliano Castillo Medina", "hora": "15:05", "grado": "Coro"}, {"nombre": "Brando Camilo Nuñez", "hora": "15:05", "grado": "Coro"}, {"nombre": "Fernando Blanco Remedios", "hora": "15:06", "grado": "Miembro"}]}, {"iglesia": "OTUMBA", "clave": "MXMX-61", "count": 8, "personas": [{"nombre": "Job René Gámez López", "hora": "14:39", "grado": "Coro"}, {"nombre": "Josué De Luna Cruz", "hora": "14:40", "grado": "Miembro"}, {"nombre": "David Herrera Cèsar", "hora": "14:42", "grado": "Coro"}, {"nombre": "Josué Herrera César", "hora": "14:42", "grado": "Coro"}, {"nombre": "Alberto González Yáñez", "hora": "14:44", "grado": "Coro"}, {"nombre": "Má. Guadalupe González Barrera", "hora": "14:52", "grado": "Coro"}, {"nombre": "Raquel Zepahua Cuaquehua", "hora": "15:00", "grado": "Coro"}, {"nombre": "Yara Florencia Gámez López", "hora": "18:47", "grado": "Coro"}]}, {"iglesia": "LOS REYES - LOMAS DE ALTAVISTA", "clave": "MXMX-101", "count": 8, "personas": [{"nombre": "Abigail Sánchez Gonzáles", "hora": "14:56", "grado": "Coro"}, {"nombre": "Ismerai Noemí Pineda Sánchez", "hora": "14:57", "grado": "Coro"}, {"nombre": "Noe Pineda Cruz", "hora": "14:59", "grado": "Coro"}, {"nombre": "Noe Atlai Pineda Sánchez", "hora": "14:59", "grado": "Coro"}, {"nombre": "Jessica Marlene Pérez Hernández", "hora": "16:02", "grado": "Coro"}, {"nombre": "Angelica de Jesús Gutiérrez Pérez", "hora": "18:20", "grado": "Coro"}, {"nombre": "Jaime Neftaly Jiménez Ramírez", "hora": "18:22", "grado": "Coro"}, {"nombre": "Sara Perez Hernandez", "hora": "18:47", "grado": "Coro"}]}, {"iglesia": "TEZOMPA", "clave": "MXCDMX-33", "count": 7, "personas": [{"nombre": "Divina Julissa Caballero Moreno", "hora": "14:39", "grado": "Coro"}, {"nombre": "Ada Misraim Villanueva Angeles", "hora": "14:39", "grado": "Coro"}, {"nombre": "Araceli Angeles Galeana", "hora": "14:40", "grado": "Coro"}, {"nombre": "Jezreel Abinadab Villanueva Angeles", "hora": "14:41", "grado": "Coro"}, {"nombre": "Job Gadiel González Caballero", "hora": "14:41", "grado": "Coro"}, {"nombre": "Simiri Sismai Sánchez Sánchez", "hora": "15:08", "grado": "Coro"}, {"nombre": "José Juan Nápoles Medina", "hora": "15:08", "grado": "Coro"}]}, {"iglesia": "VALLE DE CHALCO - SAN MIGUEL DE LAS TABLAS", "clave": "MXMX-88", "count": 7, "personas": [{"nombre": "Estiven Yael Ramírez Valente", "hora": "14:41", "grado": "Coro"}, {"nombre": "Ericelda Vega González", "hora": "14:59", "grado": "Coro"}, {"nombre": "Miriam Jaqueline Hernández Gómez", "hora": "15:03", "grado": "Coro"}, {"nombre": "Bani Betbirai Tolentino Hernández", "hora": "15:03", "grado": "Coro"}, {"nombre": "Saudy Elizabeth Tolentino Hernández", "hora": "15:04", "grado": "Coro"}, {"nombre": "Jael Garcia Bautista", "hora": "16:45", "grado": "Coro"}, {"nombre": "Keila García Bautista", "hora": "16:49", "grado": "Coro"}]}, {"iglesia": "SAN MARTIN CUAUTLALPAN", "clave": "MXMX-75", "count": 7, "personas": [{"nombre": "Natanael Canizalez Saldaña", "hora": "14:42", "grado": "Coro"}, {"nombre": "Silvia Hernández Bravo Sala", "hora": "14:46", "grado": "Coro"}, {"nombre": "Olivia Mondragon Espinoza", "hora": "14:46", "grado": "Coro"}, {"nombre": "Abril Camil Martinez Martinez", "hora": "14:47", "grado": "Coro"}, {"nombre": "Anita Jimenez Garcia", "hora": "14:48", "grado": "Coro"}, {"nombre": "Carolina Martinez Gil", "hora": "14:48", "grado": "Coro"}, {"nombre": "Eliza Torres Alvarez", "hora": "14:54", "grado": "Coro"}]}, {"iglesia": "CERRO DE LAS PALOMAS", "clave": "MXMX-122", "count": 7, "personas": [{"nombre": "María Elena Pérez Cisneros", "hora": "15:03", "grado": "Coro"}, {"nombre": "Jovana Sarahí Reyes Vargas", "hora": "15:07", "grado": "Coro"}, {"nombre": "Amisadai García Arias", "hora": "15:07", "grado": "Coro"}, {"nombre": "Abigail Arias Pérez", "hora": "15:07", "grado": "Coro"}, {"nombre": "Pablo Arias Marin", "hora": "15:08", "grado": "Coro"}, {"nombre": "Jessica Contreras López", "hora": "15:09", "grado": "Coro"}, {"nombre": "Marcelina Bautista Escudero", "hora": "15:09", "grado": "Coro"}]}, {"iglesia": "SARE SAN VICENTE CHICOLOAPAN", "clave": "MXMX-116", "count": 5, "personas": [{"nombre": "Zabdi Elizabeth Chávez Velasco", "hora": "14:37", "grado": "Coro"}, {"nombre": "Abimael Jiménez Zúñiga", "hora": "15:55", "grado": "Coro"}, {"nombre": "Brayan Mejía Torres", "hora": "16:02", "grado": "Coro"}, {"nombre": "Karina Mejia Torres", "hora": "16:08", "grado": "Coro"}, {"nombre": "Sinaí Jaqueline Blanco Vilchis", "hora": "16:09", "grado": "Coro"}]}, {"iglesia": "TEXCOCO - SAN JOAQUIN CUAUPANGO", "clave": "MXMX-71", "count": 5, "personas": [{"nombre": "Job Ortega García", "hora": "14:40", "grado": "Coro"}, {"nombre": "Neri Daniel Ortega Morales", "hora": "14:40", "grado": "Coro"}, {"nombre": "Jacob Ortega García", "hora": "14:40", "grado": "Coro"}, {"nombre": "Geshair Ortega García", "hora": "14:40", "grado": "Coro"}, {"nombre": "Félix Diego Avendaño", "hora": "14:41", "grado": "Coro"}]}, {"iglesia": "SAN BARTOLO", "clave": "MXMX-93", "count": 4, "personas": [{"nombre": "Nancy Ibeth León Aguilar", "hora": "14:44", "grado": "Coro"}, {"nombre": "Keren Saray Hernández Miranda", "hora": "14:45", "grado": "Coro"}, {"nombre": "Juana Ramírez León", "hora": "14:46", "grado": "Coro"}, {"nombre": "Antonia Maria Silva Aguilar", "hora": "17:48", "grado": "Miembro"}]}, {"iglesia": "ATLAUTLA DE VICTORIA", "clave": "MXMX-63", "count": 3, "personas": [{"nombre": "Isaac Hernandez Paez", "hora": "14:41", "grado": "Miembro"}, {"nombre": "Angel Jacob Marin Rosas", "hora": "14:41", "grado": "Miembro"}, {"nombre": "Aziel Marin Rosas", "hora": "14:41", "grado": "Miembro"}]}, {"iglesia": "SAN FRANCISCO IXTAPALUCA", "clave": "MXMX-133", "count": 2, "personas": [{"nombre": "Maria del Carmen Guzman Cisneros", "hora": "14:41", "grado": "Coro"}, {"nombre": "Elia Martínez Bautista", "hora": "14:54", "grado": "Coro"}]}, {"iglesia": "JARDINES DE CHALCO", "clave": "MXMX-140", "count": 1, "personas": [{"nombre": "Marely Medina Sandoval", "hora": "15:45", "grado": "Coro"}]}];
+const STAFF = [];
+const BL = ["14:30", "14:40", "14:50", "15:00", "15:10", "15:20", "15:30", "15:40", "15:50", "16:00", "16:10", "16:20", "16:30", "16:40", "16:50", "17:00", "17:20", "17:40", "18:20", "18:30", "18:40"];
+const BV = [15, 99, 59, 44, 9, 9, 6, 31, 4, 13, 1, 3, 3, 9, 2, 2, 1, 1, 2, 1, 2];
+const SL = ["14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30"];
+const SV = [173, 62, 41, 17, 14, 3, 1, 2, 3];
+const ROLES = {"Coro": 297, "Miembro": 19};
+
+const RETARDO = 15*60, TARDE = 16*60;
+
+function timeToMins(h) {
+  const [hh,mm] = h.split(':').map(Number);
+  return hh*60+mm;
+}
+
+function horaColor(h) {
+  const m = timeToMins(h);
+  if (m >= TARDE) return 'var(--r)';
+  if (m >= RETARDO) return 'var(--am)';
+  return '';
+}
+
+function horaClass(h) {
+  const m = timeToMins(h);
+  if (m >= TARDE) return 't-tard';
+  if (m >= RETARDO) return 't-ret';
+  return '';
+}
+
+function barColor(label) {
+  const m = timeToMins(label);
+  if (m >= TARDE*1) return '#c0392b';
+  if (m >= RETARDO*1) return '#b7770d';
+  return '#2e7d52';
+}
+
+function movAvg(d, w) {
+  return d.map((_, i) => {
+    const s = Math.max(0, i - Math.floor(w/2));
+    const e = Math.min(d.length, s + w);
+    const sl = d.slice(s, e);
+    return Math.round(sl.reduce((a,b) => a+b, 0) / sl.length * 10) / 10;
+  });
+}
+
+// Chart 10 min
+const maxBV = Math.max(...BV);
+new Chart(document.getElementById('c10'), {
+  type: 'bar',
+  data: {
+    labels: BL,
+    datasets: [
+      {
+        type: 'bar',
+        label: 'Entradas',
+        data: BV,
+        backgroundColor: BL.map(barColor),
+        order: 2,
+        borderRadius: 3,
+      },
+      {
+        type: 'line',
+        label: 'Tendencia',
+        data: movAvg(BV, 3),
+        borderColor: '#c9a227',
+        backgroundColor: 'rgba(201,162,39,.1)',
+        borderWidth: 2.5,
+        pointRadius: 3,
+        pointBackgroundColor: '#c9a227',
+        tension: 0.4,
+        order: 1,
+        yAxisID: 'y',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          title: ctx => `Bloque ${ctx[0].label} Hrs`,
+          label: ctx => ctx.dataset.type === 'line'
+            ? `Tendencia: ${ctx.parsed.y}`
+            : `Entradas: ${ctx.parsed.y}`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: { beginAtZero: true, grid: { color: '#eee' }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// Chart 30 min
+const slotColors = SL.map(l => {
+  const m = timeToMins(l);
+  if (m >= 16*60) return '#c0392b';
+  if (m >= 15*60) return '#b7770d';
+  if (m >= 14*60+30) return '#2e7d52';
+  return '#1b5e35';
+});
+new Chart(document.getElementById('c30'), {
+  type: 'bar',
+  data: {
+    labels: SL,
+    datasets: [{ label: 'Asistentes', data: SV, backgroundColor: slotColors, borderRadius: 3 }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { title: ctx => `${ctx[0].label} – ${ctx[0].parsed.x+0.5|0}:xx Hrs` } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: { beginAtZero: true, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// Chart dona
+const roleKeys = Object.keys(ROLES);
+const roleVals = roleKeys.map(k => ROLES[k]);
+const roleColors = roleKeys.map(k => {
+  if (k === 'Coro') return '#2e7d52';
+  if (k === 'Miembro') return '#c9a227';
+  return '#8a9e8e';
+});
+new Chart(document.getElementById('cdona'), {
+  type: 'doughnut',
+  data: {
+    labels: roleKeys,
+    datasets: [{ data: roleVals, backgroundColor: roleColors, hoverOffset: 6, borderWidth: 2 }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 12 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.parsed}` } }
+    }
+  }
+});
+
+// Iglesias list
+const maxCount = DATA.reduce((m, d) => Math.max(m, d.count), 0);
+const list = document.getElementById('iglesias-list');
+DATA.forEach(ig => {
+  const div = document.createElement('div');
+  div.className = 'ig-row';
+  const barPct = Math.round(ig.count / maxCount * 100);
+  div.innerHTML = `
+    <div class="ig-head">
+      <span class="ig-clave">${ig.clave}</span>
+      <span class="ig-name">${ig.iglesia}</span>
+      <div class="ig-bar-wrap"><div class="ig-bar" style="width:${barPct}%"></div></div>
+      <span class="ig-count">${ig.count}</span>
+      <span class="ig-chevron">▼</span>
+    </div>
+    <div class="ig-detail">
+      <table class="ig-table">
+        <thead><tr><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead>
+        <tbody>
+          ${ig.personas.map(p => {
+            const cls = horaClass(p.hora);
+            return `<tr><td>${p.nombre}</td><td class="tc ${cls}">${p.hora}</td><td class="tc">${p.grado}</td></tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>`;
+  div.querySelector('.ig-head').addEventListener('click', () => div.classList.toggle('open'));
+  list.appendChild(div);
+});
+
+// Staff section
+const staffSec = document.getElementById('staff-section');
+if (STAFF.length > 0) {
+  staffSec.innerHTML = `
+    <div class="staff-section">
+      <div class="staff-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 1 0 5 5A5 5 0 0 0 12 2zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1"/></svg>
+        Credencial de STAFF (${STAFF.length})
+      </div>
+      <div class="staff-grid">
+        ${STAFF.map(s => `<div class="staff-card"><span class="staff-name">${s.nombre}</span><span class="staff-hora">${s.hora}</span></div>`).join('')}
+      </div>
+    </div>`;
+}
+</script>
+</body>
+</html>
