@@ -126,35 +126,19 @@ body{font-family:system-ui,-apple-system,sans-serif;background:var(--surf);color
 <div class="accent"></div>
 
 <div class="metrics">
-  <div class="mc">
-    <div class="mc-lbl">Total asistentes</div>
-    <div class="mc-val">316</div>
-    <div class="mc-sub">Registros únicos</div>
-  </div>
-  <div class="mc">
-    <div class="mc-lbl">Iglesias</div>
-    <div class="mc-val">27</div>
-    <div class="mc-sub">Congregaciones</div>
-  </div>
-  <div class="mc">
-    <div class="mc-lbl">Promedio de entrada</div>
-    <div class="mc-val">15:14 <span class="mc-unit">Hrs</span></div>
-    <div class="mc-sub">hora promedio</div>
-  </div>
-  <div class="mc">
-    <div class="mc-lbl">Bloque pico</div>
-    <div class="mc-val">14:40 <span class="mc-unit">Hrs</span></div>
-    <div class="mc-sub">99 personas en ese bloque</div>
-  </div>
+  <div class="mc"><div class="mc-lbl">Total asistentes</div><div class="mc-val">316</div><div class="mc-sub">Registros únicos</div></div>
+  <div class="mc"><div class="mc-lbl">Iglesias</div><div class="mc-val">27</div><div class="mc-sub">Congregaciones</div></div>
+  <div class="mc"><div class="mc-lbl">Promedio de entrada</div><div class="mc-val">15:14 <span class="mc-unit">Hrs</span></div><div class="mc-sub">hora promedio</div></div>
+  <div class="mc"><div class="mc-lbl">Bloque pico</div><div class="mc-val">14:40 <span class="mc-unit">Hrs</span></div><div class="mc-sub">99 personas en ese bloque</div></div>
 </div>
 
 <div class="card">
   <div class="ct">Entradas por bloque de 10 minutos</div>
   <div class="cs">Barras = cantidad por bloque · Línea dorada = tendencia suavizada</div>
   <div class="zones">
-    <span class="zb" style="background:#e8f5ee;color:#1b5e35">■ Puntual &lt;15:00 Hrs</span>
-    <span class="zb" style="background:#fff8e6;color:#b7770d">■ Retardo 15:00–16:00 Hrs</span>
-    <span class="zb" style="background:#fff0f0;color:#c0392b">■ Tarde &gt;16:00 Hrs</span>
+    <span class="zb" style="background:#e8f5ee;color:#1b5e35">&#9632; Puntual &lt;15:00 Hrs</span>
+    <span class="zb" style="background:#fff8e6;color:#b7770d">&#9632; Retardo 15:00–16:00 Hrs</span>
+    <span class="zb" style="background:#fff0f0;color:#c0392b">&#9632; Tarde &gt;16:00 Hrs</span>
   </div>
   <div class="leg">
     <span><span class="lsq" style="background:#2e7d52"></span>Entradas por bloque</span>
@@ -213,45 +197,91 @@ const SL=["14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00"
 const SV=[173, 62, 41, 17, 14, 3, 1, 2, 3];
 const ROLES={"Coro": 297, "Miembro": 19};
 
-function tm(h){const[hr,mn]=h.split(':');return+hr*60+ +mn}
-function timeBadge(h){const m=tm(h);if(m>=960)return`<span class="tl"><span class="dot dl"></span>${h}</span>`;if(m>=900)return`<span class="ta"><span class="dot da"></span>${h}</span>`;return`<span class="tn">${h}</span>`;}
-function gradeBadge(g){const c=g==='Coro'?'bc':g==='Miembro'?'bm':'bo';return`<span class="badge ${c}">${g}</span>`;}
+function tm(h){var p=h.split(":");return+p[0]*60+ +p[1];}
+function timeBadge(h){var m=tm(h);if(m>=960)return'<span class="tl"><span class="dot dl"></span>'+h+'</span>';if(m>=900)return'<span class="ta"><span class="dot da"></span>'+h+'</span>';return'<span class="tn">'+h+'</span>';}
+function gradeBadge(g){var c=g==="Coro"?"bc":g==="Miembro"?"bm":"bo";return'<span class="badge '+c+'">'+g+'</span>';}
 
-const MAX=DATA[0].count;let activeIdx=null;
-const list=document.getElementById('churchList'),panel=document.getElementById('memberPanel'),tbody=document.getElementById('personBody');
-DATA.forEach((d,i)=>{
-  const pct=Math.round(d.count/MAX*100),row=document.createElement('div');row.className='cr';
-  row.innerHTML=`<span class="ck">${d.clave}</span><span class="cn">${d.iglesia}</span><div class="cbw"><div class="cb" style="width:${pct}%"></div></div><span class="cc">${d.count}</span>`;
-  row.addEventListener('click',()=>{
-    if(activeIdx===i){row.classList.remove('active');panel.classList.remove('open');activeIdx=null;return;}
-    document.querySelectorAll('.cr').forEach(r=>r.classList.remove('active'));
-    row.classList.add('active');activeIdx=i;
-    document.getElementById('panelTitle').textContent=d.iglesia;
-    document.getElementById('panelKey').textContent=d.clave;
-    document.getElementById('panelSub').textContent=`${d.count} asistente${d.count!==1?'s':''}`;
-    tbody.innerHTML=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:10px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
-    panel.classList.add('open');
-    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),60);
+var MAX=DATA[0].count,activeIdx=null;
+var list=document.getElementById("churchList"),panel=document.getElementById("memberPanel"),tbody=document.getElementById("personBody");
+DATA.forEach(function(d,i){
+  var pct=Math.round(d.count/MAX*100),row=document.createElement("div");row.className="cr";
+  row.innerHTML='<span class="ck">'+d.clave+'</span><span class="cn">'+d.iglesia+'</span><div class="cbw"><div class="cb" style="width:'+pct+'%"></div></div><span class="cc">'+d.count+'</span>';
+  row.addEventListener("click",function(){
+    if(activeIdx===i){row.classList.remove("active");panel.classList.remove("open");activeIdx=null;return;}
+    document.querySelectorAll(".cr").forEach(function(r){r.classList.remove("active");});
+    row.classList.add("active");activeIdx=i;
+    document.getElementById("panelTitle").textContent=d.iglesia;
+    document.getElementById("panelKey").textContent=d.clave;
+    document.getElementById("panelSub").textContent=d.count+" asistente"+(d.count!==1?"s":"");
+    tbody.innerHTML=d.personas.map(function(p,j){
+      return'<tr><td style="color:#aaa;font-size:10px;text-align:center">'+(j+1)+'</td><td>'+p.nombre+'</td><td class="tc">'+timeBadge(p.hora)+'</td><td class="tc">'+gradeBadge(p.grado)+'</td></tr>';
+    }).join("");
+    panel.classList.add("open");
+    setTimeout(function(){panel.scrollIntoView({behavior:"smooth",block:"nearest"});},60);
   });
   list.appendChild(row);
 });
 
-const pc=document.getElementById('printChurches');
-DATA.forEach(d=>{
-  const rows=d.personas.map((p,j)=>`<tr><td style="color:#aaa;font-size:9px;text-align:center">${j+1}</td><td>${p.nombre}</td><td class="tc">${timeBadge(p.hora)}</td><td class="tc">${gradeBadge(p.grado)}</td></tr>`).join('');
-  pc.innerHTML+=`<table class="pct"><caption>${d.iglesia} &nbsp;<span style="font-weight:400;color:#5a7264">${d.clave} · ${d.count} asistente${d.count!==1?'s':''}</span></caption><thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead><tbody>${rows}</tbody></table>`;
+var pc=document.getElementById("printChurches");
+DATA.forEach(function(d){
+  var rows=d.personas.map(function(p,j){
+    return'<tr><td style="color:#aaa;font-size:9px;text-align:center">'+(j+1)+'</td><td>'+p.nombre+'</td><td class="tc">'+timeBadge(p.hora)+'</td><td class="tc">'+gradeBadge(p.grado)+'</td></tr>';
+  }).join("");
+  pc.innerHTML+='<table class="pct"><caption>'+d.iglesia+' &nbsp;<span style="font-weight:400;color:#5a7264">'+d.clave+' &middot; '+d.count+' asistente'+(d.count!==1?"s":"")+'</span></caption><thead><tr><th>#</th><th>Nombre</th><th class="tc">Hora</th><th class="tc">Grado</th></tr></thead><tbody>'+rows+'</tbody></table>';
 });
 
-const bColors=BL.map(l=>{const m=tm(l);return m>=960?'rgba(192,57,43,0.75)':m>=900?'rgba(183,119,13,0.75)':'rgba(46,125,82,0.82)';});
-function movAvg(d,w){return d.map((_,i)=>{const s=Math.max(0,i-Math.floor(w/2)),e=Math.min(d.length,s+w),sl=d.slice(s,e);return Math.round(sl.reduce((a,b)=>a+b,0)/sl.length*10)/10;});}
+var bColors=BL.map(function(l){var m=tm(l);return m>=960?"rgba(192,57,43,0.75)":m>=900?"rgba(183,119,13,0.75)":"rgba(46,125,82,0.82)";});
+function movAvg(d,w){return d.map(function(_,i){var s=Math.max(0,i-Math.floor(w/2)),e=Math.min(d.length,s+w),sl=d.slice(s,e);return Math.round(sl.reduce(function(a,b){return a+b;},0)/sl.length*10)/10;});}
 
-new Chart(document.getElementById('c1'),{data:{labels:BL,datasets:[{type:'bar',label:'Entradas',data:BV,backgroundColor:bColors,borderRadius:5,borderSkipped:false,order:2,yAxisID:'y'},{type:'line',label:'Tendencia',data:movAvg(BV,3),borderColor:'#c9a227',backgroundColor:'rgba(201,162,39,0.06)',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#c9a227',pointBorderColor:'#fff',pointBorderWidth:2,tension:0.45,fill:false,order:1,yAxisID:'y'}]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`Bloque ${ctx[0].label} Hrs`,label:ctx=>ctx.dataset.type==='bar'?`  Entradas: ${ctx.parsed.y} persona${ctx.parsed.y!==1?'s':''}`:`  Tendencia: ${ctx.parsed.y}`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{stepSize:5,font:{size:10}}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}}}});
+new Chart(document.getElementById("c1"),{
+  data:{labels:BL,datasets:[
+    {type:"bar",label:"Entradas",data:BV,backgroundColor:bColors,borderRadius:5,borderSkipped:false,order:2,yAxisID:"y"},
+    {type:"line",label:"Tendencia",data:movAvg(BV,3),borderColor:"#c9a227",backgroundColor:"rgba(201,162,39,0.06)",borderWidth:2.5,pointRadius:4,pointBackgroundColor:"#c9a227",pointBorderColor:"#fff",pointBorderWidth:2,tension:0.45,fill:false,order:1,yAxisID:"y"}
+  ]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    interaction:{mode:"index",intersect:false},
+    plugins:{
+      legend:{display:false},
+      tooltip:{callbacks:{
+        title:function(ctx){return "Bloque "+ctx[0].label+" Hrs";},
+        label:function(ctx){return ctx.dataset.type==="bar"?"  Entradas: "+ctx.parsed.y+" persona"+(ctx.parsed.y!==1?"s":""):"  Tendencia: "+ctx.parsed.y;}
+      }}
+    },
+    scales:{
+      y:{beginAtZero:true,grid:{color:"rgba(0,0,0,0.05)"},ticks:{stepSize:5,font:{size:10}}},
+      x:{grid:{display:false},ticks:{font:{size:9},maxRotation:45}}
+    }
+  }
+});
 
-const slotColors=SL.map(l=>{const m=tm(l);if(m>=17*60)return'#f5c0bb';if(m>=16*60+30)return'#c0392b';if(m>=16*60)return'#e8908a';if(m>=15*60+30)return'#f5d88a';if(m>=15*60)return'#c9a227';return'#2e7d52';});
-new Chart(document.getElementById('c2'),{type:'bar',data:{labels:SL,datasets:[{label:'Asistentes',data:SV,backgroundColor:slotColors,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>`${ctx[0].label} Hrs`,label:ctx=>`${ctx.parsed.y} personas`}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+var slotColors=SL.map(function(l){var m=tm(l);if(m>=17*60)return"#f5c0bb";if(m>=16*60+30)return"#c0392b";if(m>=16*60)return"#e8908a";if(m>=15*60+30)return"#f5d88a";if(m>=15*60)return"#c9a227";return"#2e7d52";});
+new Chart(document.getElementById("c2"),{
+  type:"bar",
+  data:{labels:SL,datasets:[{label:"Asistentes",data:SV,backgroundColor:slotColors,borderRadius:4}]},
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{
+      title:function(ctx){return ctx[0].label+" Hrs";},
+      label:function(ctx){return ctx.parsed.y+" personas";}
+    }}},
+    scales:{y:{beginAtZero:true,grid:{color:"rgba(0,0,0,0.05)"}},x:{grid:{display:false},ticks:{font:{size:10}}}}
+  }
+});
 
-const roleKeys=Object.keys(ROLES),roleVals=roleKeys.map(k=>ROLES[k]),roleColors=roleKeys.map(k=>k==='Coro'?'#2e7d52':k==='Miembro'?'#c9a227':'#8a9e8e');
-new Chart(document.getElementById('c3'),{type:'doughnut',data:{labels:roleKeys,datasets:[{data:roleVals,backgroundColor:roleColors,borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10,usePointStyle:true}},tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${ctx.parsed} (${Math.round(ctx.parsed/316*100)}%)`}}}}}});
+var roleKeys=Object.keys(ROLES),roleVals=roleKeys.map(function(k){return ROLES[k];}),roleColors=roleKeys.map(function(k){return k==="Coro"?"#2e7d52":k==="Miembro"?"#c9a227":"#8a9e8e";});
+new Chart(document.getElementById("c3"),{
+  type:"doughnut",
+  data:{labels:roleKeys,datasets:[{data:roleVals,backgroundColor:roleColors,borderColor:"#fff",borderWidth:2}]},
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:"65%",
+    plugins:{
+      legend:{position:"bottom",labels:{font:{size:11},padding:10,usePointStyle:true}},
+      tooltip:{callbacks:{label:function(ctx){return ctx.label+": "+ctx.parsed+" ("+Math.round(ctx.parsed/316*100)+"%)";}}}
+    }
+  }
+});
+
 </script>
 </body>
 </html>
