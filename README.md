@@ -119,18 +119,67 @@ roles = defaultdict(int)
 for r in deduped:
     roles[r['Grado']] += 1
 
-print(json.dumps({
+result = {
     'total': len(deduped),
-    'n_iglesias': len(data),
-    'promedio': prom_str,
-    'bloque_pico': bl[bv.index(max(bv))] if bv else '',
+    'n_ig': len(data),
+    'prom_str': prom_str,
+    'pico_lbl': bl[bv.index(max(bv))] if bv else '',
     'pico_val': max(bv) if bv else 0,
     'data': data,
     'staff': staff,
     'bl': bl, 'bv': bv,
     'slot_labels': slot_labels, 'slot_vals': slot_vals,
     'roles': dict(roles)
-}, ensure_ascii=False))
+}
+
+with open('/tmp/datos_dashboard.json', 'w', encoding='utf-8') as f:
+    json.dump(result, f, ensure_ascii=False)
+
+print(json.dumps({k: v for k, v in result.items() if k not in ('data','staff')}, ensure_ascii=False, indent=2))
+print(f"\nIglesias ({len(data)}):")
+for x in data:
+    print(f"  {x['iglesia']}: {x['count']} ({x['clave']})")
+```
+
+---
+
+## Paso 1b — Verificar duplicados (opcional pero recomendado)
+
+Antes de continuar, reportar al usuario cuántos registros se eliminaron y cuáles fueron:
+
+```python
+import json
+from collections import defaultdict
+
+filepath = '/ruta/al/archivo.xlsx'  # mismo archivo del paso 1
+
+import openpyxl
+wb = openpyxl.load_workbook(filepath, data_only=True)
+ws = wb.active
+headers = [str(cell.value).strip() for cell in next(ws.iter_rows(min_row=1, max_row=1))]
+records = []
+for row in ws.iter_rows(min_row=2, values_only=True):
+    records.append({headers[i]: (str(v).strip() if v is not None else '') for i, v in enumerate(row)})
+
+seen = {}
+duplicates = []
+for r in records:
+    nombre = r['Nombre'].strip()
+    h, m, s = r['Hora'].split(':')
+    t = int(h)*3600 + int(m)*60 + int(s)
+    if nombre in seen:
+        prev = seen[nombre]
+        if t < prev['_t']:
+            duplicates.append({'nombre': nombre, 'descartada': prev['Hora'], 'conservada': r['Hora']})
+            seen[nombre] = {**r, '_t': t}
+        else:
+            duplicates.append({'nombre': nombre, 'descartada': r['Hora'], 'conservada': prev['Hora']})
+    else:
+        seen[nombre] = {**r, '_t': t}
+
+print(f"Raw: {len(records)}, Después de dedup: {len(seen)}, Duplicados: {len(duplicates)}")
+for dup in duplicates:
+    print(f"  {dup['nombre']}: conservada {dup['conservada']} | descartada {dup['descartada']}")
 ```
 
 ---
@@ -181,6 +230,104 @@ Total asistentes · Iglesias · Promedio entrada · Bloque pico
 - `@media print` muestra todas las iglesias expandidas en tablas
 - Columnas Hora y Grado centradas
 - Incluye sección Staff al final
+
+---
+
+## Paso 2b — Generar el HTML con Python (string concatenation)
+
+**IMPORTANTE**: Construir el HTML en Python usando concatenación de strings, **no f-strings** para la parte de JS. Las llaves `{}` del CSS y JS colisionan con las f-strings de Python.
+
+Patrón correcto:
+
+```python
+import json
+
+with open('/tmp/datos_dashboard.json') as f:
+    d = json.load(f)
+
+data_json  = json.dumps(d['data'],        ensure_ascii=False, separators=(',', ':'))
+roles_json = json.dumps(d['roles'],       ensure_ascii=False)
+bl_json    = json.dumps(d['bl'],          ensure_ascii=False)
+bv_json    = json.dumps(d['bv'],          ensure_ascii=False)
+sl_json    = json.dumps(d['slot_labels'], ensure_ascii=False)
+sv_json    = json.dumps(d['slot_vals'],   ensure_ascii=False)
+
+total    = d['total']
+n_ig     = d['n_ig']
+prom     = d['prom_str']
+pico     = d['pico_lbl']
+pico_val = d['pico_val']
+
+# Construir el bloque JS como string puro (sin f-string)
+JS = (
+    'const DATA='  + data_json  + ';\n'
+    'const BL='    + bl_json    + ';\n'
+    'const BV='    + bv_json    + ';\n'
+    'const SL='    + sl_json    + ';\n'
+    'const SV='    + sv_json    + ';\n'
+    'const ROLES=' + roles_json + ';\n'
+    # ... resto del JS (ver Paso 2 arriba)
+)
+
+# Construir partes con valores dinámicos usando concatenación
+HEADER = (
+    '<span class="hdr-pill pill-g">' + str(total) + ' asistentes</span>\n'
+    '<span class="hdr-pill pill-o">' + str(n_ig)  + ' iglesias</span>\n'
+)
+
+# Ensamblar HTML final
+html = '<!DOCTYPE html>\n<html lang="es">\n...' + CSS_STRING + '...' + HEADER + '...' + JS + '...'
+
+with open('/tmp/dashboard.html', 'w', encoding='utf-8') as f:
+    f.write(html)
+```
+
+---
+
+## Paso 2c — Validar JS antes de guardar
+
+**SIEMPRE** validar el JS generado con `node --check` antes de copiar al repositorio:
+
+```bash
+# Extraer el JS del HTML y validarlo
+python3 -c "
+with open('/tmp/dashboard.html') as f:
+    content = f.read()
+start = content.rfind('<script>') + len('<script>')
+end = content.rfind('</script>')
+open('/tmp/validate.js', 'w').write(content[start:end])
+"
+node --check /tmp/validate.js && echo "JS OK"
+```
+
+Si `node --check` falla, revisar la causa antes de continuar.
+
+---
+
+## Paso 2d — Bug crítico: template literals con DATA grande
+
+Cuando `const DATA` supera ~10 KB (dashboards de >150 personas), el parser V8 falla silenciosamente al encontrar arrow functions con template literals dentro de objetos anidados. El síntoma es que las gráficas y la lista de iglesias **no se renderizan** sin error visible en consola.
+
+**❌ Evitar — falla con DATA grande:**
+```js
+// Arrow functions + template literals
+label: (ctx) => `${ctx.label}: ${ctx.parsed}`,
+timeBadge = (h) => m >= 960 ? `<span class="tl">${h}</span>` : `<span>${h}</span>`
+```
+
+**✅ Usar siempre — seguro con cualquier tamaño:**
+```js
+// function() + concatenación de strings
+label: function(ctx) { return ctx.label+": "+ctx.parsed; },
+function timeBadge(h) {
+  var m = tm(h);
+  if(m>=960) return '<span class="tl"><span class="dot dl"></span>'+h+'</span>';
+  if(m>=900) return '<span class="ta"><span class="dot da"></span>'+h+'</span>';
+  return '<span class="tn">'+h+'</span>';
+}
+```
+
+Esta regla aplica a **todos** los callbacks de Chart.js, `timeBadge`, `gradeBadge`, `forEach` y cualquier función dentro del bloque `<script>`.
 
 ---
 
@@ -298,12 +445,13 @@ La gráfica principal **siempre** debe ser de tipo **barras + línea combinadas*
 - `order: 2` en barras, `order: 1` en línea (línea encima)
 
 ```js
+// Usar function() + concatenación — NO arrow functions (ver Paso 2d)
 function movAvg(d, w) {
-  return d.map((_, i) => {
-    const s = Math.max(0, i - Math.floor(w/2));
-    const e = Math.min(d.length, s + w);
-    const sl = d.slice(s, e);
-    return Math.round(sl.reduce((a,b) => a+b, 0) / sl.length * 10) / 10;
+  return d.map(function(_, i) {
+    var s = Math.max(0, i - Math.floor(w/2));
+    var e = Math.min(d.length, s + w);
+    var sl = d.slice(s, e);
+    return Math.round(sl.reduce(function(a,b){return a+b;}, 0) / sl.length * 10) / 10;
   });
 }
 ```

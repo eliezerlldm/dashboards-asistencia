@@ -12,9 +12,12 @@ When the user uploads a CSV or Excel attendance file, follow the skill defined i
 
 1. **Parse** the file (CSV or `.xlsx`) using Python — deduplicate by name, keeping the earliest timestamp.
 2. **Separate** Staff records (those with `'no encontrada'` in clave and `'ACREDITACIONES'` in iglesia).
-3. **Compute** metrics: total, iglesia count, average entry time, 10-min blocks, 30-min slots, grade distribution.
-4. **Build** a single `.html` file with hardcoded `const DATA` and `const STAFF` — no editable inputs, no localStorage.
-5. **Save** to the corresponding zone folder (`zona-ecatepec/` or `zona-toluca/`) with naming pattern `dashboard_asistencia_<zona>_<mes><año>.html`.
+3. **Compute** metrics: total, iglesia count, average entry time, 10-min blocks, 30-min slots, grade distribution. Save to `/tmp/datos_dashboard.json`.
+4. **Report duplicates** to the user before building the HTML.
+5. **Build** the HTML using Python string concatenation (NOT f-strings — JS `{}` braces conflict). Use `function()` + string concatenation in all JS callbacks — never arrow functions or template literals (V8 parser bug with large DATA).
+6. **Validate JS** with `node --check /tmp/validate.js` before saving the file.
+7. **Save** to the corresponding zone folder with naming pattern `dashboard_asistencia_<zona>_<mes><año>_<dd>abr.html`.
+8. **Update `index.html`** — add the new entry and increment the report count for that zone.
 
 ## HTML Dashboard Structure (required sections in order)
 
@@ -29,22 +32,29 @@ When the user uploads a CSV or Excel attendance file, follow the skill defined i
 
 ## Key Rules
 
-- **Deduplication**: always deduplicate before any processing — one name = one record (earliest).
+- **Deduplication**: always deduplicate before any processing — one name = one record (earliest). Report removed duplicates to the user.
 - **Time thresholds**: retardo ≥ `inicio + 60 min`, tarde ≥ `inicio + 120 min`. Ask the user for the start time; default to 15:00 if not provided.
-- **Colors**: use the CSS variables defined in `README.md` — greens (`--gd`, `--gm`, `--gl`) and gold (`--go`, `--gol`). Gradient header: `linear-gradient(90deg, #1b5e35, #2e7d52, #c9a227)`.
+- **Colors**: use the CSS variables defined in `README.md` — greens (`--gd`, `--gm`, `--gl`) and gold (`--go`, `--gol`). Gradient accent line: `linear-gradient(90deg, #1b5e35, #2e7d52, #c9a227)`.
 - **`Hrs` label**: only on metric cards, header meta, chart legends/tooltips — never in person-row Hora column.
 - **Sentence case** throughout the UI (Spanish natural writing), except column labels, siglas (PDF, STAFF), and proper names.
-- **CDN**: only `cdnjs.cloudflare.com` for Chart.js 4.4.1. File must work offline after first load.
+- **CDN**: only `cdnjs.cloudflare.com` for Chart.js 4.4.1 (`chart.umd.js`). File must work offline after first load.
 - **No manipulation**: data is read-only — no `contenteditable`, no `localStorage`, no editable inputs.
+- **JS style**: always `function()` + string concatenation — never arrow functions or template literals anywhere in `<script>`. V8 fails silently with template literals when DATA is large (>~10 KB).
+- **Validate JS**: run `node --check` on the extracted JS before saving the final HTML.
+- **Always update `index.html`**: add the new entry at the top of the zone's list and increment the report count.
 
 ## Folder Convention
 
 ```
-zona-ecatepec/   → dashboards for Zona Ecatepec
-zona-toluca/     → dashboards for Zona Toluca
+zona-toluca/     → Zona 1 Toluca
+zona-ecatepec/   → Zona 2 Ecatepec
+zona-neza/       → Zona 3 Neza (reportes anteriores)
+zona-3/          → Zona 3 Neza (reportes recientes, desde 26 abr 2026)
+distrito-18/     → Distrito 18
+distrito-19/     → Distrito 19
 ```
 
-File naming: `dashboard_asistencia_<zona>_<mes><año>.html`
+File naming: `dashboard_asistencia_<zona>_<mes><año>_<dd>abr.html`
 
 ## Delivery
 
