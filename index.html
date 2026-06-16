@@ -191,7 +191,6 @@
     </div>
     <h1>Dashboards de Asistencia</h1>
     <p>Selecciona una zona para ver los reportes disponibles</p>
-    <p style="margin-top:8px;font-size:12px;opacity:.7">👁 <span id="visit-count">—</span> visitas</p>
   </header>
 
   <div class="zonas">
@@ -474,9 +473,7 @@
       .then(function(r){return r.json();})
       .then(function(d){
         var n = d.count || '—';
-        var el1 = document.getElementById('visit-count');
         var el2 = document.getElementById('visit-count-footer');
-        if(el1) el1.textContent = n;
         if(el2) el2.textContent = n;
       }).catch(function(){});
     function toggle(card) {
