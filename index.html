@@ -471,6 +471,12 @@
   <script>
     function toggle(card) {
       card.classList.toggle('open');
+      if (card.classList.contains('open')) {
+        var nombre = card.querySelector('.zona-nombre').textContent.trim();
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count({ path: 'zona-click/' + nombre, title: 'Click: ' + nombre, event: true });
+        }
+      }
     }
   </script>
 
