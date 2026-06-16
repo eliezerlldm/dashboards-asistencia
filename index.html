@@ -469,7 +469,7 @@
   <footer>Control de Asistencia 2026 &nbsp;·&nbsp; 👁 <span id="visit-count-footer">—</span> visitas</footer>
 
   <script>
-    fetch('https://dashboards-asistencia.goatcounter.com/counter//.json')
+    fetch('https://dashboards-asistencia.goatcounter.com/counter//dashboards-asistencia.json')
       .then(function(r){return r.json();})
       .then(function(d){
         var n = d.count || '—';
