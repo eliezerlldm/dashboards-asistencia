@@ -191,6 +191,7 @@
     </div>
     <h1>Dashboards de Asistencia</h1>
     <p>Selecciona una zona para ver los reportes disponibles</p>
+    <p style="margin-top:8px;font-size:12px;opacity:.7">👁 <span id="visit-count">—</span> visitas</p>
   </header>
 
   <div class="zonas">
@@ -466,9 +467,18 @@
 
   </div>
 
-  <footer>Control de Asistencia 2026</footer>
+  <footer>Control de Asistencia 2026 &nbsp;·&nbsp; 👁 <span id="visit-count-footer">—</span> visitas</footer>
 
   <script>
+    fetch('https://dashboards-asistencia.goatcounter.com/counter//.json')
+      .then(function(r){return r.json();})
+      .then(function(d){
+        var n = d.count || '—';
+        var el1 = document.getElementById('visit-count');
+        var el2 = document.getElementById('visit-count-footer');
+        if(el1) el1.textContent = n;
+        if(el2) el2.textContent = n;
+      }).catch(function(){});
     function toggle(card) {
       card.classList.toggle('open');
       if (card.classList.contains('open')) {
