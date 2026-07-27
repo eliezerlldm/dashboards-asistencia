@@ -58,7 +58,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
   .pv-num{text-align:center;color:#888;width:22pt;}
   .pv-check{text-align:center;width:32pt;}
   .pv-badge-lista{font-size:7.5pt;font-weight:700;color:#1b5e35;background:#e8f5ee;border:1pt solid #a8d5b8;border-radius:3pt;padding:1pt 4pt;}
-  .pv-badge-aprobado{font-size:7.5pt;font-weight:700;color:#2e7d52;background:#e8f5ee;border:1pt solid #a8d5b8;border-radius:3pt;padding:1pt 4pt;}
+  .pv-badge-aprobado{font-size:7.5pt;font-weight:700;color:#1e4d7b;background:#dbeafe;border:1pt solid #93c5fd;border-radius:3pt;padding:1pt 4pt;}
   .pv-footer{margin-top:14pt;padding-top:8pt;border-top:1pt solid #ccc;font-size:8pt;color:#777;text-align:center;}
 }
 .summary-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding:1.25rem 1.5rem;max-width:1300px;margin:0 auto;}
@@ -194,7 +194,6 @@ td.clave{font-size:.72rem;font-weight:600;color:var(--text2);white-space:nowrap;
           <th onclick="sortTable('both',4)">Sistema</th>
           <th onclick="sortTable('both',5)">Dif.</th>
           <th>Fechas</th>
-          <th>Fuente</th>
         </tr></thead>
         <tbody id="body-both"></tbody>
       </table>
@@ -348,18 +347,10 @@ function nombreCell(r){
   return '<td><div class="nombre-wrap">'+esc(r.nombre_dash)+'<span class="nombre-alias">'+esc(r.nombre_orig)+'</span></div></td>';
 }
 
-function fuenteChips(r){
-  var alias=r.nombre_dash && r.nombre_dash!==r.nombre_orig;
-  var h='<div style="display:flex;flex-wrap:wrap;gap:.25rem;">';
-  h+='<span style="display:inline-flex;align-items:center;gap:.18rem;background:var(--ok-bg);border:1px solid var(--ok-border);color:var(--ok);padding:.1rem .45rem;border-radius:20px;font-size:.65rem;font-weight:700;">&#10003; Lista</span>';
-  h+='<span style="display:inline-flex;align-items:center;gap:.18rem;background:var(--info-bg);border:1px solid var(--info-border);color:var(--info);padding:.1rem .45rem;border-radius:20px;font-size:.65rem;font-weight:700;">&#10003; Sistema</span>';
-  if(alias) h+='<span style="display:inline-flex;align-items:center;gap:.18rem;background:var(--alias-bg);border:1px solid var(--alias-border);color:var(--alias);padding:.1rem .45rem;border-radius:20px;font-size:.65rem;font-weight:700;">&#8773; Alias</span>';
-  return h+'</div>';
-}
 function renderBoth(rows){
   rows=sortRows(rows,sorts.both[0],sorts.both[1]);
   var h='';
-  if(!rows.length) h='<tr class="empty-row"><td colspan="8">Sin resultados</td></tr>';
+  if(!rows.length) h='<tr class="empty-row"><td colspan="7">Sin resultados</td></tr>';
   else for(var i=0;i<rows.length;i++){
     var r=rows[i];
     h+='<tr>'+nombreCell(r);
@@ -368,8 +359,7 @@ function renderBoth(rows){
     h+='<td class="num">'+r.asistencias_roster+'</td>';
     h+='<td class="num">'+(r.dash_count||0)+'</td>';
     h+='<td class="num">'+diffPill(r.diff)+'</td>';
-    h+='<td>'+fechasHtml(r.fechas)+'</td>';
-    h+='<td>'+fuenteChips(r)+'</td></tr>';
+    h+='<td>'+fechasHtml(r.fechas)+'</td></tr>';
   }
   document.getElementById('body-both').innerHTML=h;
   var total=rows.length, diff=rows.filter(function(r){return r.diff!==0;}).length;
