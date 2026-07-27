@@ -230,6 +230,7 @@ td.ig{color:var(--text2);font-size:.75rem;}
           <th onclick="sortTable('dash',0)">Nombre</th>
           <th onclick="sortTable('dash',1)">Iglesia</th>
           <th onclick="sortTable('dash',2)">Eventos</th>
+          <th>Estado</th>
           <th>Fechas</th>
         </tr></thead>
         <tbody id="body-dash"></tbody>
@@ -342,11 +343,15 @@ function renderRoster(rows){
   document.getElementById('body-roster').innerHTML=h;
   document.getElementById('count-roster').textContent=rows.length+' registros';
 }
+function estadoBadge(count){
+  if(count >= 6) return '<span style="display:inline-flex;align-items:center;gap:.25rem;background:var(--ok-bg);border:1px solid var(--ok-border);color:var(--ok);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;">&#10003; Aprobado</span>';
+  return '<span style="background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:600;">&#8212;</span>';
+}
 function renderDash(rows){
   rows = sortRows(rows, sorts.dash[0], sorts.dash[1]);
   var h='';
-  if(!rows.length) h='<tr class="empty-row"><td colspan="4">Sin resultados</td></tr>';
-  else for(var i=0;i<rows.length;i++){var r=rows[i];h+='<tr><td>'+esc(r.nombre)+'</td><td class="ig">'+esc(r.iglesia)+'</td><td class="num">'+r.dash_count+'</td><td>'+fechasHtml(r.fechas)+'</td></tr>';}
+  if(!rows.length) h='<tr class="empty-row"><td colspan="5">Sin resultados</td></tr>';
+  else for(var i=0;i<rows.length;i++){var r=rows[i];h+='<tr><td>'+esc(r.nombre)+'</td><td class="ig">'+esc(r.iglesia)+'</td><td class="num">'+r.dash_count+'</td><td>'+estadoBadge(r.dash_count)+'</td><td>'+fechasHtml(r.fechas)+'</td></tr>';}
   document.getElementById('body-dash').innerHTML=h;
   document.getElementById('count-dash').textContent=rows.length+' registros';
 }
