@@ -459,7 +459,7 @@ function imprimirLista(){
   var fechaStr = hoy.getDate()+' de '+meses[hoy.getMonth()]+' '+hoy.getFullYear();
 
   var h = '<div class="pv-cover">';
-  h += '<h1>Lista oficial de asistencia</h1>';
+  h += '<h1>Lista oficial de Asistencia</h1>';
   h += '<div class="pv-sub">Zona 3 Neza &nbsp;&middot;&nbsp; '+igNames.length+' iglesias &nbsp;&middot;&nbsp; '+total+' personas &nbsp;&middot;&nbsp; Generado: '+fechaStr+'</div>';
   h += '</div>';
 
@@ -484,7 +484,7 @@ function imprimirLista(){
     h+='</tbody></table></div>';
   }
 
-  h+='<div class="pv-footer">Lista oficial Zona 3 Neza &nbsp;&middot;&nbsp; zona_3_final.xlsx + 8 eventos registrados &nbsp;&middot;&nbsp; '+fechaStr+'</div>';
+  h+='<div class="pv-footer">Lista oficial de Asistencia &nbsp;&middot;&nbsp; Zona 3 Neza &nbsp;&middot;&nbsp; 8 eventos registrados &nbsp;&middot;&nbsp; '+fechaStr+'</div>';
 
   document.getElementById('print-view').innerHTML=h;
   window.print();
