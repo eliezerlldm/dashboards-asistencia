@@ -116,26 +116,26 @@ td.ig{color:var(--text2);font-size:.75rem;}
 
 <div class="summary-bar" id="summaryBar">
   <div class="stat-card" style="--accent:var(--gm)">
-    <span class="label">Padr&oacute;n y sistema</span>
+    <span class="label">Lista y sistema</span>
     <span class="value" id="sc-ambos">0</span>
-    <span class="sub" id="sc-ambos-sub">En sistema y en padrón</span>
+    <span class="sub" id="sc-ambos-sub">En sistema y en lista</span>
   </div>
   <div class="stat-card" style="--accent:var(--bad)">
-    <span class="label">Solo en padrón</span>
+    <span class="label">Solo en lista</span>
     <span class="value" id="sc-roster">0</span>
     <span class="sub">Sin registro en sistema</span>
   </div>
   <div class="stat-card" style="--accent:var(--info)">
     <span class="label">Solo en sistema</span>
     <span class="value" id="sc-dash">0</span>
-    <span class="sub">No están en el padrón</span>
+    <span class="sub">No están en el lista</span>
   </div>
 </div>
 
 <div class="tabs-wrap">
   <div class="tabs" role="tablist">
-    <button class="tab-btn active" role="tab" data-tab="panel-both" onclick="switchTab(this)">Padr&oacute;n y sistema <span class="tab-badge" id="badge-both">0</span></button>
-    <button class="tab-btn" role="tab" data-tab="panel-roster" onclick="switchTab(this)">Solo en padrón <span class="tab-badge" id="badge-roster">0</span></button>
+    <button class="tab-btn active" role="tab" data-tab="panel-both" onclick="switchTab(this)">Lista y sistema <span class="tab-badge" id="badge-both">0</span></button>
+    <button class="tab-btn" role="tab" data-tab="panel-roster" onclick="switchTab(this)">Solo en lista <span class="tab-badge" id="badge-roster">0</span></button>
     <button class="tab-btn" role="tab" data-tab="panel-dash" onclick="switchTab(this)">Solo en sistema <span class="tab-badge" id="badge-dash">0</span></button>
   </div>
 </div>
@@ -147,8 +147,8 @@ td.ig{color:var(--text2);font-size:.75rem;}
     <div class="panel-hd" style="--accent-hd:var(--ok)">
       <div class="icon">&#10003;</div>
       <div class="hd-text">
-        <h2>Padr&oacute;n y sistema — personas en ambas fuentes</h2>
-        <p>Personas que aparecen en ambas fuentes. Usa los filtros de <strong>Diferencia</strong> para ver solo los que tienen conteos distintos entre sistema y padrón. Cuando el nombre del sistema difiere del padrón se muestra en morado.</p>
+        <h2>Lista y sistema — personas en ambas fuentes</h2>
+        <p>Personas que aparecen en ambas fuentes. Usa los filtros de <strong>Diferencia</strong> para ver solo los que tienen conteos distintos entre sistema y lista. Cuando el nombre del sistema difiere del lista se muestra en morado.</p>
       </div>
     </div>
     <div class="info-pills">
@@ -162,7 +162,7 @@ td.ig{color:var(--text2);font-size:.75rem;}
       <div class="chip-group" id="diff-chips">
         <span class="chip active-all" data-val="" onclick="setDiffChip(this,'')">Todos</span>
         <span class="chip" data-val="match" onclick="setDiffChip(this,'match')">&#10003; Sin diferencia</span>
-        <span class="chip" data-val="neg" onclick="setDiffChip(this,'neg')">Padr&oacute;n &gt; sistema</span>
+        <span class="chip" data-val="neg" onclick="setDiffChip(this,'neg')">Lista &gt; sistema</span>
         <span class="chip" data-val="pos" onclick="setDiffChip(this,'pos')">Sistema &gt; padr&oacute;n</span>
       </div>
       <span class="count-info" id="count-both">&#8212;</span>
@@ -172,7 +172,7 @@ td.ig{color:var(--text2);font-size:.75rem;}
         <thead><tr>
           <th onclick="sortTable('both',0)">Nombre (sistema)</th>
           <th onclick="sortTable('both',1)">Iglesia</th>
-          <th onclick="sortTable('both',2)">Padr&oacute;n</th>
+          <th onclick="sortTable('both',2)">Lista</th>
           <th onclick="sortTable('both',3)">Sistema</th>
           <th onclick="sortTable('both',4)">Diferencia</th>
           <th>Fechas en sistema</th>
@@ -187,8 +187,8 @@ td.ig{color:var(--text2);font-size:.75rem;}
     <div class="panel-hd" style="--accent-hd:var(--bad)">
       <div class="icon">&#10007;</div>
       <div class="hd-text">
-        <h2>Solo en padrón &mdash; sin registro en sistema</h2>
-        <p>5 personas del padrón sin ninguna coincidencia en los 8 dashboards. Puede ser que asistieron a eventos no capturados o que el nombre esté muy diferente para detectarlo automáticamente.</p>
+        <h2>Solo en lista &mdash; sin registro en sistema</h2>
+        <p>5 personas del lista sin ninguna coincidencia en los 8 dashboards. Puede ser que asistieron a eventos no capturados o que el nombre esté muy diferente para detectarlo automáticamente.</p>
       </div>
     </div>
     <div class="toolbar">
@@ -213,7 +213,7 @@ td.ig{color:var(--text2);font-size:.75rem;}
     <div class="panel-hd" style="--accent-hd:var(--info)">
       <div class="icon">&#9733;</div>
       <div class="hd-text">
-        <h2>Solo en sistema &mdash; no están en el padrón</h2>
+        <h2>Solo en sistema &mdash; no están en el lista</h2>
         <p>Personas que asistieron a eventos de Zona 3 pero no aparecen en <em>zona_3_final.xlsx</em>. Pueden ser visitantes, hermanos de otras zonas, o nombres con variaciones no detectadas. Ordenados por número de eventos.</p>
       </div>
     </div>
