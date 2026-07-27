@@ -115,7 +115,6 @@ function toggleIg(row) {
   tr.appendChild(td);
   row.parentNode.insertBefore(tr, row.nextSibling);
 }
-
 function filterTable(inputId, tbodyId) {
   var val = document.getElementById(inputId).value.toLowerCase();
   var rows = document.getElementById(tbodyId).querySelectorAll('tr:not(.detail-row)');
@@ -127,7 +126,6 @@ function filterTable(inputId, tbodyId) {
     if (!show && r.querySelector('.chevron')) r.querySelector('.chevron').classList.remove('open');
   });
 }
-
 function showTab(id) {
   document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
