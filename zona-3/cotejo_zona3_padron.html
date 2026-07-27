@@ -344,8 +344,9 @@ function renderRoster(rows){
   document.getElementById('count-roster').textContent=rows.length+' registros';
 }
 function estadoBadge(count){
-  if(count >= 6) return '<span style="display:inline-flex;align-items:center;gap:.25rem;background:var(--ok-bg);border:1px solid var(--ok-border);color:var(--ok);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;">&#10003; Aprobado</span>';
-  return '<span style="background:var(--surface2);border:1px solid var(--border);color:var(--text3);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:600;">&#8212;</span>';
+  if(count >= 6) return '<span style="display:inline-flex;align-items:center;gap:.22rem;background:var(--ok-bg);border:1px solid var(--ok-border);color:var(--ok);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;">&#10003; Aprobado</span>';
+  if(count > 3)  return '<span style="display:inline-flex;align-items:center;gap:.22rem;background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;">&#9873; A revisi&oacute;n</span>';
+  return '<span style="display:inline-flex;align-items:center;gap:.22rem;background:var(--bad-bg);border:1px solid var(--bad-border);color:var(--bad);padding:.12rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;">&#10007; No aprobado</span>';
 }
 function renderDash(rows){
   rows = sortRows(rows, sorts.dash[0], sorts.dash[1]);
