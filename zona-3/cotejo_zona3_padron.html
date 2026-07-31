@@ -423,8 +423,12 @@ function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function imprimirLista(){
   var iglesias = {};
 
+  var seen_nombres = {};
   function addPerson(iglesia, clave, nombre, lista_c, sistema_c){
     var key = iglesia || '(sin iglesia)';
+    var dup_key = (nombre||'').toUpperCase().replace(/\s+/g,' ').trim();
+    if(seen_nombres[dup_key]) return;
+    seen_nombres[dup_key] = true;
     if(!iglesias[key]) iglesias[key] = {clave: clave||'', personas: []};
     iglesias[key].personas.push({nombre: nombre, lista_c: lista_c, sistema_c: sistema_c});
   }
